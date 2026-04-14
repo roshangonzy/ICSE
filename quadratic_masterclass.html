@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Equations - Masterclass | Logic League</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .math-block { background-color: #f1f5f9; padding: 1rem; border-radius: 0.5rem; text-align: center; font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0; border: 1px solid #e2e8f0; }
+        .concept-box { background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 0 0.75rem 0.75rem 0; margin-bottom: 2rem; }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Simple Nav -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-blue-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Portal
+                </a>
+                <div class="font-extrabold text-lg tracking-tight text-slate-900 flex items-center">
+                    L<i class="ph-fill ph-gear text-indigo-600 mx-0.5 animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-600">League</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Lesson Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <header class="mb-12 border-b border-slate-200 pb-8">
+            <div class="inline-flex items-center bg-blue-100 text-blue-700 font-bold px-3 py-1 rounded-full text-xs mb-4 tracking-widest uppercase">
+                <i class="ph-fill ph-chalkboard-teacher mr-1.5 text-base"></i> Intensive Masterclass
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Quadratic Equations</h1>
+            <p class="text-lg text-slate-600">Master the standard form, factorization, the quadratic formula, and the nature of roots to secure full marks in Section A & B of your ICSE board exam.</p>
+        </header>
+
+        <!-- Section 1 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span> 
+                The Standard Form
+            </h2>
+            <p class="text-lg leading-relaxed text-slate-700 mb-4">
+                A quadratic equation is a polynomial equation of degree 2. This means the highest power of the variable $x$ is exactly 2. To solve any quadratic equation, you must always arrange it into the <strong>Standard Form</strong> first:
+            </p>
+            
+            <div class="math-block text-blue-900 border-blue-200 bg-blue-50">
+                $$ax^2 + bx + c = 0$$
+            </div>
+            
+            <div class="concept-box">
+                <h4 class="font-bold text-blue-900 mb-2">The Golden Rule:</h4>
+                <p class="text-blue-800 text-sm">
+                    $a, b,$ and $c$ are real numbers, but <strong>$a$ can never be zero</strong> ($a \neq 0$). If $a$ becomes zero, the $x^2$ term disappears, and the equation downgrades into a simple linear equation ($bx + c = 0$).
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">2</span> 
+                Solving by Factorisation
+            </h2>
+            <p class="text-lg leading-relaxed text-slate-700 mb-4">
+                Factorisation relies on the <strong>Zero Product Property</strong>. If the product of two brackets is zero, then at least one of the brackets must be equal to zero. 
+                <br><br>If $(x - p)(x - q) = 0$, then either $x = p$ or $x = q$.
+            </p>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm mb-6">
+                <h3 class="font-bold text-slate-800 mb-4 border-b pb-2">Example: Solve $x^2 - 5x + 6 = 0$</h3>
+                <ul class="space-y-4 text-slate-600">
+                    <li><strong>Step 1:</strong> Find two numbers that multiply to $+6$ (the 'c' term) and add to $-5$ (the 'b' term). Those numbers are $-2$ and $-3$.</li>
+                    <li><strong>Step 2:</strong> Split the middle term:<br> $x^2 - 2x - 3x + 6 = 0$</li>
+                    <li><strong>Step 3:</strong> Factorize by grouping:<br> $x(x - 2) - 3(x - 2) = 0$</li>
+                    <li><strong>Step 4:</strong> Extract common bracket:<br> $(x - 2)(x - 3) = 0$</li>
+                    <li><strong>Step 5:</strong> Apply Zero Product Property:<br> <strong>$x = 2$ or $x = 3$</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">3</span> 
+                The Quadratic Formula
+            </h2>
+            <p class="text-lg leading-relaxed text-slate-700 mb-4">
+                Sometimes equations cannot be factorised easily (for example, if the roots are decimals or irrational numbers like $\sqrt{3}$). In this case, we use Shridharacharya's Formula:
+            </p>
+            
+            <div class="math-block text-rose-900 border-rose-200 bg-rose-50 py-6">
+                $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+            </div>
+            
+            <p class="text-lg leading-relaxed text-slate-700 mb-4">
+                The $\pm$ symbol indicates that you will get two answers: one by adding the square root, and one by subtracting it.
+            </p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">4</span> 
+                Nature of Roots (The Discriminant)
+            </h2>
+            <p class="text-lg leading-relaxed text-slate-700 mb-4">
+                You don't always need to solve the entire formula to know what kind of answers you'll get. The expression under the square root, <strong>$b^2 - 4ac$</strong>, is called the <strong>Discriminant ($D$)</strong>. It completely determines the nature of the roots.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl">
+                    <div class="font-mono text-emerald-700 font-bold text-xl mb-2">D > 0</div>
+                    <h4 class="font-bold text-slate-800 mb-1">Real & Distinct</h4>
+                    <p class="text-sm text-slate-600">The equation has two different real answers. (e.g., $x=2$ and $x=5$).</p>
+                </div>
+                
+                <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl">
+                    <div class="font-mono text-amber-700 font-bold text-xl mb-2">D = 0</div>
+                    <h4 class="font-bold text-slate-800 mb-1">Real & Equal</h4>
+                    <p class="text-sm text-slate-600">The equation has one repeated real answer. The expression is a perfect square.</p>
+                </div>
+                
+                <div class="bg-rose-50 border border-rose-200 p-5 rounded-xl">
+                    <div class="font-mono text-rose-700 font-bold text-xl mb-2">D < 0</div>
+                    <h4 class="font-bold text-slate-800 mb-1">Imaginary Roots</h4>
+                    <p class="text-sm text-slate-600">No real roots exist because you cannot take the square root of a negative number.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Completion -->
+        <div class="bg-slate-800 rounded-2xl p-8 text-center text-white mt-12 shadow-lg">
+            <i class="ph-fill ph-check-circle text-emerald-400 text-5xl mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">Masterclass Completed!</h2>
+            <p class="text-slate-300 mb-6 max-w-md mx-auto">You've covered the core theory of Quadratic Equations. Now it's time to put it to the test.</p>
+            <a href="index.html" class="inline-block bg-white text-slate-900 font-bold py-3 px-8 rounded-full hover:bg-slate-100 transition-colors">
+                Return to Portal
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
