@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
         /* Gradients for Subjects */
         .grad-math { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
         .grad-chem { background: linear-gradient(135deg, #701a75, #d946ef); }
-        .grad-phys { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+        .grad-phys { background: linear-gradient(135deg, #0f766e, #14b8a6); } /* Teal */
         .grad-bio  { background: linear-gradient(135deg, #9a3412, #f97316); }
         
         /* Animations */
@@ -45,11 +45,11 @@
     </style>
 
     <script>
-        // User Database
+        // User Database with Subject Permissions
         const users = {
-            'sambhav': { role: 'student', name: 'Sambhav', desc: 'ICSE Grade 10 • Target: 100%' },
-            'navika':  { role: 'student', name: 'Navika', desc: 'ICSE Grade 10 • Target: 100%' },
-            'roshan':  { role: 'admin', name: 'Roshan', desc: 'Administrator • Top Level Access' }
+            'sambhav': { role: 'student', name: 'Sambhav', desc: 'ICSE Grade 10', allowedSubjects: ['math', 'phys', 'chem', 'bio'] },
+            'navika':  { role: 'student', name: 'Navika', desc: 'ICSE Grade 10', allowedSubjects: ['math', 'phys'] },
+            'roshan':  { role: 'admin', name: 'Roshan', desc: 'Administrator • Top Level Access', allowedSubjects: ['math', 'phys', 'chem', 'bio'] }
         };
 
         let currentUser = null;
@@ -61,6 +61,26 @@
             const subjectViews = document.querySelectorAll('.subject-view');
             const backButtons = document.querySelectorAll('.back-btn');
             
+            window.openSubject = function(subjectId) {
+                homeView.classList.add('hidden');
+                subjectViews.forEach(view => view.classList.add('hidden'));
+                const targetView = document.getElementById(subjectId);
+                targetView.classList.remove('hidden');
+                targetView.classList.remove('animate-fade-in');
+                void targetView.offsetWidth; 
+                targetView.classList.add('animate-fade-in');
+            };
+
+            backButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    subjectViews.forEach(view => view.classList.add('hidden'));
+                    homeView.classList.remove('hidden');
+                    homeView.classList.remove('animate-fade-in');
+                    void homeView.offsetWidth;
+                    homeView.classList.add('animate-fade-in');
+                });
+            });
+
             // Login Handler
             document.getElementById('login-form').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -93,27 +113,6 @@
                 subjectViews.forEach(view => view.classList.add('hidden'));
                 homeView.classList.remove('hidden');
             });
-            
-            // Subject Navigation
-            window.openSubject = function(subjectId) {
-                homeView.classList.add('hidden');
-                subjectViews.forEach(view => view.classList.add('hidden'));
-                const targetView = document.getElementById(subjectId);
-                targetView.classList.remove('hidden');
-                targetView.classList.remove('animate-fade-in');
-                void targetView.offsetWidth; 
-                targetView.classList.add('animate-fade-in');
-            };
-
-            backButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    subjectViews.forEach(view => view.classList.add('hidden'));
-                    homeView.classList.remove('hidden');
-                    homeView.classList.remove('animate-fade-in');
-                    void homeView.offsetWidth;
-                    homeView.classList.add('animate-fade-in');
-                });
-            });
         });
 
         // Update UI based on logged-in user
@@ -136,6 +135,19 @@
                 adminBadge.classList.add('hidden');
                 sectionTitle.innerHTML = '<i class="ph-fill ph-books text-slate-400 mr-3"></i> Your Subjects';
             }
+
+            // Subject Card Visibility Check
+            const subjectCards = ['math', 'phys', 'chem', 'bio'];
+            subjectCards.forEach(subject => {
+                const card = document.getElementById(subject + '-card');
+                if (card) {
+                    if (currentUser.allowedSubjects.includes(subject)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
         }
 
         // Scalable Chapter Generator
@@ -241,8 +253,9 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center cursor-pointer" onclick="location.reload()">
-                        <span class="font-extrabold text-2xl tracking-tight text-slate-900 flex items-center">
-                            L<i class="ph-fill ph-gear text-indigo-600 mx-0.5 text-2xl animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-600">League</span>
+                        <i class="ph-fill ph-graduation-cap text-indigo-600 text-3xl mr-2"></i>
+                        <span class="font-extrabold text-xl tracking-tight text-slate-900 flex items-center">
+                            L<i class="ph-fill ph-gear text-indigo-600 mx-0.5 text-xl animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-600">League</span>
                         </span>
                     </div>
                     <div class="flex items-center space-x-4">
@@ -285,7 +298,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Math Card -->
-                    <div onclick="openSubject('math-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1">
+                    <div id="math-card" onclick="openSubject('math-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1">
                         <div class="h-32 grad-math relative p-6 flex flex-col justify-end">
                             <i class="ph-bold ph-function absolute top-4 right-4 text-white/20 text-6xl"></i>
                             <h3 class="text-2xl font-bold text-white relative z-10">Mathematics</h3>
@@ -297,7 +310,7 @@
                     </div>
 
                     <!-- Physics Card -->
-                    <div onclick="openSubject('phys-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-teal-300 transition-all duration-300 hover:-translate-y-1">
+                    <div id="phys-card" onclick="openSubject('phys-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-teal-300 transition-all duration-300 hover:-translate-y-1">
                         <div class="h-32 grad-phys relative p-6 flex flex-col justify-end">
                             <i class="ph-bold ph-atom absolute top-4 right-4 text-white/20 text-6xl"></i>
                             <h3 class="text-2xl font-bold text-white relative z-10">Physics</h3>
@@ -309,7 +322,7 @@
                     </div>
 
                     <!-- Chemistry Card -->
-                    <div onclick="openSubject('chem-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-fuchsia-300 transition-all duration-300 hover:-translate-y-1">
+                    <div id="chem-card" onclick="openSubject('chem-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-fuchsia-300 transition-all duration-300 hover:-translate-y-1">
                         <div class="h-32 grad-chem relative p-6 flex flex-col justify-end">
                             <i class="ph-bold ph-flask absolute top-4 right-4 text-white/20 text-6xl"></i>
                             <h3 class="text-2xl font-bold text-white relative z-10">Chemistry</h3>
@@ -321,7 +334,7 @@
                     </div>
 
                     <!-- Biology Card -->
-                    <div onclick="openSubject('bio-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-orange-300 transition-all duration-300 hover:-translate-y-1">
+                    <div id="bio-card" onclick="openSubject('bio-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-orange-300 transition-all duration-300 hover:-translate-y-1">
                         <div class="h-32 grad-bio relative p-6 flex flex-col justify-end">
                             <i class="ph-bold ph-leaf absolute top-4 right-4 text-white/20 text-6xl"></i>
                             <h3 class="text-2xl font-bold text-white relative z-10">Biology</h3>
@@ -363,8 +376,8 @@
                         </div>
                     </details>
 
-                    <!-- 2. ALGEBRA (OPEN BY DEFAULT) -->
-                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                    <!-- 2. ALGEBRA -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                         <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
                             <div class="flex items-center"><div class="bg-blue-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-math-operations text-blue-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">2. Algebra</h2></div>
                             <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
@@ -374,7 +387,7 @@
                                 <script>
                                     const mathAlg = [
                                         {title: "Linear Inequations", icon: "ph-brackets-curly", desc: "Solving algebraically, set notation form, and number lines.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Quadratic Equations", icon: "ph-formula", desc: "Nature of roots, Factorisation, Quadratic Formula, word problems.", link: "quadratic_lesson_plan.html", pracLink: "#", pracText: "Practice Paper", isOpen: true},
+                                        {title: "Quadratic Equations", icon: "ph-formula", desc: "Nature of roots, Factorisation, Quadratic Formula, word problems.", link: "quadratic_lesson_plan.html", pracLink: "#", pracText: "Practice Paper"},
                                         {title: "Ratio & Proportion", icon: "ph-scales", desc: "Componendo, dividendo, alternendo properties.", link: "#", pracLink: "#", pracText: "Practice Paper"},
                                         {title: "Factorisation", icon: "ph-intersect", desc: "Factor Theorem, Remainder Theorem, complete factorisation.", link: "#", pracLink: "practice_paper_1.html", pracText: "Practice Paper 1 Module 1"},
                                         {title: "Matrices", icon: "ph-squares-four", desc: "Order, Addition, Subtraction, and Multiplication.", link: "#", pracLink: "#", pracText: "Practice Paper"},
@@ -456,7 +469,7 @@
                 </div>
 
                 <div class="space-y-6">
-                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                         <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
                             <div class="flex items-center"><div class="bg-teal-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-barbell text-teal-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Mechanics</h2></div>
                             <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
@@ -543,7 +556,7 @@
                 </div>
 
                 <div class="space-y-6">
-                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                         <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
                             <div class="flex items-center"><div class="bg-fuchsia-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-atom text-fuchsia-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Physical Chemistry</h2></div>
                             <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
@@ -554,7 +567,7 @@
                                     const chemPhys = [
                                         {title: "Periodic Properties", icon: "ph-table", desc: "Variations in groups & periods, IP, EA, EN.", link: "#", pracLink: "#", pracText: "Practice Paper"},
                                         {title: "Chemical Bonding", icon: "ph-link", desc: "Electrovalent, covalent, co-ordinate bonds, dot structures.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Mole Concept", icon: "ph-scales", desc: "Gay Lussac's Law, V.D., Mass-Volume calcs.", link: "stoichiometry.html", pracLink: "#", pracText: "Practice Paper", isOpen: true},
+                                        {title: "Mole Concept", icon: "ph-scales", desc: "Gay Lussac's Law, V.D., Mass-Volume calcs.", link: "stoichiometry.html", pracLink: "#", pracText: "Practice Paper"},
                                         {title: "Electrolysis", icon: "ph-battery-charging", desc: "Electrolytes, selective discharge, electroplating.", link: "#", pracLink: "#", pracText: "Practice Paper"}
                                     ];
                                     renderChapters(chemPhys, "fuchsia");
@@ -611,7 +624,7 @@
                 </div>
 
                 <div class="space-y-6">
-                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                         <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
                             <div class="flex items-center"><div class="bg-orange-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-dna text-orange-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Basic Biology</h2></div>
                             <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
