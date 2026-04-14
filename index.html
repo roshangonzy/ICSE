@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic League - Master Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        
+        /* Gradients for Subjects */
+        .grad-math { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+        .grad-chem { background: linear-gradient(135deg, #701a75, #d946ef); }
+        .grad-phys { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+        .grad-bio  { background: linear-gradient(135deg, #9a3412, #f97316); }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* Main Vertical Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Custom Horizontal Scrollbar for Chapter Rows */
+        .scroll-row::-webkit-scrollbar { height: 8px; }
+        .scroll-row::-webkit-scrollbar-track { background: transparent; border-radius: 10px; margin: 0 10px; }
+        .scroll-row::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .scroll-row::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Details Summary Reset */
+        details > summary { list-style: none; outline: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+
+    <script>
+        // User Database
+        const users = {
+            'sambhav': { role: 'student', name: 'Sambhav', desc: 'ICSE Grade 10 • Target: 100%' },
+            'navika':  { role: 'student', name: 'Navika', desc: 'ICSE Grade 10 • Target: 100%' },
+            'roshan':  { role: 'admin', name: 'Roshan', desc: 'Administrator • Top Level Access' }
+        };
+
+        let currentUser = null;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginView = document.getElementById('login-view');
+            const appView = document.getElementById('app-view');
+            const homeView = document.getElementById('home-view');
+            const subjectViews = document.querySelectorAll('.subject-view');
+            const backButtons = document.querySelectorAll('.back-btn');
+            
+            // Login Handler
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const userVal = document.getElementById('username').value.trim().toLowerCase();
+                const passVal = document.getElementById('password').value;
+                const errorMsg = document.getElementById('login-error');
+
+                if (users[userVal] && passVal === '1234') {
+                    currentUser = users[userVal];
+                    errorMsg.classList.add('hidden');
+                    updateUIForUser();
+                    loginView.classList.add('hidden');
+                    appView.classList.remove('hidden');
+                    appView.classList.add('animate-fade-in');
+                } else {
+                    errorMsg.classList.remove('hidden');
+                }
+            });
+
+            // Logout Handler
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                currentUser = null;
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                appView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+                loginView.classList.add('animate-fade-in');
+                
+                // Reset to home view
+                subjectViews.forEach(view => view.classList.add('hidden'));
+                homeView.classList.remove('hidden');
+            });
+            
+            // Subject Navigation
+            window.openSubject = function(subjectId) {
+                homeView.classList.add('hidden');
+                subjectViews.forEach(view => view.classList.add('hidden'));
+                const targetView = document.getElementById(subjectId);
+                targetView.classList.remove('hidden');
+                targetView.classList.remove('animate-fade-in');
+                void targetView.offsetWidth; 
+                targetView.classList.add('animate-fade-in');
+            };
+
+            backButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    subjectViews.forEach(view => view.classList.add('hidden'));
+                    homeView.classList.remove('hidden');
+                    homeView.classList.remove('animate-fade-in');
+                    void homeView.offsetWidth;
+                    homeView.classList.add('animate-fade-in');
+                });
+            });
+        });
+
+        // Update UI based on logged-in user
+        function updateUIForUser() {
+            // Update Navigation Names
+            document.getElementById('nav-user-name').innerText = currentUser.name;
+            document.getElementById('nav-user-desc').innerText = currentUser.desc;
+            
+            // Update Hero Name
+            document.getElementById('hero-user-name').innerText = currentUser.name;
+
+            // Admin specific UI tweaks
+            const adminBadge = document.getElementById('admin-badge');
+            const sectionTitle = document.getElementById('main-section-title');
+            
+            if (currentUser.role === 'admin') {
+                adminBadge.classList.remove('hidden');
+                sectionTitle.innerHTML = '<i class="ph-fill ph-folder-gear text-slate-400 mr-3"></i> Manage Curriculum';
+            } else {
+                adminBadge.classList.add('hidden');
+                sectionTitle.innerHTML = '<i class="ph-fill ph-books text-slate-400 mr-3"></i> Your Subjects';
+            }
+        }
+
+        // Scalable Chapter Generator
+        function renderChapters(chapters, color) {
+            chapters.forEach(ch => {
+                let openAttr = ch.isOpen ? "open" : "";
+                document.write(`
+                <details class="group/chapter bg-white p-6 rounded-2xl border-2 border-${color}-200 hover:border-${color}-400 shadow-sm hover:shadow-md transition-all shrink-0 w-[380px] snap-start" ${openAttr}>
+                    <summary class="cursor-pointer select-none outline-none">
+                        <div class="flex items-start justify-between border-b border-transparent group-open/chapter:border-slate-100 pb-0 group-open/chapter:pb-4 transition-all">
+                            <div class="flex items-start"><div class="bg-${color}-100 text-${color}-600 p-3 rounded-lg mr-4 shrink-0 shadow-sm"><i class="ph-bold ${ch.icon} text-2xl"></i></div>
+                            <div><div class="text-[10px] font-bold text-${color}-600 uppercase tracking-widest mb-1">Chapter Hub</div><h3 class="text-xl font-extrabold text-slate-900 leading-tight">${ch.title}</h3><p class="text-xs text-slate-500 mt-2">${ch.desc}</p></div></div>
+                            <div class="text-${color}-500 bg-${color}-50 p-1.5 rounded-full group-open/chapter:rotate-180 transition-transform mt-1"><i class="ph-bold ph-caret-down"></i></div>
+                        </div>
+                    </summary>
+                    <div class="flex flex-col space-y-4 overflow-y-auto pr-1 mt-4">
+                        <div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Learn & Review</div>
+                            <div class="space-y-1.5">
+                                <a href="${ch.link}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-${color}-50 hover:text-${color}-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-chalkboard-teacher text-${color}-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Intensive Masterclass</a>
+                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-orange-50 hover:text-orange-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-target text-orange-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ICSE Board Focus & Traps</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Practice</div>
+                            <div class="space-y-1.5">
+                                <a href="${ch.pracLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-rose-50 hover:text-rose-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-exam text-rose-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ${ch.pracText}</a>
+                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-house-line text-emerald-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Chapter Homework</a>
+                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-purple-50 hover:text-purple-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-pen-nib text-purple-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Subjective</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Assessments</div>
+                            <div class="space-y-1.5">
+                                <a href="#" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-amber-50 hover:text-amber-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-lightbulb text-amber-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Learning Quiz</div></a>
+                                <a href="#" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-red-50 hover:text-red-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-timer text-red-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Classic Quiz</div><span class="text-[10px] font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded">15m</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                `);
+            });
+        }
+    </script>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- ========================================== -->
+    <!-- LOGIN SCREEN                               -->
+    <!-- ========================================== -->
+    <div id="login-view" class="min-h-screen flex items-center justify-center p-4 bg-slate-100">
+        <div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-200 p-8 text-center animate-fade-in">
+            <div class="inline-flex items-center justify-center h-20 w-20 rounded-full bg-indigo-50 border-4 border-indigo-100 mb-6">
+                <i class="ph-fill ph-student text-indigo-600 text-4xl"></i>
+            </div>
+            
+            <h1 class="text-3xl font-extrabold text-slate-900 mb-2 flex items-center justify-center">
+                L<i class="ph-fill ph-gear text-indigo-600 mx-0.5 text-2xl animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-600">League</span>
+            </h1>
+            <p class="text-slate-500 mb-8 font-medium">Secure Learning Portal</p>
+
+            <form id="login-form" class="space-y-5 text-left">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1" for="username">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ph-bold ph-user text-slate-400"></i>
+                        </div>
+                        <input type="text" id="username" class="w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-slate-50 focus:bg-white" placeholder="username" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1" for="password">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="ph-bold ph-lock-key text-slate-400"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-slate-50 focus:bg-white" placeholder="••••" required>
+                    </div>
+                </div>
+
+                <div id="login-error" class="hidden bg-red-50 text-red-600 text-sm font-semibold p-3 rounded-lg flex items-center">
+                    <i class="ph-fill ph-warning-circle text-lg mr-2"></i> Incorrect username or password.
+                </div>
+
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]">
+                    Secure Login
+                </button>
+            </form>
+            
+            <p class="text-xs text-slate-400 mt-8">Authorized ICSE Personnel Only.</p>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MAIN APPLICATION (HIDDEN BY DEFAULT)       -->
+    <!-- ========================================== -->
+    <div id="app-view" class="hidden flex-col flex-grow">
+        
+        <!-- Top Navigation Bar -->
+        <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center cursor-pointer" onclick="location.reload()">
+                        <span class="font-extrabold text-2xl tracking-tight text-slate-900 flex items-center">
+                            L<i class="ph-fill ph-gear text-indigo-600 mx-0.5 text-2xl animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-600">League</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="hidden md:flex flex-col text-right mr-1">
+                            <div class="flex items-center justify-end">
+                                <span id="admin-badge" class="hidden bg-rose-100 text-rose-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-widest mr-2">Admin</span>
+                                <span id="nav-user-name" class="text-sm font-bold text-slate-800">User</span>
+                            </div>
+                            <span id="nav-user-desc" class="text-xs font-medium text-slate-500">Loading...</span>
+                        </div>
+                        <div class="relative group cursor-pointer">
+                            <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-indigo-200 hover:bg-indigo-200 transition-colors">
+                                <i class="ph-bold ph-user text-indigo-600 text-xl"></i>
+                            </div>
+                            <!-- Logout Dropdown -->
+                            <div class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                                <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-lg flex items-center">
+                                    <i class="ph-bold ph-sign-out mr-2"></i> Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+            
+            <!-- HOME DASHBOARD VIEW -->
+            <div id="home-view" class="animate-fade-in">
+                <div class="bg-white rounded-3xl p-8 md:p-10 mb-10 border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-0 top-0 opacity-5 pointer-events-none -mt-10 -mr-10">
+                        <i class="ph-fill ph-student text-9xl text-indigo-900" style="font-size: 300px;"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Welcome back, <span id="hero-user-name">User</span>! 👋</h1>
+                </div>
+
+                <h2 id="main-section-title" class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><i class="ph-fill ph-books text-slate-400 mr-3"></i> Your Subjects</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Math Card -->
+                    <div onclick="openSubject('math-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1">
+                        <div class="h-32 grad-math relative p-6 flex flex-col justify-end">
+                            <i class="ph-bold ph-function absolute top-4 right-4 text-white/20 text-6xl"></i>
+                            <h3 class="text-2xl font-bold text-white relative z-10">Mathematics</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-3"><span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Fully Structured</span></div>
+                            <p class="text-sm text-slate-500 font-medium">Algebra, Geometry, Mensuration, Trigonometry.</p>
+                        </div>
+                    </div>
+
+                    <!-- Physics Card -->
+                    <div onclick="openSubject('phys-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-teal-300 transition-all duration-300 hover:-translate-y-1">
+                        <div class="h-32 grad-phys relative p-6 flex flex-col justify-end">
+                            <i class="ph-bold ph-atom absolute top-4 right-4 text-white/20 text-6xl"></i>
+                            <h3 class="text-2xl font-bold text-white relative z-10">Physics</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-3"><span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded">Fully Structured</span></div>
+                            <p class="text-sm text-slate-500 font-medium">Mechanics, Light, Sound, Electricity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chemistry Card -->
+                    <div onclick="openSubject('chem-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-fuchsia-300 transition-all duration-300 hover:-translate-y-1">
+                        <div class="h-32 grad-chem relative p-6 flex flex-col justify-end">
+                            <i class="ph-bold ph-flask absolute top-4 right-4 text-white/20 text-6xl"></i>
+                            <h3 class="text-2xl font-bold text-white relative z-10">Chemistry</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-3"><span class="text-xs font-bold text-fuchsia-600 bg-fuchsia-50 px-2 py-1 rounded">Fully Structured</span></div>
+                            <p class="text-sm text-slate-500 font-medium">Physical, Inorganic, Organic Chem.</p>
+                        </div>
+                    </div>
+
+                    <!-- Biology Card -->
+                    <div onclick="openSubject('bio-view')" class="group bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:shadow-xl hover:border-orange-300 transition-all duration-300 hover:-translate-y-1">
+                        <div class="h-32 grad-bio relative p-6 flex flex-col justify-end">
+                            <i class="ph-bold ph-leaf absolute top-4 right-4 text-white/20 text-6xl"></i>
+                            <h3 class="text-2xl font-bold text-white relative z-10">Biology</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-3"><span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">Fully Structured</span></div>
+                            <p class="text-sm text-slate-500 font-medium">Plant Physio, Human Anatomy, Genetics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATHEMATICS SUBJECT VIEW -->
+            <div id="math-view" class="subject-view hidden">
+                <button class="back-btn flex items-center text-slate-500 hover:text-blue-600 font-semibold mb-6 transition-colors"><i class="ph-bold ph-arrow-left mr-2"></i> Back to Dashboard</button>
+                <div class="flex items-center mb-8">
+                    <div class="h-16 w-16 rounded-2xl grad-math flex items-center justify-center shadow-lg mr-5"><i class="ph-bold ph-function text-white text-3xl"></i></div>
+                    <div><h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Mathematics</h1><p class="text-slate-500 font-medium">ICSE Grade 10 Syllabus Overview</p></div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- 1. COMMERCIAL MATHEMATICS -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-amber-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-calculator text-amber-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Commercial Mathematics</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const mathComm = [
+                                        {title: "Goods & Services Tax", icon: "ph-percent", desc: "Computation of tax, discounts, list-price, SGST and CGST.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Banking", icon: "ph-bank", desc: "Recurring Deposit Accounts: computation of interest & maturity value.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Shares & Dividends", icon: "ph-chart-line-up", desc: "Nominal Value, Market Value, Dividend, Premium and Return.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(mathComm, "amber");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- 2. ALGEBRA (OPEN BY DEFAULT) -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-blue-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-math-operations text-blue-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">2. Algebra</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const mathAlg = [
+                                        {title: "Linear Inequations", icon: "ph-brackets-curly", desc: "Solving algebraically, set notation form, and number lines.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Quadratic Equations", icon: "ph-formula", desc: "Nature of roots, Factorisation, Quadratic Formula, word problems.", link: "quadratic_lesson_plan.html", pracLink: "#", pracText: "Practice Paper", isOpen: true},
+                                        {title: "Ratio & Proportion", icon: "ph-scales", desc: "Componendo, dividendo, alternendo properties.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Factorisation", icon: "ph-intersect", desc: "Factor Theorem, Remainder Theorem, complete factorisation.", link: "#", pracLink: "practice_paper_1.html", pracText: "Practice Paper 1 Module 1"},
+                                        {title: "Matrices", icon: "ph-squares-four", desc: "Order, Addition, Subtraction, and Multiplication.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Arithmetic & GP", icon: "ph-trend-up", desc: "General term, Sum of 'n' terms, simple applications.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Coordinate Geometry", icon: "ph-graph", desc: "Reflection, Section formula, Equation of a line.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(mathAlg, "blue");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- 3. GEOMETRY -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-emerald-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-compass-tool text-emerald-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">3. Geometry</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const mathGeo = [
+                                        {title: "Similarity & Loci", icon: "ph-shapes", desc: "Size transformation, SSS/SAS/AA, BPT, Areas, Locus theorems.", link: "geometry_masterclass.html", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Circles", icon: "ph-circle", desc: "Angle properties, Cyclic properties, Tangents, and Secants.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Constructions", icon: "ph-ruler", desc: "Tangents, Inscribing/Circumscribing circles.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(mathGeo, "emerald");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- 4. MENSURATION & TRIGONOMETRY -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-rose-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-cube text-rose-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">4. Mensuration & Trigonometry</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const mathMens = [
+                                        {title: "Mensuration", icon: "ph-cylinder", desc: "Surface Area & Volume of Cylinder, Cone, Sphere (melting/recasting).", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Trigonometry", icon: "ph-triangle-right", desc: "Solving identities and Heights & Distances (2-D problems).", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(mathMens, "rose");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- 5. STATISTICS & PROBABILITY -->
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-purple-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-chart-bar text-purple-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">5. Statistics & Probability</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const mathStat = [
+                                        {title: "Statistics", icon: "ph-chart-line", desc: "Mean, Median, Mode, Histograms, Ogive, Inter Quartile Range.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Probability", icon: "ph-dice-five", desc: "Random experiments, Sample space, Events, simple problems.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(mathStat, "purple");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- PHYSICS SUBJECT VIEW -->
+            <div id="phys-view" class="subject-view hidden">
+                <button class="back-btn flex items-center text-slate-500 hover:text-teal-600 font-semibold mb-6 transition-colors"><i class="ph-bold ph-arrow-left mr-2"></i> Back to Dashboard</button>
+                <div class="flex items-center mb-8">
+                    <div class="h-16 w-16 rounded-2xl grad-phys flex items-center justify-center shadow-lg mr-5"><i class="ph-bold ph-atom text-white text-3xl"></i></div>
+                    <div><h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Physics</h1><p class="text-slate-500 font-medium">ICSE Grade 10 Syllabus Overview</p></div>
+                </div>
+
+                <div class="space-y-6">
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-teal-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-barbell text-teal-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Mechanics</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const physMech = [
+                                        {title: "Force", icon: "ph-arrow-up-right", desc: "Turning forces, uniform circular motion, center of gravity.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Work, Energy & Power", icon: "ph-lightning", desc: "Work-energy theorem, conservation of energy, kinetic and potential.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Machines", icon: "ph-gear", desc: "Levers, pulleys, mechanical advantage, velocity ratio, efficiency.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(physMech, "teal");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-sky-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-sun text-sky-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">2. Light & Sound</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const physLightSound = [
+                                        {title: "Refraction at Plane Surfaces", icon: "ph-parallelogram", desc: "Laws of refraction, refractive index, apparent depth.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Refraction through Lenses", icon: "ph-magnifying-glass", desc: "Convex/concave lenses, image formation, power of a lens.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Spectrum", icon: "ph-rainbow", desc: "Dispersion, electromagnetic spectrum, UV and IR radiations.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Sound", icon: "ph-wave-sine", desc: "Echoes, natural, damped & forced vibrations, resonance.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(physLightSound, "sky");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-indigo-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-plug text-indigo-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">3. Electricity & Magnetism</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const physElec = [
+                                        {title: "Current Electricity", icon: "ph-plug-charging", desc: "Ohm's Law, specific resistance, series & parallel circuits.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Household Circuits", icon: "ph-house-line", desc: "Power distribution, fuses, earthing, 3-pin plugs.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Electromagnetism", icon: "ph-magnet", desc: "Magnetic field of a current, electromagnet, DC motor, AC generator.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(physElec, "indigo");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-rose-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-thermometer-hot text-rose-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">4. Heat & Modern Physics</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const physHeatModern = [
+                                        {title: "Calorimetry", icon: "ph-thermometer-hot", desc: "Heat capacity, latent heat, method of mixtures.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Radioactivity", icon: "ph-radioactive", desc: "Alpha, beta, gamma emission, nuclear fission and fusion.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(physHeatModern, "rose");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CHEMISTRY SUBJECT VIEW -->
+            <div id="chem-view" class="subject-view hidden">
+                <button class="back-btn flex items-center text-slate-500 hover:text-fuchsia-600 font-semibold mb-6 transition-colors"><i class="ph-bold ph-arrow-left mr-2"></i> Back to Dashboard</button>
+                <div class="flex items-center mb-8">
+                    <div class="h-16 w-16 rounded-2xl grad-chem flex items-center justify-center shadow-lg mr-5"><i class="ph-bold ph-flask text-white text-3xl"></i></div>
+                    <div><h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Chemistry</h1><p class="text-slate-500 font-medium">ICSE Grade 10 Syllabus Overview</p></div>
+                </div>
+
+                <div class="space-y-6">
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-fuchsia-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-atom text-fuchsia-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Physical Chemistry</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const chemPhys = [
+                                        {title: "Periodic Properties", icon: "ph-table", desc: "Variations in groups & periods, IP, EA, EN.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Chemical Bonding", icon: "ph-link", desc: "Electrovalent, covalent, co-ordinate bonds, dot structures.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Mole Concept", icon: "ph-scales", desc: "Gay Lussac's Law, V.D., Mass-Volume calcs.", link: "stoichiometry.html", pracLink: "#", pracText: "Practice Paper", isOpen: true},
+                                        {title: "Electrolysis", icon: "ph-battery-charging", desc: "Electrolytes, selective discharge, electroplating.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(chemPhys, "fuchsia");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-violet-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-test-tube text-violet-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">2. Inorganic Chemistry</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const chemInorg = [
+                                        {title: "Acids, Bases & Salts", icon: "ph-drop", desc: "Definitions, ionisation, pH scale, preparation of salts.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Analytical Chemistry", icon: "ph-eye", desc: "Action of NH4OH and NaOH on salt solutions.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Metallurgy", icon: "ph-diamond", desc: "Ores, extraction stages, Hall Heroult's process, Alloys.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Study of Compounds", icon: "ph-flask", desc: "HCl, Ammonia, Nitric Acid, Sulphuric Acid.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(chemInorg, "violet");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-pink-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-hexagon text-pink-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">3. Organic Chemistry</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const chemOrg = [
+                                        {title: "Organic Chemistry", icon: "ph-hexagon", desc: "IUPAC, Alkanes, Alkenes, Alkynes, Alcohols, Carboxylic acids.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(chemOrg, "pink");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- BIOLOGY SUBJECT VIEW -->
+            <div id="bio-view" class="subject-view hidden">
+                <button class="back-btn flex items-center text-slate-500 hover:text-orange-600 font-semibold mb-6 transition-colors"><i class="ph-bold ph-arrow-left mr-2"></i> Back to Dashboard</button>
+                <div class="flex items-center mb-8">
+                    <div class="h-16 w-16 rounded-2xl grad-bio flex items-center justify-center shadow-lg mr-5"><i class="ph-bold ph-leaf text-white text-3xl"></i></div>
+                    <div><h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Biology</h1><p class="text-slate-500 font-medium">ICSE Grade 10 Syllabus Overview</p></div>
+                </div>
+
+                <div class="space-y-6">
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden" open>
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-orange-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-dna text-orange-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">1. Basic Biology</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const bioBasic = [
+                                        {title: "Cell Cycle & Division", icon: "ph-spinner", desc: "Structure of chromosome, mitosis and meiosis.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Genetics", icon: "ph-tree-structure", desc: "Mendel's laws, monohybrid cross, sex-linked inheritance.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(bioBasic, "orange");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-emerald-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-plant text-emerald-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">2. Plant Physiology</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const bioPlant = [
+                                        {title: "Absorption by Roots", icon: "ph-plant", desc: "Imbibition, diffusion, osmosis, active transport.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Transpiration", icon: "ph-wind", desc: "Stomatal, cuticular, lenticular transpiration, potometer.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Photosynthesis", icon: "ph-sun", desc: "Light & dark reactions, factors affecting rate.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Chemical Coordination", icon: "ph-flask", desc: "Plant hormones: auxins, gibberellins, cytokinins.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(bioPlant, "emerald");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-red-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-heart-beat text-red-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">3. Human Anatomy</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const bioHuman = [
+                                        {title: "Circulatory System", icon: "ph-heart-beat", desc: "Blood, heart structure, double circulation, lymph.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Excretory System", icon: "ph-drop", desc: "Kidney structure, nephron, urine formation.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Nervous System", icon: "ph-brain", desc: "Brain, spinal cord, reflex action, sense organs.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Endocrine System", icon: "ph-activity", desc: "Hormones, pituitary, thyroid, adrenal, pancreas.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Reproductive System", icon: "ph-gender-intersex", desc: "Male/female organs, fertilization, menstrual cycle.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(bioHuman, "red");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="group/section bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                        <summary class="cursor-pointer p-5 sm:p-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b border-transparent group-open/section:border-slate-200">
+                            <div class="flex items-center"><div class="bg-amber-100 p-2.5 rounded-xl mr-4"><i class="ph-fill ph-users-three text-amber-600 text-2xl"></i></div><h2 class="text-xl sm:text-2xl font-bold text-slate-800">4. Evolution & Environment</h2></div>
+                            <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full group-open/section:rotate-180 transition-transform"><i class="ph-bold ph-caret-down text-lg"></i></div>
+                        </summary>
+                        <div class="p-6 bg-slate-50/50">
+                            <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
+                                <script>
+                                    const bioEvolEnv = [
+                                        {title: "Population", icon: "ph-users-three", desc: "Population explosion, demographic terms, control.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Human Evolution", icon: "ph-person-simple-walk", desc: "Theories of evolution, Lamarck, Darwin, ancestors.", link: "#", pracLink: "#", pracText: "Practice Paper"},
+                                        {title: "Pollution", icon: "ph-factory", desc: "Types, sources, biodegradable wastes, effects.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                    ];
+                                    renderChapters(bioEvolEnv, "amber");
+                                </script>
+                            </div>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+                <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                    L<i class="ph-fill ph-gear text-indigo-400 mx-0.5 text-xl animate-[spin_4s_linear_infinite]"></i>gic&nbsp;<span class="text-indigo-400">League</span>
+                </span>
+                <p class="text-sm text-slate-400">Custom tailored ICSE Preparation Platform.</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
