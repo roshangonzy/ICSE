@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic League - Chapter Homework</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Animations */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        
+        /* Custom Checkbox Styling */
+        .task-checkbox:checked + div {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .task-checkbox:checked + div svg {
+            opacity: 1;
+        }
+        .task-row.completed p.task-title {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        .task-row.completed {
+            background-color: #f8fafc;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-emerald-600 font-semibold transition-colors group">
+                    <div class="bg-slate-100 group-hover:bg-emerald-100 p-2 rounded-lg mr-3 transition-colors">
+                        <i class="ph-bold ph-arrow-left text-lg"></i>
+                    </div>
+                    Back to Portal
+                </a>
+                
+                <div class="flex items-center text-slate-400 text-sm font-bold tracking-widest uppercase">
+                    <i class="ph-fill ph-house-line mr-2 text-emerald-500"></i> Practice Hub
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Hero Section -->
+        <header class="mb-10 animate-slide-up">
+            <div class="flex items-center mb-4">
+                <span class="bg-emerald-100 text-emerald-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mr-3">Algebra</span>
+                <span class="text-slate-400 text-sm font-medium"><i class="ph-fill ph-calendar-check mr-1"></i> Daily Tasks</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Chapter Homework</h1>
+            <p class="text-lg text-slate-500 font-medium leading-relaxed max-w-2xl">
+                Quadratic Equations. Complete these bite-sized daily repetitions to build muscle memory before moving to the high-stakes assessments.
+            </p>
+        </header>
+
+        <!-- Progress Tracker -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm animate-slide-up delay-100 mb-8">
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Your Progress</h2>
+                    <p class="text-sm text-slate-500 mt-1">Consistency is the key to mastering ICSE Math.</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="text-3xl font-extrabold text-emerald-500 tracking-tight">0/5</span>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Tasks Done</p>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200">
+                <div id="progress-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Task Checklist -->
+        <div class="space-y-4 animate-slide-up delay-200" id="task-list">
+            
+            <!-- Task 1 -->
+            <label class="task-row bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start cursor-pointer hover:border-emerald-300 transition-all">
+                <div class="relative flex items-center justify-center mt-1 mr-4 shrink-0">
+                    <input type="checkbox" class="task-checkbox absolute opacity-0 w-0 h-0" onchange="updateProgress(this)">
+                    <div class="w-6 h-6 border-2 border-slate-300 rounded-md flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-white opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <p class="task-title text-lg font-bold text-slate-800 transition-colors">Review Focus & Traps Module</p>
+                    <p class="text-sm text-slate-500 mt-1">Read through the common step-marking errors for Quadratics to avoid losing easy marks.</p>
+                </div>
+                <div class="shrink-0 ml-4 hidden md:block">
+                    <span class="bg-blue-50 text-blue-600 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Theory</span>
+                </div>
+            </label>
+
+            <!-- Task 2 -->
+            <label class="task-row bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start cursor-pointer hover:border-emerald-300 transition-all">
+                <div class="relative flex items-center justify-center mt-1 mr-4 shrink-0">
+                    <input type="checkbox" class="task-checkbox absolute opacity-0 w-0 h-0" onchange="updateProgress(this)">
+                    <div class="w-6 h-6 border-2 border-slate-300 rounded-md flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-white opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <p class="task-title text-lg font-bold text-slate-800 transition-colors">Solve Concise Math Ex 5A (Q1-Q5)</p>
+                    <p class="text-sm text-slate-500 mt-1">Basic factorisation drills. Ensure you state the Zero Product Rule for every sum!</p>
+                </div>
+                <div class="shrink-0 ml-4 hidden md:block">
+                    <span class="bg-rose-50 text-rose-600 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Written</span>
+                </div>
+            </label>
+
+            <!-- Task 3 -->
+            <label class="task-row bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start cursor-pointer hover:border-emerald-300 transition-all">
+                <div class="relative flex items-center justify-center mt-1 mr-4 shrink-0">
+                    <input type="checkbox" class="task-checkbox absolute opacity-0 w-0 h-0" onchange="updateProgress(this)">
+                    <div class="w-6 h-6 border-2 border-slate-300 rounded-md flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-white opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <p class="task-title text-lg font-bold text-slate-800 transition-colors">Formula Practice Ex 5B (Evens Q2-Q8)</p>
+                    <p class="text-sm text-slate-500 mt-1">Practice using the Quadratic Formula. Round off to 2 decimal places exactly as instructed.</p>
+                </div>
+                <div class="shrink-0 ml-4 hidden md:block">
+                    <span class="bg-rose-50 text-rose-600 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Written</span>
+                </div>
+            </label>
+
+            <!-- Task 4 -->
+            <label class="task-row bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start cursor-pointer hover:border-emerald-300 transition-all">
+                <div class="relative flex items-center justify-center mt-1 mr-4 shrink-0">
+                    <input type="checkbox" class="task-checkbox absolute opacity-0 w-0 h-0" onchange="updateProgress(this)">
+                    <div class="w-6 h-6 border-2 border-slate-300 rounded-md flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-white opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <p class="task-title text-lg font-bold text-slate-800 transition-colors">Submit Subjective Assessment Sheet</p>
+                    <p class="text-sm text-slate-500 mt-1">Upload your handwritten steps for the subjective assignment to the portal for step-marking review.</p>
+                </div>
+                <div class="shrink-0 ml-4 hidden md:block">
+                    <span class="bg-purple-50 text-purple-600 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Upload</span>
+                </div>
+            </label>
+
+            <!-- Task 5 -->
+            <label class="task-row bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start cursor-pointer hover:border-emerald-300 transition-all">
+                <div class="relative flex items-center justify-center mt-1 mr-4 shrink-0">
+                    <input type="checkbox" class="task-checkbox absolute opacity-0 w-0 h-0" onchange="updateProgress(this)">
+                    <div class="w-6 h-6 border-2 border-slate-300 rounded-md flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-white opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <p class="task-title text-lg font-bold text-slate-800 transition-colors">Complete the Learning Quiz</p>
+                    <p class="text-sm text-slate-500 mt-1">Take the interactive digital quiz to cement your conceptual knowledge of discriminants.</p>
+                </div>
+                <div class="shrink-0 ml-4 hidden md:block">
+                    <span class="bg-amber-50 text-amber-600 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Digital</span>
+                </div>
+            </label>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-emerald-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-emerald-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">ICSE Grade 10 • Practice Hub</p>
+        </div>
+    </footer>
+
+    <!-- Progress Tracker Logic -->
+    <script>
+        function updateProgress(checkboxElem) {
+            const row = checkboxElem.closest('.task-row');
+            
+            // Toggle completed styling
+            if (checkboxElem.checked) {
+                row.classList.add('completed');
+            } else {
+                row.classList.remove('completed');
+            }
+
+            // Calculate progress
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.task-checkbox:checked').length;
+            
+            const percent = (checked / total) * 100;
+            
+            // Update UI
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-text').innerText = `${checked}/${total}`;
+
+            // Optional: Celebrate completion
+            if (checked === total) {
+                setTimeout(() => {
+                    alert("Excellent work! You've completed all homework tasks for Quadratics.");
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
