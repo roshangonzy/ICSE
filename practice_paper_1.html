@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic League - Practice Paper 1 Module 1</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        
+        /* Print Styles for Paper */
+        .paper-shadow { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-rose-600 font-semibold transition-colors group">
+                    <div class="bg-slate-100 group-hover:bg-rose-100 p-2 rounded-lg mr-3 transition-colors">
+                        <i class="ph-bold ph-arrow-left text-lg"></i>
+                    </div>
+                    Back to Portal
+                </a>
+                
+                <div class="flex items-center text-slate-400 text-sm font-bold tracking-widest uppercase">
+                    <i class="ph-fill ph-exam mr-2 text-rose-500"></i> Assessment Hub
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Hero Section -->
+        <header class="mb-8 animate-fade-in flex flex-col md:flex-row md:items-end justify-between">
+            <div>
+                <div class="flex items-center mb-3">
+                    <span class="bg-rose-100 text-rose-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mr-3">Algebra</span>
+                    <span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">ICSE Pattern</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Practice Paper 1 Module 1</h1>
+                <p class="text-slate-500 font-medium mt-2">Quadratic Equations (Factorisation & Formula)</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-4 text-sm font-bold text-slate-500 bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex items-center"><i class="ph-fill ph-clock text-rose-500 mr-2 text-lg"></i> 45 Mins</div>
+                <div class="w-px bg-slate-200"></div>
+                <div class="flex items-center"><i class="ph-fill ph-target text-rose-500 mr-2 text-lg"></i> 15 Marks</div>
+            </div>
+        </header>
+
+        <!-- The Exam Paper -->
+        <div class="bg-white rounded-t-xl rounded-b-3xl border border-slate-200 paper-shadow animate-fade-in delay-100 overflow-hidden relative">
+            
+            <!-- Paper Header -->
+            <div class="bg-slate-50 border-b border-slate-200 p-6 text-center">
+                <h2 class="text-lg font-bold text-slate-800 uppercase tracking-widest">Section A - Attempt All Questions</h2>
+                <p class="text-xs text-slate-500 mt-1">Show all working clearly. Marks will be awarded for steps.</p>
+            </div>
+
+            <!-- Questions -->
+            <div class="p-8 md:p-12 space-y-10">
+                
+                <!-- Q1 -->
+                <div class="flex">
+                    <div class="font-bold text-slate-400 w-8 shrink-0">Q1.</div>
+                    <div class="w-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-800 font-medium leading-relaxed">Solve the following quadratic equation and give your answer correct to two decimal places:</p>
+                            <span class="font-bold text-slate-400 shrink-0 ml-4">[4]</span>
+                        </div>
+                        <div class="bg-slate-50 inline-block px-6 py-3 rounded-xl border border-slate-200 mb-2 font-serif text-lg italic font-bold">
+                            5x² - 3x - 4 = 0
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="flex">
+                    <div class="font-bold text-slate-400 w-8 shrink-0">Q2.</div>
+                    <div class="w-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-800 font-medium leading-relaxed">Without solving the equation, find the value of 'k' for which the given equation has real and equal roots:</p>
+                            <span class="font-bold text-slate-400 shrink-0 ml-4">[3]</span>
+                        </div>
+                        <div class="bg-slate-50 inline-block px-6 py-3 rounded-xl border border-slate-200 mb-2 font-serif text-lg italic font-bold">
+                            x² + 4kx + (k² - k + 2) = 0
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="flex">
+                    <div class="font-bold text-slate-400 w-8 shrink-0">Q3.</div>
+                    <div class="w-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-800 font-medium leading-relaxed">A car covers a distance of 400 km at a certain speed. Had the speed been 12 km/hr more, the time taken for the journey would have been 1 hour 40 minutes less. Find the original speed of the car.</p>
+                            <span class="font-bold text-slate-400 shrink-0 ml-4">[5]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="flex">
+                    <div class="font-bold text-slate-400 w-8 shrink-0">Q4.</div>
+                    <div class="w-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-800 font-medium leading-relaxed">Solve by factorisation:</p>
+                            <span class="font-bold text-slate-400 shrink-0 ml-4">[3]</span>
+                        </div>
+                        <div class="bg-slate-50 inline-block px-6 py-3 rounded-xl border border-slate-200 mb-2 font-serif text-lg italic font-bold">
+                            2x² - 9x + 10 = 0
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Submit Banner -->
+            <div class="bg-slate-800 p-6 flex flex-col sm:flex-row items-center justify-between">
+                <p class="text-slate-300 text-sm font-medium mb-4 sm:mb-0">Finished solving on your notebook?</p>
+                <button onclick="document.getElementById('marking-scheme').classList.toggle('hidden')" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-colors flex items-center w-full sm:w-auto justify-center">
+                    <i class="ph-bold ph-lock-key-open mr-2 text-xl"></i> Reveal Marking Scheme
+                </button>
+            </div>
+        </div>
+
+        <!-- Hidden Marking Scheme -->
+        <div id="marking-scheme" class="hidden mt-8 animate-fade-in delay-200">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6 flex items-center">
+                <i class="ph-fill ph-check-circle text-emerald-500 mr-3"></i> Step-Marking Scheme
+            </h3>
+            
+            <div class="space-y-4">
+                <!-- Scheme Q1 -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm border-l-4 border-l-emerald-500">
+                    <h4 class="font-bold text-slate-800 mb-2">Q1 Answer Key</h4>
+                    <p class="text-sm text-slate-600 mb-3 font-serif">x = [3 ± √((-3)² - 4(5)(-4))] / 2(5)</p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Correct substitution into formula.</span></li>
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Finding √89 = 9.433</span></li>
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> x = 1.243 or -0.643</span></li>
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Final rounding: <strong>x = 1.24, -0.64</strong> <span class="text-red-500 ml-1">(Deduct 1 mark if not rounded properly)</span></span></li>
+                    </ul>
+                </div>
+                
+                <!-- Scheme Q4 -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm border-l-4 border-l-emerald-500">
+                    <h4 class="font-bold text-slate-800 mb-2">Q4 Answer Key</h4>
+                    <p class="text-sm text-slate-600 mb-3 font-serif">2x² - 4x - 5x + 10 = 0 <br> 2x(x - 2) - 5(x - 2) = 0 <br> (2x - 5)(x - 2) = 0</p>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Correct splitting of middle term.</span></li>
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Stating the Zero Product Rule: "Either 2x - 5 = 0 OR x - 2 = 0"</span></li>
+                        <li class="flex items-start"><i class="ph-bold ph-plus text-emerald-500 mr-2 mt-0.5"></i> <span><strong>[1 Mark]</strong> Final answers: <strong>x = 5/2, x = 2</strong></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-rose-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-rose-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">ICSE Grade 10 • Assessment Hub</p>
+        </div>
+    </footer>
+
+</body>
+</html>
