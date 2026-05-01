@@ -150,10 +150,21 @@
             });
         }
 
-        // Scalable Chapter Generator
+        // Scalable Chapter Generator (UPDATED FOR DYNAMIC LINKS)
         function renderChapters(chapters, color) {
             chapters.forEach(ch => {
                 let openAttr = ch.isOpen ? "open" : "";
+                
+                // Fallbacks to "#" if link is not provided in array yet
+                let masterLink = ch.link || "#";
+                let trapsLink = ch.trapsLink || "#";
+                let pracLink = ch.pracLink || "#";
+                let pracText = ch.pracText || "Practice Paper";
+                let hwLink = ch.hwLink || "#";
+                let subjLink = ch.subjLink || "#";
+                let lQuizLink = ch.lQuizLink || "#";
+                let cQuizLink = ch.cQuizLink || "#";
+
                 document.write(`
                 <details class="group/chapter bg-white p-6 rounded-2xl border-2 border-${color}-200 hover:border-${color}-400 shadow-sm hover:shadow-md transition-all shrink-0 w-[380px] snap-start" ${openAttr}>
                     <summary class="cursor-pointer select-none outline-none">
@@ -167,23 +178,23 @@
                         <div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Learn & Review</div>
                             <div class="space-y-1.5">
-                                <a href="${ch.link}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-${color}-50 hover:text-${color}-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-chalkboard-teacher text-${color}-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Intensive Masterclass</a>
-                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-orange-50 hover:text-orange-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-target text-orange-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ICSE Board Focus & Traps</a>
+                                <a href="${masterLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-${color}-50 hover:text-${color}-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-chalkboard-teacher text-${color}-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Intensive Masterclass</a>
+                                <a href="${trapsLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-orange-50 hover:text-orange-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-target text-orange-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ICSE Board Focus & Traps</a>
                             </div>
                         </div>
                         <div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Practice</div>
                             <div class="space-y-1.5">
-                                <a href="${ch.pracLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-rose-50 hover:text-rose-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-exam text-rose-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ${ch.pracText}</a>
-                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-house-line text-emerald-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Chapter Homework</a>
-                                <a href="#" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-purple-50 hover:text-purple-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-pen-nib text-purple-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Subjective</a>
+                                <a href="${pracLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-rose-50 hover:text-rose-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-exam text-rose-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> ${pracText}</a>
+                                <a href="${hwLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-house-line text-emerald-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Chapter Homework</a>
+                                <a href="${subjLink}" class="flex items-center text-sm font-medium text-slate-700 bg-slate-50 hover:bg-purple-50 hover:text-purple-700 p-2.5 rounded-lg transition-colors group"><i class="ph-fill ph-pen-nib text-purple-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Subjective</a>
                             </div>
                         </div>
                         <div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 pl-1">Assessments</div>
                             <div class="space-y-1.5">
-                                <a href="#" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-amber-50 hover:text-amber-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-lightbulb text-amber-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Learning Quiz</div></a>
-                                <a href="#" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-red-50 hover:text-red-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-timer text-red-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Classic Quiz</div><span class="text-[10px] font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded">15m</span></a>
+                                <a href="${lQuizLink}" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-amber-50 hover:text-amber-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-lightbulb text-amber-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Learning Quiz</div></a>
+                                <a href="${cQuizLink}" class="flex items-center justify-between text-sm font-medium text-slate-700 bg-slate-50 hover:bg-red-50 hover:text-red-700 p-2.5 rounded-lg transition-colors group"><div class="flex items-center"><i class="ph-fill ph-timer text-red-500 mr-3 text-lg group-hover:scale-110 transition-transform"></i> Classic Quiz</div><span class="text-[10px] font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded">15m</span></a>
                             </div>
                         </div>
                     </div>
@@ -366,9 +377,9 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const mathComm = [
-                                        {title: "Goods & Services Tax", icon: "ph-percent", desc: "Computation of tax, discounts, list-price, SGST and CGST.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Banking", icon: "ph-bank", desc: "Recurring Deposit Accounts: computation of interest & maturity value.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Shares & Dividends", icon: "ph-chart-line-up", desc: "Nominal Value, Market Value, Dividend, Premium and Return.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Goods & Services Tax", icon: "ph-percent", desc: "Computation of tax, discounts, list-price, SGST and CGST."},
+                                        {title: "Banking", icon: "ph-bank", desc: "Recurring Deposit Accounts: computation of interest & maturity value."},
+                                        {title: "Shares & Dividends", icon: "ph-chart-line-up", desc: "Nominal Value, Market Value, Dividend, Premium and Return."}
                                     ];
                                     renderChapters(mathComm, "amber");
                                 </script>
@@ -386,13 +397,13 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const mathAlg = [
-                                        {title: "Linear Inequations", icon: "ph-brackets-curly", desc: "Solving algebraically, set notation form, and number lines.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Quadratic Equations", icon: "ph-formula", desc: "Nature of roots, Factorisation, Quadratic Formula, word problems.", link: "quadratic_masterclass.html", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Ratio & Proportion", icon: "ph-scales", desc: "Componendo, dividendo, alternendo properties.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Factorisation", icon: "ph-intersect", desc: "Factor Theorem, Remainder Theorem, complete factorisation.", link: "#", pracLink: "practice_paper_1.html", pracText: "Practice Paper 1 Module 1"},
-                                        {title: "Matrices", icon: "ph-squares-four", desc: "Order, Addition, Subtraction, and Multiplication.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Arithmetic & GP", icon: "ph-trend-up", desc: "General term, Sum of 'n' terms, simple applications.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Coordinate Geometry", icon: "ph-graph", desc: "Reflection, Section formula, Equation of a line.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Linear Inequations", icon: "ph-brackets-curly", desc: "Solving algebraically, set notation form, and number lines."},
+                                        {title: "Quadratic Equations", icon: "ph-formula", desc: "Nature of roots, Factorisation, Quadratic Formula, word problems.", link: "quadratic_masterclass.html"},
+                                        {title: "Ratio & Proportion", icon: "ph-scales", desc: "Componendo, dividendo, alternendo properties."},
+                                        {title: "Factorisation", icon: "ph-intersect", desc: "Factor Theorem, Remainder Theorem, complete factorisation.", pracLink: "practice_paper_1.html", pracText: "Practice Paper 1 Module 1"},
+                                        {title: "Matrices", icon: "ph-squares-four", desc: "Order, Addition, Subtraction, and Multiplication."},
+                                        {title: "Arithmetic & GP", icon: "ph-trend-up", desc: "General term, Sum of 'n' terms, simple applications."},
+                                        {title: "Coordinate Geometry", icon: "ph-graph", desc: "Reflection, Section formula, Equation of a line."}
                                     ];
                                     renderChapters(mathAlg, "blue");
                                 </script>
@@ -410,9 +421,9 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const mathGeo = [
-                                        {title: "Similarity & Loci", icon: "ph-shapes", desc: "Size transformation, SSS/SAS/AA, BPT, Areas, Locus theorems.", link: "geometry_masterclass.html", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Circles", icon: "ph-circle", desc: "Angle properties, Cyclic properties, Tangents, and Secants.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Constructions", icon: "ph-ruler", desc: "Tangents, Inscribing/Circumscribing circles.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Similarity & Loci", icon: "ph-shapes", desc: "Size transformation, SSS/SAS/AA, BPT, Areas, Locus theorems.", link: "geometry_masterclass.html"},
+                                        {title: "Circles", icon: "ph-circle", desc: "Angle properties, Cyclic properties, Tangents, and Secants."},
+                                        {title: "Constructions", icon: "ph-ruler", desc: "Tangents, Inscribing/Circumscribing circles."}
                                     ];
                                     renderChapters(mathGeo, "emerald");
                                 </script>
@@ -430,8 +441,8 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const mathMens = [
-                                        {title: "Mensuration", icon: "ph-cylinder", desc: "Surface Area & Volume of Cylinder, Cone, Sphere (melting/recasting).", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Trigonometry", icon: "ph-triangle-right", desc: "Solving identities and Heights & Distances (2-D problems).", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Mensuration", icon: "ph-cylinder", desc: "Surface Area & Volume of Cylinder, Cone, Sphere (melting/recasting)."},
+                                        {title: "Trigonometry", icon: "ph-triangle-right", desc: "Solving identities and Heights & Distances (2-D problems)."}
                                     ];
                                     renderChapters(mathMens, "rose");
                                 </script>
@@ -449,8 +460,8 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const mathStat = [
-                                        {title: "Statistics", icon: "ph-chart-line", desc: "Mean, Median, Mode, Histograms, Ogive, Inter Quartile Range.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Probability", icon: "ph-dice-five", desc: "Random experiments, Sample space, Events, simple problems.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Statistics", icon: "ph-chart-line", desc: "Mean, Median, Mode, Histograms, Ogive, Inter Quartile Range."},
+                                        {title: "Probability", icon: "ph-dice-five", desc: "Random experiments, Sample space, Events, simple problems."}
                                     ];
                                     renderChapters(mathStat, "purple");
                                 </script>
@@ -478,9 +489,9 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const physMech = [
-                                        {title: "Force", icon: "ph-arrow-up-right", desc: "Turning forces, uniform circular motion, center of gravity.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Work, Energy & Power", icon: "ph-lightning", desc: "Work-energy theorem, conservation of energy, kinetic and potential.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Machines", icon: "ph-gear", desc: "Levers, pulleys, mechanical advantage, velocity ratio, efficiency.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Force", icon: "ph-arrow-up-right", desc: "Turning forces, uniform circular motion, center of gravity."},
+                                        {title: "Work, Energy & Power", icon: "ph-lightning", desc: "Work-energy theorem, conservation of energy, kinetic and potential."},
+                                        {title: "Machines", icon: "ph-gear", desc: "Levers, pulleys, mechanical advantage, velocity ratio, efficiency."}
                                     ];
                                     renderChapters(physMech, "teal");
                                 </script>
@@ -497,10 +508,10 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const physLightSound = [
-                                        {title: "Refraction at Plane Surfaces", icon: "ph-parallelogram", desc: "Laws of refraction, refractive index, apparent depth.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Refraction through Lenses", icon: "ph-magnifying-glass", desc: "Convex/concave lenses, image formation, power of a lens.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Spectrum", icon: "ph-rainbow", desc: "Dispersion, electromagnetic spectrum, UV and IR radiations.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Sound", icon: "ph-wave-sine", desc: "Echoes, natural, damped & forced vibrations, resonance.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Refraction at Plane Surfaces", icon: "ph-parallelogram", desc: "Laws of refraction, refractive index, apparent depth."},
+                                        {title: "Refraction through Lenses", icon: "ph-magnifying-glass", desc: "Convex/concave lenses, image formation, power of a lens."},
+                                        {title: "Spectrum", icon: "ph-rainbow", desc: "Dispersion, electromagnetic spectrum, UV and IR radiations."},
+                                        {title: "Sound", icon: "ph-wave-sine", desc: "Echoes, natural, damped & forced vibrations, resonance."}
                                     ];
                                     renderChapters(physLightSound, "sky");
                                 </script>
@@ -517,9 +528,9 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const physElec = [
-                                        {title: "Current Electricity", icon: "ph-plug-charging", desc: "Ohm's Law, specific resistance, series & parallel circuits.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Household Circuits", icon: "ph-house-line", desc: "Power distribution, fuses, earthing, 3-pin plugs.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Electromagnetism", icon: "ph-magnet", desc: "Magnetic field of a current, electromagnet, DC motor, AC generator.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Current Electricity", icon: "ph-plug-charging", desc: "Ohm's Law, specific resistance, series & parallel circuits."},
+                                        {title: "Household Circuits", icon: "ph-house-line", desc: "Power distribution, fuses, earthing, 3-pin plugs."},
+                                        {title: "Electromagnetism", icon: "ph-magnet", desc: "Magnetic field of a current, electromagnet, DC motor, AC generator."}
                                     ];
                                     renderChapters(physElec, "indigo");
                                 </script>
@@ -536,8 +547,8 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const physHeatModern = [
-                                        {title: "Calorimetry", icon: "ph-thermometer-hot", desc: "Heat capacity, latent heat, method of mixtures.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Radioactivity", icon: "ph-radioactive", desc: "Alpha, beta, gamma emission, nuclear fission and fusion.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Calorimetry", icon: "ph-thermometer-hot", desc: "Heat capacity, latent heat, method of mixtures."},
+                                        {title: "Radioactivity", icon: "ph-radioactive", desc: "Alpha, beta, gamma emission, nuclear fission and fusion."}
                                     ];
                                     renderChapters(physHeatModern, "rose");
                                 </script>
@@ -565,10 +576,10 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const chemPhys = [
-                                        {title: "Periodic Properties", icon: "ph-table", desc: "Variations in groups & periods, IP, EA, EN.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Chemical Bonding", icon: "ph-link", desc: "Electrovalent, covalent, co-ordinate bonds, dot structures.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Mole Concept", icon: "ph-scales", desc: "Gay Lussac's Law, V.D., Mass-Volume calcs.", link: "stoichiometry.html", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Electrolysis", icon: "ph-battery-charging", desc: "Electrolytes, selective discharge, electroplating.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Periodic Properties", icon: "ph-table", desc: "Variations in groups & periods, IP, EA, EN."},
+                                        {title: "Chemical Bonding", icon: "ph-link", desc: "Electrovalent, covalent, co-ordinate bonds, dot structures."},
+                                        {title: "Mole Concept", icon: "ph-scales", desc: "Gay Lussac's Law, V.D., Mass-Volume calcs.", link: "stoichiometry.html"},
+                                        {title: "Electrolysis", icon: "ph-battery-charging", desc: "Electrolytes, selective discharge, electroplating."}
                                     ];
                                     renderChapters(chemPhys, "fuchsia");
                                 </script>
@@ -585,10 +596,10 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const chemInorg = [
-                                        {title: "Acids, Bases & Salts", icon: "ph-drop", desc: "Definitions, ionisation, pH scale, preparation of salts.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Analytical Chemistry", icon: "ph-eye", desc: "Action of NH4OH and NaOH on salt solutions.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Metallurgy", icon: "ph-diamond", desc: "Ores, extraction stages, Hall Heroult's process, Alloys.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Study of Compounds", icon: "ph-flask", desc: "HCl, Ammonia, Nitric Acid, Sulphuric Acid.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Acids, Bases & Salts", icon: "ph-drop", desc: "Definitions, ionisation, pH scale, preparation of salts."},
+                                        {title: "Analytical Chemistry", icon: "ph-eye", desc: "Action of NH4OH and NaOH on salt solutions."},
+                                        {title: "Metallurgy", icon: "ph-diamond", desc: "Ores, extraction stages, Hall Heroult's process, Alloys."},
+                                        {title: "Study of Compounds", icon: "ph-flask", desc: "HCl, Ammonia, Nitric Acid, Sulphuric Acid."}
                                     ];
                                     renderChapters(chemInorg, "violet");
                                 </script>
@@ -605,7 +616,7 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const chemOrg = [
-                                        {title: "Organic Chemistry", icon: "ph-hexagon", desc: "IUPAC, Alkanes, Alkenes, Alkynes, Alcohols, Carboxylic acids.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Organic Chemistry", icon: "ph-hexagon", desc: "IUPAC, Alkanes, Alkenes, Alkynes, Alcohols, Carboxylic acids."}
                                     ];
                                     renderChapters(chemOrg, "pink");
                                 </script>
@@ -633,8 +644,8 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const bioBasic = [
-                                        {title: "Cell Cycle & Division", icon: "ph-spinner", desc: "Structure of chromosome, mitosis and meiosis.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Genetics", icon: "ph-tree-structure", desc: "Mendel's laws, monohybrid cross, sex-linked inheritance.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Cell Cycle & Division", icon: "ph-spinner", desc: "Structure of chromosome, mitosis and meiosis."},
+                                        {title: "Genetics", icon: "ph-tree-structure", desc: "Mendel's laws, monohybrid cross, sex-linked inheritance."}
                                     ];
                                     renderChapters(bioBasic, "orange");
                                 </script>
@@ -651,10 +662,10 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const bioPlant = [
-                                        {title: "Absorption by Roots", icon: "ph-plant", desc: "Imbibition, diffusion, osmosis, active transport.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Transpiration", icon: "ph-wind", desc: "Stomatal, cuticular, lenticular transpiration, potometer.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Photosynthesis", icon: "ph-sun", desc: "Light & dark reactions, factors affecting rate.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Chemical Coordination", icon: "ph-flask", desc: "Plant hormones: auxins, gibberellins, cytokinins.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Absorption by Roots", icon: "ph-plant", desc: "Imbibition, diffusion, osmosis, active transport."},
+                                        {title: "Transpiration", icon: "ph-wind", desc: "Stomatal, cuticular, lenticular transpiration, potometer."},
+                                        {title: "Photosynthesis", icon: "ph-sun", desc: "Light & dark reactions, factors affecting rate."},
+                                        {title: "Chemical Coordination", icon: "ph-flask", desc: "Plant hormones: auxins, gibberellins, cytokinins."}
                                     ];
                                     renderChapters(bioPlant, "emerald");
                                 </script>
@@ -671,11 +682,11 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const bioHuman = [
-                                        {title: "Circulatory System", icon: "ph-heart-beat", desc: "Blood, heart structure, double circulation, lymph.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Excretory System", icon: "ph-drop", desc: "Kidney structure, nephron, urine formation.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Nervous System", icon: "ph-brain", desc: "Brain, spinal cord, reflex action, sense organs.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Endocrine System", icon: "ph-activity", desc: "Hormones, pituitary, thyroid, adrenal, pancreas.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Reproductive System", icon: "ph-gender-intersex", desc: "Male/female organs, fertilization, menstrual cycle.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Circulatory System", icon: "ph-heart-beat", desc: "Blood, heart structure, double circulation, lymph."},
+                                        {title: "Excretory System", icon: "ph-drop", desc: "Kidney structure, nephron, urine formation."},
+                                        {title: "Nervous System", icon: "ph-brain", desc: "Brain, spinal cord, reflex action, sense organs."},
+                                        {title: "Endocrine System", icon: "ph-activity", desc: "Hormones, pituitary, thyroid, adrenal, pancreas."},
+                                        {title: "Reproductive System", icon: "ph-gender-intersex", desc: "Male/female organs, fertilization, menstrual cycle."}
                                     ];
                                     renderChapters(bioHuman, "red");
                                 </script>
@@ -692,9 +703,9 @@
                             <div class="flex overflow-x-auto scroll-row pb-6 gap-6 snap-x">
                                 <script>
                                     const bioEvolEnv = [
-                                        {title: "Population", icon: "ph-users-three", desc: "Population explosion, demographic terms, control.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Human Evolution", icon: "ph-person-simple-walk", desc: "Theories of evolution, Lamarck, Darwin, ancestors.", link: "#", pracLink: "#", pracText: "Practice Paper"},
-                                        {title: "Pollution", icon: "ph-factory", desc: "Types, sources, biodegradable wastes, effects.", link: "#", pracLink: "#", pracText: "Practice Paper"}
+                                        {title: "Population", icon: "ph-users-three", desc: "Population explosion, demographic terms, control."},
+                                        {title: "Human Evolution", icon: "ph-person-simple-walk", desc: "Theories of evolution, Lamarck, Darwin, ancestors."},
+                                        {title: "Pollution", icon: "ph-factory", desc: "Types, sources, biodegradable wastes, effects."}
                                     ];
                                     renderChapters(bioEvolEnv, "amber");
                                 </script>
