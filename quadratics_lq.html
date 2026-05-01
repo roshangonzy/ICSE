@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic League - Learning Quiz</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Animations */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-in forwards; }
+        
+        .delay-100 { animation-delay: 100ms; }
+        
+        /* Quiz Option States */
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .option-btn:active:not(:disabled) { transform: translateY(0); }
+        
+        .option-correct { background-color: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46 !important; }
+        .option-wrong { background-color: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        .option-disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-amber-600 font-semibold transition-colors group">
+                    <div class="bg-slate-100 group-hover:bg-amber-100 p-2 rounded-lg mr-3 transition-colors">
+                        <i class="ph-bold ph-arrow-left text-lg"></i>
+                    </div>
+                    Back to Portal
+                </a>
+                
+                <div class="flex items-center text-slate-400 text-sm font-bold tracking-widest uppercase">
+                    <i class="ph-fill ph-lightbulb mr-2 text-amber-500"></i> Formative Assessment
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <header class="mb-8 animate-slide-up text-center">
+            <div class="inline-flex items-center justify-center mb-4">
+                <span class="bg-amber-100 text-amber-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mr-3">Algebra</span>
+                <span class="text-slate-400 text-sm font-medium"><i class="ph-fill ph-brain mr-1"></i> Interactive Review</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Quadratic Equations</h1>
+            <p class="text-slate-500 font-medium mt-3">Learn as you go. Instant feedback and explanations.</p>
+        </header>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden animate-slide-up delay-100">
+            
+            <!-- Progress Bar Section -->
+            <div class="bg-slate-50 border-b border-slate-200 p-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-bold text-slate-500 uppercase tracking-widest" id="question-tracker">Question 1 of 5</span>
+                    <span class="text-sm font-bold text-amber-600" id="score-tracker">Score: 0</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2">
+                    <div id="progress-bar" class="bg-amber-500 h-2 rounded-full transition-all duration-500" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="p-6 md:p-8">
+                <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed mb-8">
+                    Loading question...
+                </h2>
+
+                <!-- Options -->
+                <div id="options-container" class="space-y-3 mb-8">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <!-- Hint Button & Area -->
+                <div class="mb-6">
+                    <button id="hint-btn" onclick="toggleHint()" class="flex items-center text-sm font-bold text-amber-500 hover:text-amber-600 transition-colors">
+                        <i class="ph-bold ph-question mr-2 text-lg"></i> Need a hint?
+                    </button>
+                    <div id="hint-text" class="hidden mt-3 p-4 bg-amber-50 border border-amber-100 rounded-xl text-amber-800 text-sm font-medium animate-fade-in">
+                        <!-- Hint injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Feedback & Explanation (Hidden initially) -->
+                <div id="feedback-area" class="hidden animate-fade-in">
+                    <div class="p-5 rounded-2xl mb-6 border" id="explanation-box">
+                        <div class="flex items-center mb-2">
+                            <i id="feedback-icon" class="ph-fill text-2xl mr-3"></i>
+                            <h3 id="feedback-title" class="font-bold text-lg"></h3>
+                        </div>
+                        <p id="explanation-text" class="text-slate-700 text-sm leading-relaxed"></p>
+                    </div>
+                    
+                    <button id="next-btn" onclick="nextQuestion()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 rounded-xl shadow-md transition-colors flex justify-center items-center">
+                        Continue to Next Question <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Container (Hidden initially) -->
+        <div id="results-container" class="hidden bg-white rounded-3xl border border-slate-200 shadow-lg overflow-hidden animate-slide-up text-center p-10">
+            <div class="inline-flex items-center justify-center h-24 w-24 rounded-full bg-amber-50 border-4 border-amber-100 mb-6 text-amber-500 text-5xl">
+                <i class="ph-fill ph-trophy"></i>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Quiz Completed!</h2>
+            <p class="text-slate-500 font-medium mb-8">You've successfully reviewed this module.</p>
+            
+            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 inline-block mb-8 min-w-[200px]">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Final Score</p>
+                <p class="text-4xl font-extrabold text-slate-800" id="final-score-text">4 / 5</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="location.reload()" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-3 px-6 rounded-xl transition-colors">
+                    Try Again
+                </button>
+                <a href="index.html" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-xl shadow-md transition-colors flex items-center justify-center">
+                    Return to Portal <i class="ph-bold ph-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Quiz Engine Logic -->
+    <script>
+        // ==========================================
+        // 📥 PASTE YOUR GENERATED QUESTIONS HERE 📥
+        // ==========================================
+        const quizData = [
+            {
+                question: "What is the formula to find the Discriminant (Δ) of a quadratic equation ax² + bx + c = 0?",
+                options: [
+                    "b² + 4ac",
+                    "b² - 4ac",
+                    "-b ± √4ac",
+                    "a² - 4bc"
+                ],
+                correctIndex: 1,
+                hint: "Think about the part of the Quadratic Formula that sits inside the square root.",
+                explanation: "The discriminant is strictly b² - 4ac. It 'discriminates' or reveals the nature of the roots without having to solve the entire equation."
+            },
+            {
+                question: "If the discriminant Δ is exactly 0, what is the nature of the roots?",
+                options: [
+                    "Real and Distinct (Unequal)",
+                    "Imaginary (No Real Roots)",
+                    "Real and Equal (Coincident)",
+                    "Rational and Unequal"
+                ],
+                correctIndex: 2,
+                hint: "If the + and - part of the formula adds/subtracts zero, what happens to the two answers?",
+                explanation: "When Δ = 0, the equation yields exactly one repeated root. They are real and equal. In graphing terms, the parabola perfectly touches the x-axis at one point."
+            },
+            {
+                question: "Solve by factorisation: x² - 5x + 6 = 0. What are the roots?",
+                options: [
+                    "x = 2, x = 3",
+                    "x = -2, x = -3",
+                    "x = 1, x = 6",
+                    "x = -1, x = -6"
+                ],
+                correctIndex: 0,
+                hint: "Find two numbers that multiply to +6 and add up to -5.",
+                explanation: "The numbers are -2 and -3. Splitting the middle term: x² - 2x - 3x + 6 = 0 ➔ x(x - 2) - 3(x - 2) = 0 ➔ (x - 2)(x - 3) = 0. Therefore, x = 2 or x = 3."
+            },
+            {
+                question: "According to strict ICSE step-marking, what MUST be written after factorising (x-4)(x+1) = 0 before writing the final roots?",
+                options: [
+                    "The Quadratic Formula",
+                    "The discriminant value",
+                    "Either (x-4) = 0 OR (x+1) = 0",
+                    "Hence proved."
+                ],
+                correctIndex: 2,
+                hint: "It's called the Zero Product Rule.",
+                explanation: "The Zero Product Rule dictates that if two factors multiply to zero, at least one of them must be zero. Stating 'Either (x-4) = 0 OR (x+1) = 0' carries a dedicated step mark in ICSE exams."
+            },
+            {
+                question: "A quadratic equation is given as 2x² - px + 8 = 0. If it has real and equal roots, find the positive value of p.",
+                options: [
+                    "p = 4",
+                    "p = 8",
+                    "p = 16",
+                    "p = 64"
+                ],
+                correctIndex: 1,
+                hint: "For real and equal roots, b² - 4ac = 0. Here a=2, b=-p, c=8.",
+                explanation: "Set Δ = 0. So, (-p)² - 4(2)(8) = 0 ➔ p² - 64 = 0 ➔ p² = 64. Taking the square root, p = ±8. The positive value is 8."
+            }
+        ];
+        // ==========================================
+        // ⬆️ END OF QUESTIONS DATA ⬆️
+        // ==========================================
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let hasAnswered = false;
+
+        const questionTracker = document.getElementById('question-tracker');
+        const progressBar = document.getElementById('progressBar');
+        const scoreTracker = document.getElementById('score-tracker');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const hintBtn = document.getElementById('hint-btn');
+        const hintText = document.getElementById('hint-text');
+        const feedbackArea = document.getElementById('feedback-area');
+        const explanationBox = document.getElementById('explanation-box');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const explanationText = document.getElementById('explanation-text');
+
+        function initQuiz() {
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            hasAnswered = false;
+            const q = quizData[currentQuestionIndex];
+            
+            // Update Headers
+            questionTracker.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            
+            questionText.innerText = q.question;
+            
+            // Reset Hint
+            hintText.classList.add('hidden');
+            hintText.innerText = q.hint;
+            hintBtn.classList.remove('hidden');
+
+            // Reset Feedback
+            feedbackArea.classList.add('hidden');
+
+            // Generate Options
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-4 rounded-xl border-2 border-slate-100 bg-white text-slate-700 font-medium hover:bg-slate-50 flex items-center";
+                btn.innerHTML = `<span class="h-8 w-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center font-bold mr-4 shrink-0">${String.fromCharCode(65 + index)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, selectedBtn) {
+            if (hasAnswered) return;
+            hasAnswered = true;
+
+            const q = quizData[currentQuestionIndex];
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
+            
+            // Disable all buttons
+            allBtns.forEach(b => {
+                b.disabled = true;
+                b.classList.add('option-disabled');
+                b.classList.remove('hover:bg-slate-50');
+            });
+
+            // Check correct/wrong
+            if (selectedIndex === q.correctIndex) {
+                score++;
+                scoreTracker.innerText = `Score: ${score}`;
+                selectedBtn.classList.remove('option-disabled', 'border-slate-100');
+                selectedBtn.classList.add('option-correct');
+                
+                feedbackIcon.className = "ph-fill ph-check-circle text-2xl mr-3 text-emerald-500";
+                feedbackTitle.innerText = "Excellent!";
+                feedbackTitle.className = "font-bold text-lg text-emerald-800";
+                explanationBox.className = "p-5 rounded-2xl mb-6 border border-emerald-200 bg-emerald-50";
+            } else {
+                selectedBtn.classList.remove('option-disabled', 'border-slate-100');
+                selectedBtn.classList.add('option-wrong');
+                
+                // Highlight correct answer
+                const correctBtn = allBtns[q.correctIndex];
+                correctBtn.classList.remove('option-disabled', 'border-slate-100');
+                correctBtn.classList.add('option-correct');
+
+                feedbackIcon.className = "ph-fill ph-warning-circle text-2xl mr-3 text-red-500";
+                feedbackTitle.innerText = "Not quite!";
+                feedbackTitle.className = "font-bold text-lg text-red-800";
+                explanationBox.className = "p-5 rounded-2xl mb-6 border border-red-200 bg-red-50";
+            }
+
+            // Show explanation
+            explanationText.innerText = q.explanation;
+            hintBtn.classList.add('hidden');
+            hintText.classList.add('hidden');
+            feedbackArea.classList.remove('hidden');
+
+            // Update Progress Bar to include current answered question
+            const progressPercent = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            
+            // Change Next button text if last question
+            if (currentQuestionIndex === quizData.length - 1) {
+                document.getElementById('next-btn').innerHTML = `See Final Results <i class="ph-bold ph-flag-checkered ml-2"></i>`;
+            }
+        }
+
+        function toggleHint() {
+            hintText.classList.toggle('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.querySelector('header').classList.add('hidden');
+            
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.classList.remove('hidden');
+            document.getElementById('final-score-text').innerText = `${score} / ${quizData.length}`;
+        }
+
+        // Start Quiz on Load
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
