@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic League - Board Focus & Traps</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Animations */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Back Button -->
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-orange-600 font-semibold transition-colors group">
+                    <div class="bg-slate-100 group-hover:bg-orange-100 p-2 rounded-lg mr-3 transition-colors">
+                        <i class="ph-bold ph-arrow-left text-lg"></i>
+                    </div>
+                    Back to Portal
+                </a>
+                
+                <div class="flex items-center text-slate-400 text-sm font-bold tracking-widest uppercase">
+                    <i class="ph-fill ph-target mr-2 text-orange-500"></i> Examiner Focus Series
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Hero Section -->
+        <header class="mb-12 animate-slide-up">
+            <div class="flex items-center mb-4">
+                <span class="bg-orange-100 text-orange-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mr-3">Algebra</span>
+                <span class="text-slate-400 text-sm font-medium"><i class="ph-fill ph-clock mr-1"></i> 15 Mins</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 flex items-center">
+                Quadratic Equations <span class="ml-4 text-orange-500 bg-orange-50 px-4 py-1 rounded-xl text-2xl uppercase tracking-widest border border-orange-200">Traps</span>
+            </h1>
+            <p class="text-lg text-slate-500 font-medium leading-relaxed max-w-2xl">
+                A curated list of strict ICSE step-marking requirements, examiner comments, and the most common pitfalls that cost students full marks.
+            </p>
+        </header>
+
+        <!-- Traps Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Trap Card 1 -->
+            <div class="bg-white rounded-3xl p-1 border border-slate-200 shadow-sm animate-slide-up delay-100 hover:shadow-md transition-shadow">
+                <div class="bg-slate-50 rounded-[22px] p-6 h-full flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-red-100 text-red-600 p-2.5 rounded-lg mr-3">
+                                <i class="ph-bold ph-warning text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800">The "Missing Root" Trap</h3>
+                        </div>
+                        <span class="bg-slate-200 text-slate-600 text-[10px] font-extrabold px-2 py-1 rounded uppercase tracking-wider">High Frequency</span>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-red-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-red-400"></div>
+                            <p class="text-sm font-bold text-red-600 mb-1 uppercase tracking-widest">The Mistake</p>
+                            <p class="text-slate-600 font-medium">Taking the square root of both sides but forgetting the ± sign. <br><code class="bg-slate-100 text-red-600 px-2 py-0.5 rounded mt-2 inline-block">x² = 16 ➔ x = 4</code></p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400"></div>
+                            <p class="text-sm font-bold text-emerald-600 mb-1 uppercase tracking-widest">The Fix</p>
+                            <p class="text-slate-600 font-medium">Quadratic equations <strong>must</strong> have two roots. Always write the ± sign immediately. <br><code class="bg-slate-100 text-emerald-600 px-2 py-0.5 rounded mt-2 inline-block">x = ±√16 ➔ x = 4, x = -4</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trap Card 2 -->
+            <div class="bg-white rounded-3xl p-1 border border-slate-200 shadow-sm animate-slide-up delay-200 hover:shadow-md transition-shadow">
+                <div class="bg-slate-50 rounded-[22px] p-6 h-full flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-amber-100 text-amber-600 p-2.5 rounded-lg mr-3">
+                                <i class="ph-bold ph-text-b text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800">Decimal Instruction Trap</h3>
+                        </div>
+                        <span class="bg-red-100 text-red-600 text-[10px] font-extrabold px-2 py-1 rounded uppercase tracking-wider">Critical</span>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-amber-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-400"></div>
+                            <p class="text-sm font-bold text-amber-600 mb-1 uppercase tracking-widest">The Mistake</p>
+                            <p class="text-slate-600 font-medium">Leaving the final answer in surd form (e.g., √13) or fraction form when the question specifically states "Correct to 2 decimal places".</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400"></div>
+                            <p class="text-sm font-bold text-emerald-600 mb-1 uppercase tracking-widest">The Fix</p>
+                            <p class="text-slate-600 font-medium">Use the Quadratic Formula. Calculate to <strong>three</strong> decimal places, then properly round off to <strong>two</strong>. <br><code class="bg-slate-100 text-emerald-600 px-2 py-0.5 rounded mt-2 inline-block">2.456 ➔ 2.46</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trap Card 3 -->
+            <div class="bg-white rounded-3xl p-1 border border-slate-200 shadow-sm animate-slide-up delay-300 hover:shadow-md transition-shadow">
+                <div class="bg-slate-50 rounded-[22px] p-6 h-full flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 text-purple-600 p-2.5 rounded-lg mr-3">
+                                <i class="ph-bold ph-list-numbers text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800">Zero Product Rule Skipped</h3>
+                        </div>
+                        <span class="bg-orange-100 text-orange-700 text-[10px] font-extrabold px-2 py-1 rounded uppercase tracking-wider">Step-Mark Loss</span>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-purple-400"></div>
+                            <p class="text-sm font-bold text-purple-600 mb-1 uppercase tracking-widest">The Mistake</p>
+                            <p class="text-slate-600 font-medium">Jumping directly from factorisation to the final roots without showing the logical deduction. <br><code class="bg-slate-100 text-red-500 px-2 py-0.5 rounded mt-2 inline-block">(x-3)(x+2) = 0 ➔ x = 3, -2</code></p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400"></div>
+                            <p class="text-sm font-bold text-emerald-600 mb-1 uppercase tracking-widest">The Fix</p>
+                            <p class="text-slate-600 font-medium">ICSE strictly requires you to state: <br><code class="bg-slate-100 text-emerald-600 px-2 py-0.5 rounded mt-2 inline-block">Either (x-3) = 0 OR (x+2) = 0</code> <br>This line carries a dedicated step mark!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trap Card 4 -->
+            <div class="bg-white rounded-3xl p-1 border border-slate-200 shadow-sm animate-slide-up delay-300 hover:shadow-md transition-shadow">
+                <div class="bg-slate-50 rounded-[22px] p-6 h-full flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 text-blue-600 p-2.5 rounded-lg mr-3">
+                                <i class="ph-bold ph-math-operations text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800">Discriminant Sign Error</h3>
+                        </div>
+                        <span class="bg-slate-200 text-slate-600 text-[10px] font-extrabold px-2 py-1 rounded uppercase tracking-wider">Calculation</span>
+                    </div>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-400"></div>
+                            <p class="text-sm font-bold text-blue-600 mb-1 uppercase tracking-widest">The Mistake</p>
+                            <p class="text-slate-600 font-medium">Mishandling double negative signs when calculating <strong>b² - 4ac</strong>, especially when 'c' is negative. <br><code class="bg-slate-100 text-red-500 px-2 py-0.5 rounded mt-2 inline-block">4 - 4(1)(-3) ➔ 4 - 12 = -8</code></p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400"></div>
+                            <p class="text-sm font-bold text-emerald-600 mb-1 uppercase tracking-widest">The Fix</p>
+                            <p class="text-slate-600 font-medium">Use brackets religiously to separate the operation from the negative value. <br><code class="bg-slate-100 text-emerald-600 px-2 py-0.5 rounded mt-2 inline-block">4 - [4 × 1 × (-3)] ➔ 4 - [-12] ➔ 4 + 12 = 16</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Action Area -->
+        <div class="flex justify-center mt-12 animate-slide-up" style="animation-delay: 400ms;">
+            <button onclick="alert('Board Traps Reviewed! You are now prepared to tackle the Practice Paper.')" class="bg-orange-600 hover:bg-orange-700 text-white text-lg font-bold py-4 px-10 rounded-2xl shadow-lg shadow-orange-200 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center group">
+                <i class="ph-bold ph-shield-check mr-3 text-2xl group-hover:scale-110 transition-transform"></i>
+                Mark Module as Reviewed
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-orange-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-orange-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">ICSE Grade 10 • Examiner Focus Series</p>
+        </div>
+    </footer>
+
+</body>
+</html>
