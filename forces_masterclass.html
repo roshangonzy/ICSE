@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Force & Turning Effects</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #22c55e; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-emerald-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-emerald-400 to-teal-700 flex items-center justify-center shadow-lg shadow-teal-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-arrow-u-down-right text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-teal-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 1.1
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Force & <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-800">Turning Effects</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">A rigorous breakdown of the Moment of Force, Couples, Principle of Moments, Centre of Gravity mechanics, and Uniform Circular Motion.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 1. Translational vs. Rotational Motion</a>
+                <a href="#section-2" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 2. Moment of Force (Torque)</a>
+                <a href="#section-3" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 3. Couple & Its Moment</a>
+                <a href="#section-4" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 4. Equilibrium & Principle of Moments</a>
+                <a href="#section-5" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 5. Centre of Gravity (CG)</a>
+                <a href="#section-6" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 6. Uniform Circular Motion</a>
+                <a href="#section-7" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 7. Centripetal vs. Centrifugal Forces</a>
+                <a href="#section-8" class="hover:text-emerald-600 flex items-center"><i class="ph-bold ph-caret-right text-emerald-400 mr-2"></i> 8. Final Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Translational & Rotational Motion -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
+                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
+                    Translational vs. Rotational Motion
+                </h2>
+                
+                <p>When a force acts on a rigid body, the resulting motion depends entirely on whether the body is free to move or pivoted at a specific point.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-blue-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-3 flex items-center"><i class="ph-bold ph-arrow-right text-blue-500 mr-2 text-2xl"></i>Translational Motion</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-0">When a force acts on a <strong>free, stationary rigid body</strong>, the body moves in a straight line in the direction of the applied force. Every particle of the body moves with the same velocity.</p>
+                        <p class="text-xs text-slate-500 mt-3 font-medium"><em>Example: Pushing a book across a flat table.</em></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-emerald-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-3 flex items-center"><i class="ph-bold ph-arrows-clockwise text-emerald-500 mr-2 text-2xl"></i>Rotational Motion</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-0">If the body is <strong>pivoted (hinged) at a point</strong>, the applied force does not move the body linearly. Instead, it turns or rotates the body about the fixed point or axis of rotation.</p>
+                        <p class="text-xs text-slate-500 mt-3 font-medium"><em>Example: Pushing a door to open it.</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Moment of Force (Torque) -->
+            <section id="section-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-emerald-100 text-emerald-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
+                    Moment of Force (Torque)
+                </h2>
+
+                <p>The turning effect of a force acting on a body about an axis is called the <strong>Moment of Force</strong> (or Torque).</p>
+
+                <div class="grad-formula p-8 rounded-3xl my-8 relative overflow-hidden shadow-sm flex flex-col items-center">
+                    <h4 class="font-bold text-green-900 mb-4 text-lg">Mathematical Formulation</h4>
+                    <p class="text-sm text-green-800 mb-4 text-center">Torque is equal to the product of the magnitude of the force and the <strong>perpendicular distance</strong> of the line of action of the force from the axis of rotation.</p>
+                    
+                    <div class="bg-white/90 px-10 py-5 rounded-2xl border border-green-200 shadow-md text-center w-full max-w-md">
+                        <p class="m-0 text-3xl text-slate-900 font-bold font-mono">
+                            $$ \tau = F \times d $$
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm my-6">
+                    <h3 class="font-bold text-slate-800 text-xl mb-4 border-b border-slate-100 pb-2">Crucial Unit Conversions</h3>
+                    <p class="text-sm text-slate-600 mb-4">The SI unit of moment of force is <strong>Newton-metre ($N\cdot m$)</strong>. The CGS unit is <strong>dyne-cm</strong>. In gravitational units, it is measured in $kgf\cdot m$ or $gf\cdot cm$.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-sm">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-center text-slate-800 font-bold">
+                            $1 \text{ N}\cdot\text{m} = 10^7 \text{ dyne}\cdot\text{cm}$
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-center text-slate-800 font-bold">
+                            $1 \text{ kgf}\cdot\text{m} = 9.8 \text{ N}\cdot\text{m}$
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-center text-slate-800 font-bold">
+                            $1 \text{ gf}\cdot\text{cm} = 980 \text{ dyne}\cdot\text{cm}$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grad-trap p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-rose-900 mb-2 flex items-center"><i class="ph-fill ph-warning-octagon text-rose-600 mr-2 text-2xl"></i>ICSE Deadly Trap: Work vs. Torque</h3>
+                    <p class="text-rose-800 text-sm m-0">Both Work and Torque have the formula $Force \times Distance$, but they are fundamentally different! Work is a scalar quantity (Unit: Joule). Torque is a <strong>vector quantity</strong> (Unit: $N\cdot m$). <br><br><strong>NEVER write Joule as the unit for Moment of Force.</strong> The ICSE examiner will instantly give you a 0 for that part.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-4">Sign Convention for Vector Direction</h3>
+                <ul class="list-disc pl-5 space-y-2 text-slate-700">
+                    <li>If the force turns the body in an <strong>Anticlockwise</strong> direction, the moment is taken as <strong>Positive ($+$)</strong>.</li>
+                    <li>If the force turns the body in a <strong>Clockwise</strong> direction, the moment is taken as <strong>Negative ($-$)</strong>.</li>
+                </ul>
+            </section>
+
+            <!-- SECTION 3: Couple & Its Moment -->
+            <section id="section-3">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-blue-100 text-blue-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
+                    Couple & Its Moment
+                </h2>
+
+                <p>In practice, a single force rarely causes pure rotation. Turning a steering wheel or opening a water tap requires two hands applying force in opposite directions.</p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-2xl my-6">
+                    <h3 class="font-bold text-blue-900 mb-2">Formal Definition:</h3>
+                    <p class="text-blue-800 text-sm m-0">Two <strong>equal, opposite, and parallel forces</strong> not acting along the same line, form a Couple. A couple is always required to produce pure rotation.</p>
+                </div>
+
+                <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm my-6 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-slate-800 mb-3 text-lg">Moment of a Couple</h4>
+                        <p class="text-sm text-slate-600 mb-4">The moment of a couple is equal to the product of <strong>either force</strong> and the <strong>perpendicular distance</strong> between the lines of action of both forces (called the couple arm).</p>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center font-mono font-bold text-slate-800 border border-slate-100">
+                            $$ \text{Moment of Couple} = F \times d $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Equilibrium -->
+            <section id="section-4">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    Equilibrium & Principle of Moments
+                </h2>
+
+                <p>When a number of forces act on a body, and it does not change its state of rest or of uniform motion, the body is said to be in <strong>equilibrium</strong>.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">1. Static Equilibrium</h3>
+                        <p class="text-sm text-slate-600">When a body remains in a state of rest under the influence of several forces. <br><em>Example: A book resting on a table (Weight downwards is balanced by Normal Reaction upwards).</em></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-800 text-lg mb-2">2. Dynamic Equilibrium</h3>
+                        <p class="text-sm text-slate-600">When a body remains in a state of uniform motion under the influence of several forces. <br><em>Example: A raindrop falling with a constant terminal velocity.</em></p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-8 md:p-10 rounded-[2rem] shadow-xl relative overflow-hidden my-10 border border-slate-800">
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-emerald-500/20 text-emerald-400 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-emerald-500/30">
+                            Core Law
+                        </div>
+                        <h3 class="font-bold text-2xl mb-4 text-white">The Principle of Moments</h3>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed">According to the principle of moments, if a body is in rotational equilibrium, the sum of the anticlockwise moments about any point is equal to the sum of the clockwise moments about that point.</p>
+                        
+                        <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 text-center mb-4">
+                            <p class="text-2xl font-mono font-bold text-emerald-400 m-0">$$ \sum \text{Anticlockwise Moments} = \sum \text{Clockwise Moments} $$</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-amber-500 pl-4 py-1 mt-6">
+                            <p class="text-sm text-amber-400 m-0 font-bold uppercase tracking-wider">Conditions for Equilibrium:</p>
+                            <ul class="text-sm text-slate-300 mt-2 space-y-1 list-disc pl-4">
+                                <li>The resultant of all forces acting on the body must be zero.</li>
+                                <li>The algebraic sum of moments of all forces about the point of rotation must be zero.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: Centre of Gravity -->
+            <section id="section-5">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-indigo-100 text-indigo-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    Centre of Gravity (CG)
+                </h2>
+
+                <p>A body can be considered to be made up of thousands of tiny particles. The earth pulls every particle downwards. The <strong>Centre of Gravity</strong> is the specific point about which the algebraic sum of moments of weights of all the particles constituting the body is zero. The entire weight of the body is considered to act at this single point.</p>
+
+                <div class="grad-pro p-6 rounded-2xl my-6 border border-fuchsia-100">
+                    <h3 class="font-bold text-fuchsia-900 mb-2 flex items-center text-lg"><i class="ph-fill ph-question text-fuchsia-600 mr-2 text-2xl"></i>Can the CG lie outside the material of the body?</h3>
+                    <p class="text-fuchsia-800 text-sm m-0">Yes! The CG of a uniform ring (like a bangle or a boomerang) lies at its geometric center, which is entirely in the empty space outside the solid mass.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-6 text-center border-b border-slate-200 pb-2">High-Yield CG Table</h3>
+                <div class="overflow-x-auto my-6 shadow-sm rounded-xl border border-slate-200">
+                    <table class="w-full text-left border-collapse min-w-[600px] bg-white">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                <th class="p-4 border-b border-slate-200 font-bold">Shape of Uniform Body</th>
+                                <th class="p-4 border-b border-slate-200 font-bold text-indigo-700">Position of Centre of Gravity</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-600">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Uniform Metre Rule / Rod</td>
+                                <td class="p-4">Mid-point of the rod (50 cm mark).</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Circular Disc</td>
+                                <td class="p-4">Geometric centre of the disc.</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-indigo-50/50">
+                                <td class="p-4 font-semibold text-indigo-900">Solid Cylinder</td>
+                                <td class="p-4 font-medium text-indigo-800">Mid-point on the axis of the cylinder.</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Hollow Cylinder</td>
+                                <td class="p-4">Mid-point on the axis of the cylinder.</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-rose-50/30">
+                                <td class="p-4 font-bold text-rose-800 border-l-4 border-rose-500">Solid Cone</td>
+                                <td class="p-4 font-bold text-rose-800">At a height $h/4$ from the base on its axis.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors bg-amber-50/30">
+                                <td class="p-4 font-bold text-amber-800 border-l-4 border-amber-500">Hollow Cone</td>
+                                <td class="p-4 font-bold text-amber-800">At a height $h/3$ from the base on its axis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 6: Uniform Circular Motion -->
+            <section id="section-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-cyan-100 text-cyan-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Uniform Circular Motion
+                </h2>
+
+                <p>When a particle moves with a constant speed in a circular path, its motion is called uniform circular motion.</p>
+
+                <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm my-6">
+                    <h4 class="font-bold text-slate-800 text-lg mb-4 border-b border-slate-100 pb-2">The Speed vs. Velocity Distinction</h4>
+                    <p class="text-sm text-slate-700 leading-relaxed mb-4">In uniform circular motion, the <strong>speed is strictly constant</strong>. However, because the particle is continuously changing its direction at every point on the circle, its <strong>velocity is continuously changing</strong>.</p>
+                    <p class="text-sm text-slate-700 leading-relaxed m-0">Since velocity changes, uniform circular motion is always an <strong>accelerated motion</strong>. The direction of velocity at any point is along the tangent to the circle at that point.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Centripetal vs Centrifugal -->
+            <section id="section-7">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">7</span>
+                    Centripetal & Centrifugal Forces
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+                    <!-- Centripetal -->
+                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 text-emerald-200/50 text-8xl pointer-events-none"><i class="ph-bold ph-arrows-in"></i></div>
+                        <h3 class="font-bold text-emerald-900 text-xl mb-3 relative z-10">Centripetal Force</h3>
+                        <p class="text-sm text-emerald-800 mb-3 relative z-10">A <strong>real force</strong> acting on a body moving in a circular path, in a direction towards the centre of the circular path.</p>
+                        <p class="text-sm text-emerald-800 font-medium relative z-10"><em>Example: Tension in the string when whirling a stone; Gravitational force of the sun on planets.</em></p>
+                    </div>
+
+                    <!-- Centrifugal -->
+                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 text-rose-200/50 text-8xl pointer-events-none"><i class="ph-bold ph-arrows-out"></i></div>
+                        <h3 class="font-bold text-rose-900 text-xl mb-3 relative z-10">Centrifugal Force</h3>
+                        <p class="text-sm text-rose-800 mb-3 relative z-10">A <strong>fictitious (pseudo) force</strong> assumed by an observer moving with the body to explain their outward push. It acts radially outwards.</p>
+                        <p class="text-sm text-rose-800 font-medium relative z-10"><em>It is NOT a real force. It is the result of inertia.</em></p>
+                    </div>
+                </div>
+
+                <div class="grad-trap p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-rose-900 mb-2 flex items-center"><i class="ph-fill ph-warning-octagon text-rose-600 mr-2 text-2xl"></i>Action & Reaction Myth</h3>
+                    <p class="text-rose-800 text-sm m-0">Students often state "Centrifugal force is the reaction force to Centripetal force". <strong>This is completely wrong.</strong> Action and reaction forces act on <em>different</em> bodies. Both centripetal and centrifugal forces act on the <em>same</em> body. The reaction to the tension pulling the stone inwards (centripetal) is the stone pulling the hand outwards.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 8: Exam Checklist -->
+            <section id="section-8">
+                <div class="bg-gradient-to-br from-teal-50 to-emerald-100 rounded-[2rem] shadow-sm border border-teal-200 p-8 md:p-12 mt-16 relative overflow-hidden">
+                    <i class="ph-fill ph-target absolute -right-10 -top-10 text-emerald-500/10 text-[250px] pointer-events-none"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-teal-600 text-white text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-md shadow-teal-600/30">
+                            <i class="ph-fill ph-warning-circle mr-2"></i> High Yield Board Material
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mb-8">
+                            Final Exam Trap Checklist
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <!-- Trap 1 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-teal-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-rose-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-hand-pointing text-rose-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The "Perpendicular" Keyword</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">When defining Moment of Force, writing "Force $\times$ distance" gets 0 marks. You MUST write "Force $\times$ <strong>perpendicular distance</strong> of the line of action from the pivot".</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 2 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-teal-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-amber-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-scales text-amber-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Metre Rule Numericals</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Always remember that a "uniform metre rule" has its own weight acting exactly at the <strong>50 cm mark</strong>. Students constantly forget to include the weight of the scale itself when calculating moments in equilibrium numericals.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 3 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-teal-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-emerald-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-cone text-emerald-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Solid vs. Hollow Cone</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Memorize the table: Solid Cone CG = $h/4$. Hollow Cone CG = $h/3$. This is a guaranteed 1-mark objective question.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-12 flex justify-center">
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-teal-900 hover:bg-slate-900 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition-all active:scale-95 flex items-center">
+                                <i class="ph-bold ph-arrow-up mr-2 text-xl"></i> Ascend to Top
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-emerald-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-emerald-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">Academic Masterclass Module.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
