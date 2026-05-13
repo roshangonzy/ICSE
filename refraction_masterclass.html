@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masterclass: Refraction at Plane Surfaces</title>
+    <title>Masterclass: Refraction through Lenses</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- MathJax for rendering LaTeX formulas beautifully -->
     <script>
-        MathJax = {
+        window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']]
             }
@@ -60,17 +60,10 @@
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="icse_portal.html" class="flex items-center text-slate-500 hover:text-sky-600 font-semibold transition-colors">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-sky-600 font-semibold transition-colors">
                     <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
                 </a>
-                <div class="hidden sm:flex items-center space-x-3">
-                    <span class="bg-indigo-100 text-indigo-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest flex items-center">
-                        <i class="ph-fill ph-clock mr-1.5"></i> Est. 45 Mins
-                    </span>
-                    <span class="bg-sky-100 text-sky-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest flex items-center">
-                        <i class="ph-fill ph-check-circle mr-1.5"></i> Master Edition
-                    </span>
-                </div>
+                <!-- Timers and Badges removed as per request -->
             </div>
         </div>
     </nav>
@@ -80,15 +73,15 @@
         
         <!-- Header -->
         <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 shrink-0 border-4 border-white">
-                <i class="ph-bold ph-parallelogram text-white text-6xl"></i>
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-magnifying-glass text-white text-6xl"></i>
             </div>
             <div>
-                <div class="text-sm font-bold text-sky-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
-                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 2.1
+                <div class="text-sm font-bold text-purple-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 2.2
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Refraction at <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-700">Plane Surfaces</span></h1>
-                <p class="text-lg text-slate-500 font-medium max-w-2xl">The ultimate deep-dive into the bending of light, absolute vs. relative refractive indices, lateral displacement, and the intricacies of Total Internal Reflection (TIR).</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Refraction through <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700">Lenses</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">A meticulous breakdown of spherical lenses, optical centers, rigorous ray diagram techniques, the lens formula, and calculating optical power.</p>
             </div>
         </div>
 
@@ -96,14 +89,14 @@
         <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12">
             <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
-                <a href="#section-1" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 1. Fundamentals of Refraction</a>
-                <a href="#section-2" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 2. Laws of Refraction & Snell's Law</a>
-                <a href="#section-3" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 3. The Refractive Index In-Depth</a>
-                <a href="#section-4" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 4. Refraction through a Glass Slab</a>
-                <a href="#section-5" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 5. Real & Apparent Depth</a>
-                <a href="#section-6" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 6. Total Internal Reflection (TIR)</a>
-                <a href="#section-7" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 7. Applications of TIR in Prisms</a>
-                <a href="#section-8" class="hover:text-blue-600 flex items-center"><i class="ph-bold ph-caret-right text-blue-400 mr-2"></i> 8. Final Exam Checklist</a>
+                <a href="#section-1" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 1. Lens Fundamentals & Terminology</a>
+                <a href="#section-2" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 2. Rules for Drawing Ray Diagrams</a>
+                <a href="#section-3" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 3. Image Formation by Convex Lenses</a>
+                <a href="#section-4" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 4. Image Formation by Concave Lenses</a>
+                <a href="#section-5" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 5. Sign Convention & The Lens Formula</a>
+                <a href="#section-6" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 6. Magnification</a>
+                <a href="#section-7" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 7. Power of a Lens</a>
+                <a href="#section-8" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 8. Final Exam Checklist</a>
             </div>
         </div>
 
@@ -114,356 +107,305 @@
             <section id="section-1" class="scroll-mt-24">
                 <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
                     <span class="bg-blue-100 text-blue-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
-                    Fundamentals of Refraction
+                    Lens Fundamentals & Terminology
                 </h2>
                 
-                <p>Before diving into formulas, we must understand <em>why</em> light bends. Light travels in a straight line as long as it remains in the same homogeneous medium. However, when it travels from one transparent medium to another, it experiences a change in speed.</p>
+                <p>A lens is a transparent refracting medium bounded by two surfaces, of which at least one is spherical. Lenses manipulate light to form images and are the core component of eyes, cameras, and telescopes.</p>
                 
-                <div class="grad-def p-6 rounded-2xl my-6">
-                    <h3 class="font-bold text-blue-900 mb-2 flex items-center text-lg"><i class="ph-bold ph-info text-blue-600 mr-2 text-2xl"></i>Official ICSE Definition</h3>
-                    <p class="text-blue-800 m-0"><strong>Refraction</strong> is the change in the direction of the path of light when it passes from one transparent medium to another transparent medium of different optical density.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-800 text-xl mb-3 flex items-center"><i class="ph-fill ph-circle-half text-blue-500 mr-2"></i>Convex (Converging) Lens</h3>
+                        <p class="text-sm text-slate-600">Thicker at the center and thinner at the edges. It converges a parallel beam of light rays traveling parallel to its principal axis.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-800 text-xl mb-3 flex items-center"><i class="ph-fill ph-circle-notch text-rose-500 mr-2"></i>Concave (Diverging) Lens</h3>
+                        <p class="text-sm text-slate-600">Thinner at the center and thicker at the edges. It diverges a parallel beam of light rays traveling parallel to its principal axis.</p>
+                    </div>
                 </div>
 
-                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">The Cause of Refraction</h3>
-                <p>The fundamental cause of refraction is the <strong>change in the speed of light</strong> in different media. A medium in which the speed of light is more is called an <em>optically rarer medium</em> (e.g., air). A medium in which the speed of light is less is called an <em>optically denser medium</em> (e.g., glass, water).</p>
-                
-                <div class="bg-slate-50 border-l-4 border-slate-300 p-6 rounded-r-2xl my-6">
-                    <h4 class="font-bold text-slate-800 mb-2">Direction of Bending Rules:</h4>
-                    <ul class="list-disc pl-5 space-y-2 m-0 text-slate-700">
-                        <li><strong>Rarer to Denser:</strong> Speed decreases. The ray bends <strong>towards</strong> the normal. ($i > r$)</li>
-                        <li><strong>Denser to Rarer:</strong> Speed increases. The ray bends <strong>away from</strong> the normal. ($r > i$)</li>
-                        <li><strong>Normal Incidence:</strong> If light strikes the surface at $90^\circ$ (along the normal), angle of incidence $i = 0^\circ$. The light passes undeviated ($r = 0^\circ$), though its speed <em>does</em> change.</li>
+                <div class="grad-def p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-blue-900 mb-4 flex items-center text-lg"><i class="ph-bold ph-book-bookmark text-blue-600 mr-2 text-2xl"></i>Essential ICSE Definitions</h3>
+                    <ul class="space-y-4 text-blue-800 m-0 pl-0 list-none">
+                        <li><strong>1. Optical Centre ($O$):</strong> A point on the principal axis of the lens such that a ray of light passing through it goes <em>undeviated</em> (for a thin lens).</li>
+                        <li><strong>2. Principal Axis:</strong> The imaginary straight line joining the centers of curvature of the two spherical surfaces of the lens.</li>
+                        <li><strong>3. First Principal Focus ($F_1$):</strong> A point on the principal axis such that rays of light starting from it (or directed towards it) become parallel to the principal axis after refraction.</li>
+                        <li><strong>4. Second Principal Focus ($F_2$):</strong> A point on the principal axis where rays of light initially parallel to the principal axis actually meet (convex) or appear to diverge from (concave) after refraction.</li>
                     </ul>
                 </div>
 
                 <div class="grad-pro p-6 rounded-2xl my-6">
-                    <h3 class="font-bold text-fuchsia-900 mb-2 flex items-center"><i class="ph-fill ph-lightbulb text-fuchsia-600 mr-2 text-xl"></i>Key Insight: Optical vs. Mass Density</h3>
-                    <p class="text-fuchsia-800 text-sm m-0">Do not confuse "optical density" with "mass density". Kerosene floats on water, meaning its mass density is <em>lower</em> than water. However, the refractive index of Kerosene ($1.44$) is higher than water ($1.33$). Therefore, Kerosene is <strong>optically denser</strong> but <strong>mass-wise rarer</strong> than water. ICSE loves asking this distinction!</p>
+                    <h3 class="font-bold text-fuchsia-900 mb-2 flex items-center"><i class="ph-fill ph-lightbulb text-fuchsia-600 mr-2 text-xl"></i>Key Insight: Which Focus is the "Main" Focus?</h3>
+                    <p class="text-fuchsia-800 text-sm m-0">When we talk about the "focus" or "focal length" of a lens in numericals, we are strictly referring to the <strong>Second Principal Focus ($F_2$)</strong>. For a convex lens, $F_2$ is real and lies on the right. For a concave lens, $F_2$ is virtual and lies on the left.</p>
                 </div>
             </section>
 
-            <!-- SECTION 2: Laws of Refraction -->
+            <!-- SECTION 2: Rules for Ray Diagrams -->
             <section id="section-2" class="scroll-mt-24">
                 <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
                     <span class="bg-emerald-100 text-emerald-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
-                    Laws of Refraction & Snell's Law
+                    Rules for Drawing Ray Diagrams
                 </h2>
 
-                <p>When light undergoes refraction at a plane surface, it strictly obeys two fundamental laws.</p>
+                <p>To accurately locate the position and determine the nature of an image formed by a lens, you must use at least <strong>two</strong> of the following three standard incident rays.</p>
 
-                <div class="bg-white border border-slate-200 shadow-sm p-8 rounded-3xl my-6">
-                    <h3 class="font-bold text-emerald-700 mb-4 text-xl border-b border-emerald-100 pb-2">The Two Laws</h3>
-                    <ol class="list-decimal pl-5 space-y-4 text-slate-700 m-0">
-                        <li>The incident ray, the refracted ray, and the normal at the point of incidence, all lie in the <strong>same plane</strong>.</li>
-                        <li><strong>Snell's Law:</strong> The ratio of the sine of the angle of incidence ($i$) to the sine of the angle of refraction ($r$) is constant for a given pair of media and a given color (wavelength) of light.</li>
+                <div class="bg-white border border-slate-200 shadow-sm p-6 md:p-8 rounded-3xl my-6">
+                    <ol class="list-decimal pl-5 space-y-6 text-slate-700 m-0 font-medium">
+                        <li class="pb-4 border-b border-slate-100">
+                            <strong class="text-emerald-700 block text-lg mb-1">Rule 1: The Parallel Ray</strong>
+                            A ray of light incident parallel to the principal axis, after refraction, passes through the second principal focus $F_2$ (in a convex lens) or appears to diverge from the second principal focus $F_2$ (in a concave lens).
+                        </li>
+                        <li class="pb-4 border-b border-slate-100">
+                            <strong class="text-emerald-700 block text-lg mb-1">Rule 2: The Optical Centre Ray</strong>
+                            A ray of light passing through the optical centre $O$ of a thin lens emerges <strong>undeviated and undisplaced</strong>. (This is the easiest ray to draw—just use a straight ruler through the center point!).
+                        </li>
+                        <li>
+                            <strong class="text-emerald-700 block text-lg mb-1">Rule 3: The Focal Ray</strong>
+                            A ray of light passing through the first principal focus $F_1$ (convex) or directed towards $F_1$ (concave) emerges parallel to the principal axis after refraction.
+                        </li>
                     </ol>
-                </div>
-
-                <div class="grad-formula p-8 rounded-3xl my-6 flex flex-col items-center">
-                    <h4 class="font-bold text-green-900 mb-4 text-lg">Mathematical Expression of Snell's Law</h4>
-                    <div class="bg-white/80 px-8 py-4 rounded-2xl border border-green-200 shadow-sm text-center w-full max-w-md">
-                        <p class="m-0 text-xl text-slate-800">
-                            $$ \frac{\sin i}{\sin r} = \text{constant} $$
-                        </p>
-                        <p class="m-0 text-xl text-slate-800 mt-2">
-                            $$ \frac{\sin i}{\sin r} = _{1}\mu_{2} $$
-                        </p>
-                    </div>
-                    <p class="text-sm text-green-800 mt-4 text-center">Where $ _{1}\mu_{2} $ is the relative refractive index of the second medium with respect to the first medium.</p>
                 </div>
             </section>
 
-            <!-- SECTION 3: Refractive Index -->
+            <!-- SECTION 3: Convex Lenses Cases -->
             <section id="section-3" class="scroll-mt-24">
                 <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
                     <span class="bg-indigo-100 text-indigo-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
-                    The Refractive Index In-Depth
+                    Image Formation by Convex Lenses
                 </h2>
 
-                <p>The Refractive Index ($\mu$) is a measure of how much a medium slows down the speed of light. Because it is a ratio of two similar quantities (speeds), <strong>it has no unit</strong>.</p>
+                <p>A convex lens forms different types of images depending entirely on where the object is placed relative to its focal length ($f$). There are six distinct cases you must memorize for the ICSE board exam.</p>
 
-                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">1. Absolute Refractive Index</h3>
-                <p>When light travels from vacuum (or air) into another medium, the constant is called the absolute refractive index of that medium.</p>
-                <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl text-center mb-8">
-                    $$ \mu = \frac{\text{Speed of light in vacuum/air } (c)}{\text{Speed of light in the medium } (v)} $$
-                    <p class="text-sm text-indigo-700 mt-3">Since $c$ is the maximum possible speed in the universe ($3 \times 10^8 \text{ m/s}$), the absolute refractive index of any transparent medium is <strong>always greater than 1</strong>.</p>
+                <div class="overflow-x-auto my-8">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                <th class="p-4 rounded-tl-xl font-bold border-b border-slate-200">Position of Object</th>
+                                <th class="p-4 font-bold border-b border-slate-200">Position of Image</th>
+                                <th class="p-4 font-bold border-b border-slate-200">Size of Image</th>
+                                <th class="p-4 rounded-tr-xl font-bold border-b border-slate-200">Nature of Image</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-600 text-sm">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">1. At Infinity</td>
+                                <td class="p-4">At focus $F_2$</td>
+                                <td class="p-4 text-emerald-600 font-medium">Highly Diminished (Point)</td>
+                                <td class="p-4">Real and Inverted</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">2. Beyond $2F_1$</td>
+                                <td class="p-4">Between $F_2$ and $2F_2$</td>
+                                <td class="p-4 text-emerald-600 font-medium">Diminished</td>
+                                <td class="p-4">Real and Inverted</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-indigo-50/30">
+                                <td class="p-4 font-semibold text-indigo-900">3. At $2F_1$</td>
+                                <td class="p-4 font-bold text-indigo-700">At $2F_2$</td>
+                                <td class="p-4 font-bold text-indigo-700">Same Size</td>
+                                <td class="p-4">Real and Inverted</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">4. Between $F_1$ and $2F_1$</td>
+                                <td class="p-4">Beyond $2F_2$</td>
+                                <td class="p-4 text-rose-600 font-medium">Magnified</td>
+                                <td class="p-4">Real and Inverted</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">5. At $F_1$</td>
+                                <td class="p-4">At Infinity</td>
+                                <td class="p-4 text-rose-600 font-medium">Highly Magnified</td>
+                                <td class="p-4">Real and Inverted</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50 transition-colors bg-amber-50/50">
+                                <td class="p-4 font-bold text-amber-900 rounded-bl-xl border-l-4 border-amber-500">6. Between $O$ and $F_1$</td>
+                                <td class="p-4 font-bold text-amber-800">Same side as object</td>
+                                <td class="p-4 font-bold text-amber-800">Magnified</td>
+                                <td class="p-4 font-bold text-amber-800 rounded-br-xl">Virtual and Erect</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. Relative Refractive Index & Principle of Reversibility</h3>
-                <p>When light travels from Medium 1 to Medium 2 (neither being vacuum), we use the relative refractive index. The refractive index of Medium 2 with respect to Medium 1 is written as $ _{1}\mu_{2} $.</p>
-                
-                <div class="bg-white border border-slate-200 p-6 rounded-2xl mb-8">
-                    $$ _{1}\mu_{2} = \frac{\text{Speed of light in medium 1 } (v_1)}{\text{Speed of light in medium 2 } (v_2)} $$
-                    <p class="text-center text-slate-600 my-4 font-bold">Relationship with Absolute Refractive Indices:</p>
-                    $$ _{1}\mu_{2} = \frac{\mu_2}{\mu_1} $$
-                </div>
-
-                <div class="grad-formula p-6 rounded-2xl my-6">
-                    <h4 class="font-bold text-green-900 mb-3 text-lg">The Principle of Reversibility of Light</h4>
-                    <p class="text-green-800 text-sm">If the path of a ray of light is reversed, it retraces its path exactly. Mathematically:</p>
-                    <div class="bg-white/60 p-4 rounded-xl border border-green-200 text-center my-3">
-                        $$ _{1}\mu_{2} = \frac{1}{_{2}\mu_{1}} $$
-                    </div>
-                    <p class="text-green-800 text-sm italic">Example: If the refractive index of glass with respect to air ($ _{a}\mu_{g} $) is $3/2$, then the refractive index of air with respect to glass ($ _{g}\mu_{a} $) is $2/3$.</p>
-                </div>
-
-                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Factors Affecting Refractive Index</h3>
-                <p>The refractive index of a medium is not an absolute constant; it depends on several physical parameters. <em>ICSE Board frequently asks for "two factors".</em></p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="bg-red-100 text-red-600 w-10 h-10 flex items-center justify-center rounded-lg mb-4"><i class="ph-bold ph-thermometer text-xl"></i></div>
-                        <h4 class="font-bold text-slate-800 mb-2">1. Temperature</h4>
-                        <p class="text-sm text-slate-600">As temperature increases, the speed of light in the medium increases. Therefore, the <strong>refractive index decreases</strong> with an increase in temperature.</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="bg-purple-100 text-purple-600 w-10 h-10 flex items-center justify-center rounded-lg mb-4"><i class="ph-bold ph-rainbow text-xl"></i></div>
-                        <h4 class="font-bold text-slate-800 mb-2">2. Color / Wavelength</h4>
-                        <p class="text-sm text-slate-600">Speed of red light is maximum and violet is minimum in glass. Hence, $\mu$ is <strong>maximum for Violet</strong> and <strong>minimum for Red</strong> light.</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="bg-amber-100 text-amber-600 w-10 h-10 flex items-center justify-center rounded-lg mb-4"><i class="ph-bold ph-drop text-xl"></i></div>
-                        <h4 class="font-bold text-slate-800 mb-2">3. Nature of Medium</h4>
-                        <p class="text-sm text-slate-600">Depends on the optical density. A denser medium (like diamond) slows light down more, resulting in a higher $\mu$ ($2.42$) compared to glass ($1.5$).</p>
-                    </div>
-                </div>
-
-                <div class="grad-trap p-6 rounded-2xl my-6">
-                    <h3 class="font-bold text-rose-900 mb-3 flex items-center"><i class="ph-fill ph-warning-octagon text-rose-600 mr-2 text-2xl"></i>ICSE Deadly Trap: Frequency vs. Wavelength</h3>
-                    <p class="text-rose-800">When light travels from air to glass, its velocity ($v$) decreases and its wavelength ($\lambda$) decreases proportionately ($v = f \times \lambda$).</p>
-                    <p class="text-rose-900 font-bold mt-2">However, the FREQUENCY of light DOES NOT CHANGE during refraction.</p>
-                    <p class="text-rose-800 text-sm">Why? Because frequency is a characteristic of the <em>source</em> emitting the light, not the medium it travels through. Writing "frequency changes" guarantees a zero for that question.</p>
-                </div>
-            </section>
-
-            <!-- SECTION 4: Glass Slab -->
-            <section id="section-4" class="scroll-mt-24">
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
-                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
-                    Refraction through a Glass Slab
-                </h2>
-
-                <p>When a ray of light passes through a rectangular glass slab with parallel faces, it undergoes refraction twice: once at the air-glass interface (bending towards the normal) and once at the glass-air interface (bending away from the normal).</p>
-                
-                <h3 class="text-xl font-bold text-slate-800 mt-6 mb-3">Key Characteristics:</h3>
-                <ul class="list-disc pl-5 space-y-2 text-slate-700 mb-6">
-                    <li>The angle of incidence ($i$) is equal to the angle of emergence ($e$). <strong>($i = e$)</strong></li>
-                    <li>The emergent ray is <strong>parallel</strong> to the incident ray.</li>
-                    <li>There is <strong>no angular deviation</strong>, but there is a lateral shift.</li>
-                </ul>
-
-                <div class="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl mb-8">
-                    <h3 class="font-bold text-slate-800 mb-2">What is Lateral Displacement?</h3>
-                    <p class="text-slate-600">The perpendicular distance between the path of the original incident ray and the emergent ray is called <strong>lateral displacement</strong>.</p>
-                    
-                    <div class="bg-slate-50 p-5 rounded-xl mt-4">
-                        <h4 class="font-bold text-slate-700 text-sm mb-3">Factors increasing Lateral Displacement:</h4>
-                        <ol class="list-decimal pl-5 space-y-2 text-slate-600 text-sm">
-                            <li><strong>Thickness of the block:</strong> More thickness = greater displacement.</li>
-                            <li><strong>Angle of incidence ($i$):</strong> Greater angle of incidence = greater displacement.</li>
-                            <li><strong>Refractive Index ($\mu$):</strong> Higher $\mu$ = greater displacement (Hence, violet light is displaced more than red light).</li>
-                        </ol>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 5: Real & Apparent Depth -->
-            <section id="section-5" class="scroll-mt-24">
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
-                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
-                    Real & Apparent Depth
-                </h2>
-
-                <p>An object placed in a denser medium (like a coin at the bottom of a pool of water), when viewed from a rarer medium (like air), appears to be at a lesser depth than its actual depth. This optical illusion is a direct consequence of refraction.</p>
-
-                <p>As light rays originating from the coin travel from water to air, they bend <em>away</em> from the normal. When these diverged rays reach the human eye, the brain traces them back in straight lines, forming a virtual image at a higher position.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-                    <div class="grad-formula p-6 rounded-2xl flex flex-col justify-center items-center">
-                        <h4 class="font-bold text-green-900 mb-4 text-sm uppercase tracking-widest">Depth Formula</h4>
-                        $$ \mu = \frac{\text{Real Depth}}{\text{Apparent Depth}} $$
-                    </div>
-                    <div class="grad-formula p-6 rounded-2xl flex flex-col justify-center items-center">
-                        <h4 class="font-bold text-green-900 mb-4 text-sm uppercase tracking-widest">Shift Formula</h4>
-                        <p class="text-center text-sm text-green-800 mb-2">Shift = Real Depth - Apparent Depth</p>
-                        $$ \text{Shift} = \text{Real Depth} \times \left(1 - \frac{1}{\mu}\right) $$
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl">
-                    <h3 class="font-bold text-slate-800 mb-3">Consequences of this phenomenon in daily life:</h3>
-                    <ul class="list-disc pl-5 space-y-2 text-slate-700 text-sm">
-                        <li>A stick partially immersed in water appears bent or broken at the surface.</li>
-                        <li>A pool of water appears shallower than it actually is (Dangerous trap for swimmers!).</li>
-                        <li>Letters printed on a page appear raised when viewed through a thick glass block.</li>
-                        <li>Early sunrise and delayed sunset: The sun is visible a few minutes before actual sunrise because atmospheric refraction bends the light from below the horizon.</li>
+                <div class="bg-slate-50 border-l-4 border-slate-300 p-6 rounded-r-2xl my-6">
+                    <h4 class="font-bold text-slate-800 mb-2">Application Highlights:</h4>
+                    <ul class="list-disc pl-5 space-y-2 m-0 text-slate-700">
+                        <li><strong>Case 3 (At 2F):</strong> Used in terrestrial telescopes as an erecting lens. It inverts an inverted image without changing its size.</li>
+                        <li><strong>Case 4 (Between F and 2F):</strong> Used in cinema projectors and slide projectors.</li>
+                        <li><strong>Case 6 (Between O and F):</strong> This is the principle behind a <strong>Magnifying Glass (Simple Microscope)</strong>. The object must be closer than the focal length to see a magnified, upright image.</li>
                     </ul>
                 </div>
             </section>
 
-            <!-- SECTION 6: Total Internal Reflection -->
-            <section id="section-6" class="bg-slate-900 rounded-[2rem] p-8 md:p-12 text-slate-300 relative overflow-hidden mt-16 shadow-2xl border border-slate-800 scroll-mt-24">
-                <!-- Background decorative element -->
-                <div class="absolute -right-32 -top-32 opacity-5 pointer-events-none">
-                    <i class="ph-fill ph-triangle text-[400px] text-sky-400"></i>
+            <!-- SECTION 4: Concave Lenses Cases -->
+            <section id="section-4" class="scroll-mt-24">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    Image Formation by Concave Lenses
+                </h2>
+
+                <p>Unlike a convex lens, a concave lens is incredibly consistent. No matter where you place an object in front of a concave lens (except at infinity), the result is fundamentally the same.</p>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm my-6 text-center">
+                    <h3 class="text-2xl font-bold text-teal-700 mb-4">The Universal Concave Rule</h3>
+                    <p class="text-slate-700 text-lg max-w-2xl mx-auto">For any object position between optical center ($O$) and infinity, a concave lens <strong>always</strong> forms an image that is:</p>
+                    
+                    <div class="flex justify-center gap-4 mt-6">
+                        <span class="bg-teal-50 text-teal-800 font-bold px-5 py-2 rounded-full border border-teal-200 shadow-sm">1. Virtual</span>
+                        <span class="bg-teal-50 text-teal-800 font-bold px-5 py-2 rounded-full border border-teal-200 shadow-sm">2. Erect</span>
+                        <span class="bg-teal-50 text-teal-800 font-bold px-5 py-2 rounded-full border border-teal-200 shadow-sm">3. Diminished</span>
+                    </div>
+                    
+                    <p class="text-sm text-slate-500 mt-6">The image is always formed on the <strong>same side</strong> as the object, between the optical centre ($O$) and the focus ($F_2$).</p>
+                </div>
+                
+                <p class="text-sm text-slate-600 italic">Application: Concave lenses are primarily used in spectacles to correct <strong>Myopia (Short-sightedness)</strong> and as the eye-lens in a Galilean telescope.</p>
+            </section>
+
+            <!-- SECTION 5: The Lens Formula -->
+            <section id="section-5" class="scroll-mt-24">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-rose-100 text-rose-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    Sign Convention & The Lens Formula
+                </h2>
+
+                <p>To solve numerical problems correctly, we use the Cartesian Sign Convention. Imagine the optical centre ($O$) as the origin $(0,0)$ of a graph, and the principal axis as the X-axis.</p>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8">
+                    <ul class="list-disc pl-5 space-y-2 text-slate-700 text-sm">
+                        <li>All distances are measured from the <strong>optical centre ($O$)</strong>.</li>
+                        <li>Distances measured in the <strong>direction of incident light</strong> (usually to the right) are taken as <strong>Positive ($+$)</strong>.</li>
+                        <li>Distances measured <strong>opposite</strong> to the incident light (usually to the left) are taken as <strong>Negative ($-$)</strong>.</li>
+                        <li>Heights above the principal axis are Positive ($+$) (Erect objects/images).</li>
+                        <li>Heights below the principal axis are Negative ($-$) (Inverted images).</li>
+                    </ul>
                 </div>
 
-                <div class="relative z-10">
-                    <div class="inline-flex bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-lg shadow-orange-500/30">
-                        <i class="ph-fill ph-star mr-2"></i> Highest Weightage Topic
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 flex items-center border-b border-slate-700 pb-6">
-                        Total Internal Reflection (TIR)
-                    </h2>
-
-                    <p class="text-lg text-slate-300 leading-relaxed mb-8">
-                        What happens if light traveling from a denser to a rarer medium hits the boundary at a very large angle? It gets completely reflected back into the denser medium. No light is refracted. This phenomenon is <strong>Total Internal Reflection</strong>.
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <div class="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
-                            <div>
-                                <h4 class="font-bold text-sky-400 mb-2">Case 1: $i < C$</h4>
-                                <p class="text-sm text-slate-400">Ray is weakly reflected and strongly refracted into the rarer medium. It bends away from the normal.</p>
-                            </div>
+                <div class="grad-trap p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-rose-900 mb-3 flex items-center"><i class="ph-fill ph-warning-octagon text-rose-600 mr-2 text-2xl"></i>Crucial Sign Memorization</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-white/60 p-4 rounded-xl border border-rose-200">
+                            <strong class="text-rose-800 block mb-1">Object Distance ($u$)</strong>
+                            <p class="text-sm text-rose-900 m-0">Always Negative ($-$) for both lenses.</p>
                         </div>
-                        <div class="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between ring-2 ring-amber-500/50">
-                            <div>
-                                <h4 class="font-bold text-amber-400 mb-2">Case 2: $i = C$</h4>
-                                <p class="text-sm text-slate-400">The refracted ray grazes the surface of separation. Angle of refraction $r = 90^\circ$. This angle of incidence is the <strong>Critical Angle</strong>.</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700/50 flex flex-col justify-between ring-2 ring-rose-500">
-                            <div>
-                                <h4 class="font-bold text-rose-400 mb-2">Case 3: $i > C$</h4>
-                                <p class="text-sm text-slate-400">No refracted ray exists. The ray is completely reflected back into the denser medium according to the laws of reflection. <strong>TIR occurs.</strong></p>
-                            </div>
+                        <div class="bg-white/60 p-4 rounded-xl border border-rose-200">
+                            <strong class="text-rose-800 block mb-1">Focal Length ($f$)</strong>
+                            <p class="text-sm text-rose-900 m-0"><strong>Convex:</strong> Positive ($+$)<br><strong>Concave:</strong> Negative ($-$)</p>
                         </div>
                     </div>
+                </div>
 
-                    <div class="bg-white p-8 rounded-2xl text-slate-800 mb-10">
-                        <h3 class="text-2xl font-bold mb-4">The Critical Angle ($C$)</h3>
-                        <p>The angle of incidence in the denser medium for which the angle of refraction in the rarer medium is exactly $90^\circ$.</p>
-                        
-                        <div class="flex flex-col md:flex-row items-center justify-around mt-6 gap-6">
-                            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 w-full md:w-auto">
-                                <p class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-2">Formula</p>
-                                <p class="m-0 text-xl text-center">$$ \sin C = \frac{1}{\mu} $$</p>
-                            </div>
-                            <div class="space-y-2 text-sm font-medium w-full md:w-auto">
-                                <div class="flex justify-between border-b border-slate-100 pb-2">
-                                    <span class="text-slate-500">Glass ($_{a}\mu_{g} = 1.5$)</span>
-                                    <span class="text-slate-900 font-bold">$C \approx 42^\circ$</span>
-                                </div>
-                                <div class="flex justify-between border-b border-slate-100 pb-2">
-                                    <span class="text-slate-500">Water ($_{a}\mu_{w} = 1.33$)</span>
-                                    <span class="text-slate-900 font-bold">$C \approx 49^\circ$</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-500">Diamond ($_{a}\mu_{d} = 2.42$)</span>
-                                    <span class="text-slate-900 font-bold">$C \approx 24^\circ$</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-l-4 border-rose-500 pl-6 py-2">
-                        <h4 class="font-bold text-rose-400 mb-3 text-xl uppercase tracking-widest">Essential Conditions for TIR</h4>
-                        <ol class="list-decimal pl-5 space-y-3 text-slate-300 font-medium text-lg m-0">
-                            <li>The light must travel from a <strong>denser medium to a rarer medium</strong>.</li>
-                            <li>The angle of incidence must be <strong>greater than the critical angle</strong> for that specific pair of media ($i > C$).</li>
-                        </ol>
+                <div class="grad-formula p-8 rounded-3xl my-6 flex flex-col items-center">
+                    <h4 class="font-bold text-green-900 mb-4 text-lg">The Lens Formula</h4>
+                    <p class="text-green-800 text-sm mb-4 text-center">Relates focal length ($f$), object distance ($u$), and image distance ($v$).</p>
+                    <div class="bg-white/80 px-8 py-5 rounded-2xl border border-green-200 shadow-sm text-center w-full max-w-md">
+                        <p class="m-0 text-2xl text-slate-900 font-bold">
+                            $$ \frac{1}{v} - \frac{1}{u} = \frac{1}{f} $$
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 7: Prisms & TIR -->
-            <section id="section-7" class="scroll-mt-24">
+            <!-- SECTION 6: Magnification -->
+            <section id="section-6" class="scroll-mt-24">
                 <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
-                    <span class="bg-fuchsia-100 text-fuchsia-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">7</span>
-                    Applications of TIR in Prisms
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Linear Magnification ($m$)
                 </h2>
 
-                <p>A right-angled isosceles glass prism (angles $90^\circ, 45^\circ, 45^\circ$) is extensively used in optical instruments to alter the path of light by taking advantage of TIR. Since the critical angle for glass is $\approx 42^\circ$, any ray striking inside the glass at $45^\circ$ will suffer Total Internal Reflection ($45^\circ > 42^\circ$).</p>
+                <p>Linear magnification tells us how large or small the image is compared to the object. It is the ratio of the height of the image ($I$) to the height of the object ($O$).</p>
 
-                <p class="font-bold text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200 my-6">
-                    Advantages of a Prism over a Silvered Plane Mirror: <br>
-                    <span class="text-sm font-normal text-slate-600">A silvered mirror absorbs some light (about 10-20%) and suffers from multiple reflections (ghost images) if the glass is thick. A prism utilizing TIR reflects <strong>100% of the light</strong>, yielding a brighter and perfectly distinct image.</span>
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-8">
-                    <!-- 90 Degree -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow group">
-                        <div class="h-16 w-16 bg-sky-100 rounded-2xl flex items-center justify-center mb-4 text-sky-600 group-hover:scale-110 transition-transform">
-                            <i class="ph-bold ph-arrow-elbow-right text-3xl"></i>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-xl mb-2">1. Deviation by $90^\circ$</h3>
-                        <p class="text-sm text-slate-600 mb-3">Light enters normally to one of the sides containing the right angle. It strikes the hypotenuse at $45^\circ$. Since $45^\circ > 42^\circ$, it undergoes TIR and emerges normally from the other side.</p>
-                        <p class="text-xs font-bold text-sky-600 uppercase tracking-wider bg-sky-50 py-1 px-3 rounded inline-block">Application: Periscope</p>
+                <div class="bg-white border border-slate-200 p-6 rounded-2xl mb-8 flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="text-center">
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-2">Height Formula</p>
+                        <p class="m-0 text-xl text-slate-800">$$ m = \frac{I}{O} $$</p>
                     </div>
-
-                    <!-- 180 Degree -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow group">
-                        <div class="h-16 w-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-4 text-amber-600 group-hover:scale-110 transition-transform">
-                            <i class="ph-bold ph-arrows-left-right text-3xl"></i>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-xl mb-2">2. Deviation by $180^\circ$</h3>
-                        <p class="text-sm text-slate-600 mb-3">Light enters normally through the hypotenuse. It strikes the first perpendicular side at $45^\circ$, undergoes TIR, strikes the second perpendicular side at $45^\circ$, undergoes TIR again, and emerges anti-parallel.</p>
-                        <p class="text-xs font-bold text-amber-600 uppercase tracking-wider bg-amber-50 py-1 px-3 rounded inline-block">Application: Binoculars</p>
+                    <div class="hidden md:block w-px h-16 bg-slate-200"></div>
+                    <div class="text-center">
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-2">Distance Formula</p>
+                        <p class="m-0 text-xl text-slate-800">$$ m = \frac{v}{u} $$</p>
                     </div>
+                </div>
 
-                    <!-- Erecting -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow group">
-                        <div class="h-16 w-16 bg-rose-100 rounded-2xl flex items-center justify-center mb-4 text-rose-600 group-hover:scale-110 transition-transform">
-                            <i class="ph-bold ph-arrows-down-up text-3xl"></i>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-xl mb-2">3. Erecting Prism</h3>
-                        <p class="text-sm text-slate-600 mb-3">Light enters parallel to the hypotenuse, refracts, hits the hypotenuse internally at $>42^\circ$, undergoes TIR, and refracts out. It inverts the image <strong>without any deviation</strong> in the overall path.</p>
-                        <p class="text-xs font-bold text-rose-600 uppercase tracking-wider bg-rose-50 py-1 px-3 rounded inline-block">Application: Slide Projector</p>
+                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                    <h3 class="font-bold text-amber-900 mb-3">Decoding the value of $m$:</h3>
+                    <ul class="list-none pl-0 space-y-3 text-amber-800 text-sm m-0">
+                        <li class="flex items-start"><i class="ph-bold ph-plus-circle text-amber-600 mr-2 mt-0.5 text-lg"></i> <strong>If $m$ is Positive:</strong> The image is Virtual and Erect.</li>
+                        <li class="flex items-start"><i class="ph-bold ph-minus-circle text-amber-600 mr-2 mt-0.5 text-lg"></i> <strong>If $m$ is Negative:</strong> The image is Real and Inverted.</li>
+                        <li class="flex items-start"><i class="ph-bold ph-arrows-out text-amber-600 mr-2 mt-0.5 text-lg"></i> <strong>If $|m| > 1$:</strong> Image is Magnified.</li>
+                        <li class="flex items-start"><i class="ph-bold ph-arrows-in text-amber-600 mr-2 mt-0.5 text-lg"></i> <strong>If $|m| < 1$:</strong> Image is Diminished.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Power of a Lens -->
+            <section id="section-7" class="scroll-mt-24">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-cyan-100 text-cyan-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">7</span>
+                    Power of a Lens ($P$)
+                </h2>
+
+                <p>The power of a lens is a measure of its ability to converge (or diverge) a parallel beam of light falling on it. A thicker convex lens converges light more sharply, meaning it has a shorter focal length and a higher power.</p>
+
+                <p>Mathematically, it is the reciprocal of the focal length, <strong>provided the focal length is expressed in meters</strong>.</p>
+
+                <div class="grad-formula p-6 rounded-2xl flex flex-col justify-center items-center my-6">
+                    $$ P = \frac{1}{f \text{ (in meters)}} $$
+                    <p class="text-sm text-green-800 mt-2 font-bold">OR</p>
+                    $$ P = \frac{100}{f \text{ (in cm)}} $$
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-2">SI Unit</h4>
+                        <p class="text-sm text-slate-600">The SI unit of power is <strong>Dioptre (D)</strong>. <br> 1 Dioptre is the power of a lens whose focal length is exactly 1 metre.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 mb-2">Sign of Power</h4>
+                        <p class="text-sm text-slate-600">Since $f$ is positive for Convex lenses, Power is <strong>Positive ($+$)</strong>.<br>Since $f$ is negative for Concave lenses, Power is <strong>Negative ($-$)</strong>.</p>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 8: Exam Checklist -->
             <section id="section-8" class="scroll-mt-24">
-                <div class="bg-gradient-to-br from-indigo-50 to-blue-100 rounded-[2rem] shadow-sm border border-indigo-200 p-8 md:p-12 mt-16">
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-100 rounded-[2rem] shadow-sm border border-indigo-200 p-8 md:p-12 mt-16">
                     <h2 class="text-3xl font-extrabold text-indigo-900 mb-6 flex items-center">
                         <i class="ph-fill ph-check-square-offset text-indigo-600 mr-4 text-4xl"></i> 
                         Final Exam Checklist
                     </h2>
                     
-                    <p class="text-indigo-800 font-medium mb-8">Before walking into the ICSE physics examination, ensure you never make these common mistakes:</p>
+                    <p class="text-indigo-800 font-medium mb-8">Before walking into the ICSE physics examination, ensure you never make these common ray-diagram mistakes:</p>
 
                     <div class="space-y-4">
                         <div class="flex items-start bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
                             <i class="ph-bold ph-warning-circle text-rose-500 mt-0.5 mr-4 text-xl"></i>
                             <div>
-                                <h4 class="font-bold text-slate-800">The Arrow Rule</h4>
-                                <p class="text-slate-600 text-sm mt-1">A ray diagram without arrows showing the direction of light is considered just a geometric line. The ICSE examiner will award <strong>ZERO marks</strong> even if the drawing and angles are perfectly accurate.</p>
+                                <h4 class="font-bold text-slate-800">The Deadly Arrow Rule</h4>
+                                <p class="text-slate-600 text-sm mt-1">We repeat this because it's the #1 reason students lose marks. <strong>Draw arrows</strong> on both incident and refracted rays. No arrows = Zero marks in ICSE.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
+                            <i class="ph-bold ph-line-segments text-indigo-500 mt-0.5 mr-4 text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Virtual Rays MUST be Dotted</h4>
+                                <p class="text-slate-600 text-sm mt-1">If a ray is produced backwards (to form a virtual image), it must be drawn as a <strong>dashed/dotted line</strong>. Solid lines produced backward will be penalized.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
                             <i class="ph-bold ph-ruler text-indigo-500 mt-0.5 mr-4 text-xl"></i>
                             <div>
-                                <h4 class="font-bold text-slate-800">Drawing the Normal</h4>
-                                <p class="text-slate-600 text-sm mt-1">Always draw the normal as a <em>dotted or dashed line</em> at the exact point of incidence using a protractor (or very carefully freehand at a strict 90 degree angle to the surface).</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
-                            <i class="ph-bold ph-text-t text-indigo-500 mt-0.5 mr-4 text-xl"></i>
-                            <div>
-                                <h4 class="font-bold text-slate-800">Distinguishing Deviation vs Shift</h4>
-                                <p class="text-slate-600 text-sm mt-1">In a prism, the ray deviates by an <strong>angle</strong>. In a rectangular slab, the ray shifts laterally by a <strong>distance</strong>, but emerges perfectly parallel to its original path (zero angular deviation).</p>
+                                <h4 class="font-bold text-slate-800">Symmetry of Foci</h4>
+                                <p class="text-slate-600 text-sm mt-1">When drawing a ray diagram, ensure the distance from Optical Centre ($O$) to $F_1$ is exactly equal to the distance from $O$ to $F_2$. Use a ruler!</p>
                             </div>
                         </div>
 
                         <div class="flex items-start bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
                             <i class="ph-bold ph-calculator text-indigo-500 mt-0.5 mr-4 text-xl"></i>
                             <div>
-                                <h4 class="font-bold text-slate-800">Handling Multiple Media Numericals</h4>
-                                <p class="text-slate-600 text-sm mt-1">If light goes from air $\rightarrow$ water $\rightarrow$ glass, remember the chaining rule: $$ _{a}\mu_{w} \times _{w}\mu_{g} \times _{g}\mu_{a} = 1 $$ This implies $ _{w}\mu_{g} = \frac{_{a}\mu_{g}}{_{a}\mu_{w}} $.</p>
+                                <h4 class="font-bold text-slate-800">Power Conversion Trap</h4>
+                                <p class="text-slate-600 text-sm mt-1">In numericals, examiners often give focal length in <strong>centimeters</strong>. You MUST convert it to meters before using $P = 1/f$, or simply use $P = 100/f(\text{in cm})$. Forgetting this yields the wrong answer.</p>
                             </div>
                         </div>
                     </div>
@@ -483,7 +425,7 @@
     <footer class="bg-white border-t border-slate-200 mt-auto py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
             <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
-                L<i class="ph-fill ph-gear text-sky-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-sky-400">League</span>
+                L<i class="ph-fill ph-gear text-purple-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-purple-400">League</span>
             </span>
             <p class="text-sm text-slate-400">Masterclass Module.</p>
         </div>
