@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Work, Energy & Power</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 4px solid #f59e0b; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-amber-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-lightning text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-orange-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 1.2
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Work, Energy & <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-700">Power</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">An exhaustive, triple-depth masterclass exploring the mechanics of work, the Work-Energy theorem, momentum relations, and the rigid proof of Energy Conservation.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 1. The Physics of Work & Trigonometry</a>
+                <a href="#section-2" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 2. Power: The Rate of Energy Transfer</a>
+                <a href="#section-3" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 3. Energy Fundamentals & Potential Energy</a>
+                <a href="#section-4" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 4. Kinetic Energy & The Work-Energy Theorem</a>
+                <a href="#section-5" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 5. The KE-Momentum Mathematical Relation</a>
+                <a href="#section-6" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 6. Principle of Conservation of Energy</a>
+                <a href="#section-7" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 7. Energy Transformations in Daily Life</a>
+                <a href="#section-8" class="hover:text-orange-600 flex items-center"><i class="ph-bold ph-caret-right text-orange-400 mr-2"></i> 8. Final Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Work -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
+                    The Physics of Work & Trigonometry
+                </h2>
+                
+                <p>In everyday language, reading a book or thinking hard is considered "work". In Physics, this is absolutely false. For work to be done, two strict conditions must be satisfied: a force must act on the body, and the point of application of the force must be displaced in the direction of the force.</p>
+
+                <div class="grad-def p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-blue-900 mb-2 flex items-center text-lg"><i class="ph-bold ph-book-bookmark text-blue-600 mr-2 text-2xl"></i>ICSE Definition of Work</h3>
+                    <p class="text-blue-800 m-0">Work is said to be done only when the force applied on a body makes the body move (i.e., there is a <strong>displacement of the point of application of force</strong>).</p>
+                    <p class="text-xs text-blue-600 mt-2 font-bold uppercase tracking-wider">Note: Omitting "of the point of application" can lead to mark deductions.</p>
+                </div>
+
+                <div class="grad-formula p-8 rounded-3xl my-8 relative overflow-hidden shadow-sm">
+                    <h4 class="font-bold text-amber-900 mb-4 text-lg">The General Formula for Work</h4>
+                    <p class="text-sm text-amber-800 mb-4 text-center">Work is the dot product of Force and Displacement vectors.</p>
+                    
+                    <div class="bg-white/90 px-10 py-5 rounded-2xl border border-amber-200 shadow-md text-center w-full max-w-md mx-auto">
+                        <p class="m-0 text-3xl text-slate-900 font-bold font-mono">
+                            $$ W = F \cdot S \cdot \cos \theta $$
+                        </p>
+                    </div>
+                    <p class="text-sm text-amber-800 mt-4 text-center">Where $\theta$ is the angle between the direction of force ($F$) and the direction of displacement ($S$).</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-6">The Three Cases of Work</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Positive Work -->
+                    <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm relative overflow-hidden">
+                        <div class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded mb-3 inline-block">Case 1: $\theta = 0^\circ$</div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">Positive Work</h4>
+                        <p class="text-sm text-slate-600 mb-3">Force and displacement are in the same direction. $\cos 0^\circ = 1$.</p>
+                        <div class="font-mono font-bold text-emerald-600 bg-emerald-50 p-2 rounded text-center">$$ W = F \times S $$</div>
+                        <p class="text-xs text-slate-500 mt-3 italic">Example: A horse pulling a cart on a level road; A body falling freely under gravity.</p>
+                    </div>
+                    
+                    <!-- Negative Work -->
+                    <div class="bg-white p-6 rounded-2xl border border-rose-200 shadow-sm relative overflow-hidden">
+                        <div class="bg-rose-100 text-rose-700 text-xs font-bold px-2 py-1 rounded mb-3 inline-block">Case 2: $\theta = 180^\circ$</div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">Negative Work</h4>
+                        <p class="text-sm text-slate-600 mb-3">Force acts in the opposite direction of displacement. $\cos 180^\circ = -1$.</p>
+                        <div class="font-mono font-bold text-rose-600 bg-rose-50 p-2 rounded text-center">$$ W = -(F \times S) $$</div>
+                        <p class="text-xs text-slate-500 mt-3 italic">Example: Work done by friction on a sliding block; Throwing a ball vertically upwards (work done by gravity).</p>
+                    </div>
+
+                    <!-- Zero Work -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-300 shadow-sm relative overflow-hidden">
+                        <div class="bg-slate-200 text-slate-700 text-xs font-bold px-2 py-1 rounded mb-3 inline-block">Case 3: $\theta = 90^\circ$</div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">Zero Work</h4>
+                        <p class="text-sm text-slate-600 mb-3">Force is perpendicular to displacement. $\cos 90^\circ = 0$.</p>
+                        <div class="font-mono font-bold text-slate-600 bg-slate-100 p-2 rounded text-center">$$ W = 0 $$</div>
+                        <p class="text-xs text-slate-500 mt-3 italic">Example: A coolie carrying a load walking on a horizontal platform; Work done by centripetal force.</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-3 border-b border-slate-200 pb-2">Units of Work</h4>
+                    <p class="text-sm text-slate-700"><strong>SI Unit: Joule (J).</strong> $1 \text{ J} = 1 \text{ N} \times 1 \text{ m}$. Work is said to be 1 Joule when a force of 1 Newton moves a body through a distance of 1 metre in its own direction.</p>
+                    <p class="text-sm text-slate-700"><strong>CGS Unit: erg.</strong> $1 \text{ erg} = 1 \text{ dyne} \times 1 \text{ cm}$.</p>
+                    <div class="bg-white p-3 rounded-lg border border-slate-200 mt-3 text-center font-bold text-indigo-700 font-mono">
+                        Relation: $1 \text{ Joule} = 10^7 \text{ ergs}$
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Power -->
+            <section id="section-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
+                    Power: The Rate of Energy Transfer
+                </h2>
+
+                <p>If Person A and Person B both carry 50 kg of bricks up a flight of stairs, they do the exact same amount of work. However, if Person A does it in 1 minute and Person B takes 10 minutes, Person A is more powerful. Power incorporates <strong>time</strong>.</p>
+
+                <div class="grad-formula p-8 rounded-3xl my-6 flex flex-col md:flex-row items-center gap-8 shadow-sm">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-amber-900 mb-2 text-lg">Power Formulas</h4>
+                        <p class="text-sm text-amber-800 mb-4">Power is the rate of doing work, or the rate at which energy is supplied/consumed.</p>
+                        <div class="space-y-4">
+                            <div class="bg-white/90 p-4 rounded-xl shadow-sm text-center">
+                                <p class="m-0 font-mono text-2xl font-bold text-slate-800">$$ P = \frac{W}{t} $$</p>
+                            </div>
+                            <div class="bg-white/90 p-4 rounded-xl shadow-sm text-center">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 text-center">In terms of Force & Velocity</p>
+                                <p class="m-0 font-mono text-xl font-bold text-slate-800">$$ P = \frac{F \times S}{t} \implies P = F \times v $$</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                        <h4 class="font-bold text-amber-900 mb-3 border-b border-amber-200 pb-2">Units of Power</h4>
+                        <ul class="text-sm text-amber-900 space-y-2 m-0 pl-0 list-none font-medium">
+                            <li><strong>SI Unit:</strong> Watt (W) = 1 Joule/sec</li>
+                            <li><strong>Kilowatt:</strong> 1 kW = 1,000 W</li>
+                            <li><strong>Megawatt:</strong> 1 MW = $10^6$ W</li>
+                            <li class="mt-4 pt-4 border-t border-amber-200 text-rose-700"><strong>Horsepower (H.P.):</strong> <br> 1 H.P. = 746 Watts</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Energy & PE -->
+            <section id="section-3">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
+                    Energy Fundamentals & Potential Energy
+                </h2>
+
+                <p>The energy of a body is its <strong>capacity to do work</strong>. Energy is a scalar quantity. Its units are exactly the same as work (Joules, ergs). The total Mechanical Energy of a system is the sum of its Kinetic and Potential energy.</p>
+
+                <h3 class="text-2xl font-bold text-slate-800 mt-10 mb-4">Potential Energy ($U$)</h3>
+                <p>The energy possessed by a body by virtue of its <strong>specific position or changed configuration</strong>. It comes in two primary forms in classical mechanics:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-sky-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-3 flex items-center"><i class="ph-bold ph-arrow-line-up text-sky-500 mr-2 text-2xl"></i>Gravitational Potential Energy</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Energy possessed by a body due to its position above the ground. The work done in lifting a body of mass $m$ to a height $h$ against gravity ($g$) gets stored as GPE.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg text-center font-mono font-bold text-slate-800 border border-slate-100">
+                            $$ U = mgh $$
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-fuchsia-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h4 class="font-bold text-slate-900 text-lg mb-3 flex items-center"><i class="ph-bold ph-arrows-out-line-horizontal text-fuchsia-500 mr-2 text-2xl"></i>Elastic Potential Energy</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Energy possessed by a body in a deformed state due to a change in its size or shape (configuration). Work is done against the restoring forces.</p>
+                        <p class="text-xs text-slate-500 mt-3 font-medium"><em>Example: A wound up watch spring; A stretched bowstring; A compressed catapult.</em></p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-3xl shadow-lg my-8 flex items-center gap-6">
+                    <i class="ph-fill ph-warning-circle text-5xl text-amber-400 shrink-0"></i>
+                    <div>
+                        <h4 class="text-white font-bold text-lg mb-2">The Reference Level Trick</h4>
+                        <p class="text-slate-300 text-sm m-0 leading-relaxed">Potential energy is relative. It is zero at a chosen reference level (usually the ground). If a body goes <em>below</em> the reference level (like dropping into a mine shaft of depth $h$), its gravitational potential energy becomes negative: $U = -mgh$.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Kinetic Energy & W-E Theorem -->
+            <section id="section-4">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    Kinetic Energy & The Work-Energy Theorem
+                </h2>
+
+                <p>Kinetic Energy ($K$) is the energy possessed by a body by virtue of its <strong>state of motion</strong>. If an object is moving, it has kinetic energy.</p>
+
+                <div class="grad-formula p-8 rounded-3xl my-6 flex flex-col items-center shadow-sm">
+                    <h4 class="font-bold text-amber-900 mb-4 text-lg">Mathematical Formula</h4>
+                    <div class="bg-white/90 px-10 py-5 rounded-2xl border border-amber-200 shadow-md text-center w-full max-w-md">
+                        <p class="m-0 text-3xl text-slate-900 font-bold font-mono">
+                            $$ K = \frac{1}{2}mv^2 $$
+                        </p>
+                    </div>
+                    <p class="text-sm text-amber-800 mt-4 text-center">Kinetic energy is directly proportional to mass, but it is proportional to the <strong>square of velocity</strong>. Doubling velocity increases KE by a factor of 4.</p>
+                </div>
+
+                <h3 class="text-2xl font-bold text-slate-800 mt-12 mb-6">Derivation of The Work-Energy Theorem</h3>
+                <p>The work-energy theorem states that the work done by a net force on a body is equal to the change in its kinetic energy.</p>
+
+                <div class="bg-white border border-slate-200 shadow-sm p-6 md:p-10 rounded-3xl my-6 font-mono text-sm sm:text-base leading-loose overflow-x-auto text-slate-700">
+                    <p class="text-slate-500 font-sans font-bold text-xs uppercase tracking-widest mb-4 border-b border-slate-100 pb-2">Mathematical Proof</p>
+                    <p>Consider a body of mass $m$ moving with initial velocity $u$.</p>
+                    <p>A constant retarding force $F$ opposes its motion, bringing it to rest ($v = 0$) over a displacement $S$.</p>
+                    <p>Retardation $a = \frac{F}{m}$.</p>
+                    <p>From the 3rd equation of kinematics:</p>
+                    <p class="ml-4 md:ml-8 font-bold text-slate-900">$$ v^2 = u^2 - 2aS $$</p>
+                    <p>Substitute $v = 0$:</p>
+                    <p class="ml-4 md:ml-8 font-bold text-slate-900">$$ 0 = u^2 - 2aS \implies 2aS = u^2 $$</p>
+                    <p>Multiply both sides by $\frac{m}{2}$:</p>
+                    <p class="ml-4 md:ml-8 font-bold text-slate-900">$$ m a S = \frac{1}{2} m u^2 $$</p>
+                    <p>Since Force $F = ma$:</p>
+                    <p class="ml-4 md:ml-8 font-bold text-orange-600 bg-orange-50 p-2 inline-block rounded">$$ F \times S = \frac{1}{2} m u^2 $$</p>
+                    <p class="mt-4 font-sans font-medium">Thus, Work Done ($F \times S$) in stopping the body = Initial Kinetic Energy of the body.</p>
+                    <p class="mt-2 font-sans font-bold text-lg text-slate-900 text-center border-t border-slate-200 pt-4">$$ W = \Delta K = K_{final} - K_{initial} $$</p>
+                </div>
+            </section>
+
+            <!-- SECTION 5: KE and Momentum -->
+            <section id="section-5">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    The KE-Momentum Mathematical Relation
+                </h2>
+
+                <p>This is arguably the most mathematically tested concept in the ICSE syllabus for this chapter. You must master the relationship between Kinetic Energy ($K$) and Linear Momentum ($p$).</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-lg mb-4 border-b border-slate-100 pb-2">The Derivation</h4>
+                        <div class="font-mono text-sm text-slate-700 space-y-4">
+                            <p>We know: $ p = mv \implies v = \frac{p}{m} $</p>
+                            <p>We know: $ K = \frac{1}{2}mv^2 $</p>
+                            <p>Substitute $v$ in the KE equation:</p>
+                            <p class="font-bold">$$ K = \frac{1}{2} m \left(\frac{p}{m}\right)^2 $$</p>
+                            <p class="font-bold">$$ K = \frac{1}{2} m \left(\frac{p^2}{m^2}\right) $$</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grad-formula p-6 rounded-2xl flex flex-col justify-center items-center shadow-sm">
+                        <h4 class="font-bold text-amber-900 mb-4 text-sm uppercase tracking-widest">The Core Formulas</h4>
+                        <div class="bg-white/80 p-4 rounded-xl border border-amber-200 w-full text-center mb-4">
+                            <p class="m-0 font-mono text-2xl font-bold text-slate-900">$$ K = \frac{p^2}{2m} $$</p>
+                        </div>
+                        <div class="bg-white/80 p-4 rounded-xl border border-amber-200 w-full text-center">
+                            <p class="m-0 font-mono text-2xl font-bold text-slate-900">$$ p = \sqrt{2mK} $$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grad-trap p-8 rounded-3xl my-8 shadow-sm">
+                    <h3 class="font-bold text-rose-900 mb-4 flex items-center text-xl"><i class="ph-fill ph-graph text-rose-600 mr-3 text-3xl"></i>Board Exam Graph Traps</h3>
+                    <div class="bg-white/80 p-6 rounded-2xl border border-rose-200 space-y-4 text-sm text-slate-700">
+                        <p><strong>1. Graph of $K$ vs. $p$ (Mass constant):</strong> Since $K \propto p^2$, the graph is a <strong>Parabola</strong> opening upwards.</p>
+                        <p><strong>2. Graph of $p$ vs. $K$ (Mass constant):</strong> Since $p \propto \sqrt{K}$, the graph is a <strong>Parabola</strong> opening sideways.</p>
+                        <p class="text-rose-700 font-bold border-t border-rose-200 pt-3"><strong>3. Graph of $p$ vs. $\sqrt{K}$:</strong> Because $p = \sqrt{2m} \times \sqrt{K}$, this forms the equation of a straight line ($y = mx$). The graph is a <strong>Straight Line passing through the origin</strong>, and its slope equals $\sqrt{2m}$.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: Conservation of Energy -->
+            <section id="section-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Principle of Conservation of Energy
+                </h2>
+
+                <p>Energy can neither be created nor destroyed; it can only change from one form to another. For an isolated system, the total mechanical energy (PE + KE) remains strictly constant throughout its motion.</p>
+
+                <div class="bg-slate-900 p-8 md:p-12 rounded-[2rem] shadow-xl relative overflow-hidden my-10 border border-slate-800 text-white">
+                    <div class="relative z-10">
+                        <h3 class="font-extrabold text-3xl mb-8 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 border-b border-slate-700 pb-4">Rigorous Proof: Freely Falling Body</h3>
+                        <p class="text-slate-300 text-sm mb-8 leading-relaxed">Consider a body of mass $m$ dropped from a height $h$ above the ground. Let's calculate its total mechanical energy at three distinct points: A (top), B (middle), and C (just hitting the ground).</p>
+                        
+                        <div class="space-y-6 font-mono text-sm">
+                            <!-- Point A -->
+                            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                                <div class="flex items-center mb-4">
+                                    <span class="bg-sky-500/20 text-sky-400 font-bold px-3 py-1 rounded mr-4">At Point A (Top)</span>
+                                    <span class="text-slate-400">Height = $h$, Velocity = $0$</span>
+                                </div>
+                                <p class="text-slate-300 ml-4">$K = 0$ (since at rest)</p>
+                                <p class="text-slate-300 ml-4">$U = mgh$</p>
+                                <p class="text-white font-bold ml-4 mt-2">Total Energy $E_A = K + U = 0 + mgh = \mathbf{mgh}$</p>
+                            </div>
+
+                            <!-- Point B -->
+                            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                                <div class="flex items-center mb-4">
+                                    <span class="bg-amber-500/20 text-amber-400 font-bold px-3 py-1 rounded mr-4">At Point B (Middle)</span>
+                                    <span class="text-slate-400">Let it fall distance $x$. Height from ground = $(h-x)$.</span>
+                                </div>
+                                <p class="text-slate-300 ml-4">Velocity squared ($v_1^2$) = $u^2 + 2gx = 0 + 2gx = 2gx$</p>
+                                <p class="text-slate-300 ml-4">$K = \frac{1}{2}mv_1^2 = \frac{1}{2}m(2gx) = \mathbf{mgx}$</p>
+                                <p class="text-slate-300 ml-4">$U = mg(h-x) = \mathbf{mgh - mgx}$</p>
+                                <p class="text-white font-bold ml-4 mt-2">Total Energy $E_B = K + U = mgx + (mgh - mgx) = \mathbf{mgh}$</p>
+                            </div>
+
+                            <!-- Point C -->
+                            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700">
+                                <div class="flex items-center mb-4">
+                                    <span class="bg-emerald-500/20 text-emerald-400 font-bold px-3 py-1 rounded mr-4">At Point C (Bottom)</span>
+                                    <span class="text-slate-400">Height = $0$, fallen distance = $h$.</span>
+                                </div>
+                                <p class="text-slate-300 ml-4">Velocity squared ($v^2$) = $u^2 + 2gh = 0 + 2gh = 2gh$</p>
+                                <p class="text-slate-300 ml-4">$K = \frac{1}{2}mv^2 = \frac{1}{2}m(2gh) = \mathbf{mgh}$</p>
+                                <p class="text-slate-300 ml-4">$U = 0$ (at ground level)</p>
+                                <p class="text-white font-bold ml-4 mt-2">Total Energy $E_C = K + U = mgh + 0 = \mathbf{mgh}$</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center bg-slate-800 p-4 rounded-xl border border-amber-500/30">
+                            <p class="text-amber-400 font-bold text-lg m-0">Conclusion: $E_A = E_B = E_C = mgh$</p>
+                            <p class="text-slate-400 text-sm mt-2 font-sans">The total mechanical energy remains entirely conserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Energy Transformations -->
+            <section id="section-7">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-orange-100 text-orange-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">7</span>
+                    Energy Transformations in Daily Life
+                </h2>
+
+                <div class="overflow-x-auto my-8 shadow-sm rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse min-w-[600px] bg-white">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                <th class="p-4 border-b border-slate-200 font-bold w-1/3">Appliance / Device</th>
+                                <th class="p-4 border-b border-slate-200 font-bold text-indigo-700">Initial Energy $\rightarrow$ Final Energy</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-600">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Electric Motor</td>
+                                <td class="p-4">Electrical $\rightarrow$ Mechanical</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-slate-50/50">
+                                <td class="p-4 font-semibold text-slate-800">Electric Generator / Dynamo</td>
+                                <td class="p-4 font-bold text-indigo-600">Mechanical $\rightarrow$ Electrical</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Microphone</td>
+                                <td class="p-4">Sound $\rightarrow$ Electrical</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-slate-50/50">
+                                <td class="p-4 font-semibold text-slate-800">Loudspeaker</td>
+                                <td class="p-4 font-bold text-indigo-600">Electrical $\rightarrow$ Sound</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-slate-800">Solar Cell (Photovoltaic)</td>
+                                <td class="p-4">Light $\rightarrow$ Electrical</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors bg-slate-50/50">
+                                <td class="p-4 font-semibold text-slate-800">Photosynthesis (Leaves)</td>
+                                <td class="p-4 font-bold text-emerald-600">Light $\rightarrow$ Chemical</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 8: Exam Checklist -->
+            <section id="section-8">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-100 rounded-[2rem] shadow-sm border border-amber-200 p-8 md:p-12 mt-16 relative overflow-hidden">
+                    <i class="ph-fill ph-target absolute -right-10 -top-10 text-orange-500/10 text-[250px] pointer-events-none"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-orange-600 text-white text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-md shadow-orange-600/30">
+                            <i class="ph-fill ph-warning-circle mr-2"></i> High Yield Board Material
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mb-8">
+                            Final Exam Trap Checklist
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <!-- Trap 1 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-orange-200 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-rose-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-hand-pointing text-rose-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The "Percentage Change" Numerical</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">A very common ICSE question: <em>"If momentum increases by 20%, find the % increase in KE."</em> <br>
+                                    Do not just write 20%. Since $K \propto p^2$, new momentum $p' = 1.2p$. New KE $K' \propto (1.2p)^2 = 1.44 p^2$. Thus, $K'$ is $1.44K$. The increase is $0.44K$, which is <strong>44%</strong>. Always square the multiplier!</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 2 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-orange-200 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-sky-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-planet text-sky-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Work done by Centripetal Force</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">If asked about the work done by the gravitational pull of the Earth on a satellite, the answer is strictly <strong>Zero</strong>. The displacement (tangent) is always at $90^\circ$ to the force (radius). $\cos 90^\circ = 0$. Provide this exact mathematical reasoning.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 3 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-orange-200 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-emerald-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-scales text-emerald-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Same KE, Different Mass. Which has more Momentum?</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Let a heavy body (mass $M$) and a light body (mass $m$) have the same Kinetic Energy ($K$). Since $p = \sqrt{2mK}$, momentum $p \propto \sqrt{m}$ for a constant $K$. Therefore, the <strong>heavier body has greater momentum</strong>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 flex justify-center">
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 flex items-center">
+                                <i class="ph-bold ph-arrow-up mr-2 text-xl"></i> Ascend to Top
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-orange-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-orange-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">Academic Masterclass Module.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
