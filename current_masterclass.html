@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Current Electricity</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #22c55e; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-indigo-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center shadow-lg shadow-indigo-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-plug-charging text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-indigo-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 3.1
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Current <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-800">Electricity</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">A comprehensive, exhaustive deep-dive into the mechanics of electron flow, Ohm's Law, specific resistance, complex circuit analysis, and electrical thermodynamics.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 1. Charge, Current & Potential Difference</a>
+                <a href="#section-2" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 2. Ohm's Law, Resistance & Conductance</a>
+                <a href="#section-3" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 3. Specific Resistance (Resistivity)</a>
+                <a href="#section-4" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 4. EMF, Terminal Voltage & Internal Resistance</a>
+                <a href="#section-5" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 5. Resistors in Series & Parallel</a>
+                <a href="#section-6" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 6. Electrical Energy, Power & Heating</a>
+                <a href="#section-7" class="hover:text-indigo-600 flex items-center"><i class="ph-bold ph-caret-right text-indigo-400 mr-2"></i> 7. ICSE Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Fundamentals -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
+                    <span class="bg-blue-100 text-blue-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
+                    Charge, Current & Potential Difference
+                </h2>
+                
+                <p>To master current electricity, we must start at the microscopic level. Everything in this module is dictated by the movement of electrons. In a solid metallic conductor, the atoms are fixed in a lattice, but valence electrons are loosely bound and free to move randomly. When an external force is applied, these electrons undergo a slow, collective drift.</p>
+                
+                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">1. Electric Charge ($Q$) & Quantization</h3>
+                <p>Electric charge is an intrinsic property of fundamental particles. It comes in two flavors: positive (protons) and negative (electrons). The most important property of charge for ICSE is its <strong>Quantization</strong>.</p>
+                
+                <div class="grad-formula p-6 rounded-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-1">
+                        <p class="text-sm text-green-900 mb-2">Total charge ($Q$) on a body is always an integral multiple of the basic quantum of charge ($e$), which is the charge on a single electron.</p>
+                        <div class="bg-white/80 p-3 rounded-lg text-center font-mono font-bold text-slate-800 border border-green-200">
+                            $$ Q = ne $$
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-white/60 p-4 rounded-xl border border-green-200 text-sm text-green-900">
+                        <ul class="m-0 pl-4 space-y-1">
+                            <li>$n$ = an integer ($1, 2, 3...$)</li>
+                            <li>$e = 1.6 \times 10^{-19} \text{ C}$</li>
+                            <li><strong>SI Unit of Charge:</strong> Coulomb (C)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                        <h3 class="font-bold text-slate-800 text-xl mb-2 flex items-center"><i class="ph-fill ph-lightning text-amber-500 mr-2"></i>Electric Current ($I$)</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The rate of flow of electric charge through a cross-section of a conductor.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg text-center font-mono font-bold text-slate-800 mb-4 border border-slate-100">
+                            $$ I = \frac{Q}{t} = \frac{ne}{t} $$
+                        </div>
+                        <div class="bg-amber-50 p-3 rounded-lg border border-amber-100 text-xs text-amber-900">
+                            <strong>Define 1 Ampere:</strong> Current is said to be 1 Ampere if 1 Coulomb of charge flows through a cross-section in 1 second.
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
+                        <h3 class="font-bold text-slate-800 text-xl mb-2 flex items-center"><i class="ph-fill ph-battery-full text-emerald-500 mr-2"></i>Potential Difference ($V$)</h3>
+                        <p class="text-sm text-slate-600 mb-4 flex-grow">The amount of work done in moving a unit positive charge from one point to another against the electric field.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg text-center font-mono font-bold text-slate-800 mb-4 border border-slate-100">
+                            $$ V = \frac{W}{Q} $$
+                        </div>
+                        <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-xs text-emerald-900">
+                            <strong>Define 1 Volt:</strong> The potential difference between two points is 1 Volt if 1 Joule of work is done in moving 1 Coulomb of charge between them.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grad-pro p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-fuchsia-900 mb-2 flex items-center"><i class="ph-fill ph-lightbulb text-fuchsia-600 mr-2 text-xl"></i>Crucial Concept: Conventional vs. Electronic Current</h3>
+                    <p class="text-fuchsia-800 text-sm mb-2">In an external circuit, electrons (negative charge) physically drift from the <strong>negative terminal to the positive terminal</strong>. They are repelled by the negative pole and attracted by the positive pole.</p>
+                    <p class="text-fuchsia-800 text-sm m-0">However, <strong>conventional current</strong> is historically defined as the direction a positive charge would move. Therefore, conventional current flows from the <strong>Positive terminal to the Negative terminal</strong>. Always draw circuit arrows pointing from $+$ to $-$.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Ohm's Law -->
+            <section id="section-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-indigo-100 text-indigo-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
+                    Ohm's Law, Resistance & Conductance
+                </h2>
+
+                <p>German physicist Georg Simon Ohm discovered the fundamental relationship connecting current and potential difference in 1826. It remains the bedrock of electrical circuit analysis.</p>
+
+                <div class="grad-def p-6 rounded-2xl my-6 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2 flex items-center text-lg"><i class="ph-bold ph-book-bookmark text-blue-600 mr-2 text-2xl"></i>Statement of Ohm's Law</h3>
+                    <p class="text-blue-800 m-0">The electric current flowing through a metallic wire is directly proportional to the potential difference applied across its ends, <strong>provided its temperature and other physical conditions (like mechanical strain) remain constant.</strong></p>
+                    <p class="text-xs text-blue-600 mt-2 font-bold uppercase tracking-wider">Note: Omitting the bolded text in the exam results in zero marks.</p>
+                </div>
+
+                <div class="bg-white border border-slate-200 shadow-sm p-6 md:p-8 rounded-3xl my-6 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <p class="text-slate-700 mb-4">Mathematically, $ V \propto I $. Introducing a constant of proportionality:</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center text-2xl font-bold text-slate-900 mb-4 font-mono shadow-inner">
+                            $$ V = IR $$
+                        </div>
+                        <p class="text-sm text-slate-600">Where $R$ is the <strong>Resistance</strong> of the conductor. Resistance is the obstruction offered to the flow of current by the collisions of drifting electrons with the fixed positive ions of the metal lattice.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Factors Affecting Resistance of a Conductor</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="bg-indigo-100 text-indigo-600 h-8 w-8 rounded-lg flex items-center justify-center mb-3 font-bold">1</div>
+                        <span class="text-slate-800 font-bold mb-1 block">Length ($l$)</span>
+                        <p class="text-sm text-slate-600 m-0">Resistance is directly proportional to length. ($R \propto l$). A longer wire offers more resistance because electrons suffer more collisions.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="bg-indigo-100 text-indigo-600 h-8 w-8 rounded-lg flex items-center justify-center mb-3 font-bold">2</div>
+                        <span class="text-slate-800 font-bold mb-1 block">Area of Cross-Section ($A$)</span>
+                        <p class="text-sm text-slate-600 m-0">Resistance is inversely proportional to area. ($R \propto 1/A$). A thicker wire provides a wider path, meaning fewer collisions and less resistance.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="bg-indigo-100 text-indigo-600 h-8 w-8 rounded-lg flex items-center justify-center mb-3 font-bold">3</div>
+                        <span class="text-slate-800 font-bold mb-1 block">Temperature</span>
+                        <p class="text-sm text-slate-600 m-0">For pure metals, resistance <strong>increases</strong> with an increase in temperature, as the lattice ions vibrate more vigorously, impeding electron flow.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="bg-indigo-100 text-indigo-600 h-8 w-8 rounded-lg flex items-center justify-center mb-3 font-bold">4</div>
+                        <span class="text-slate-800 font-bold mb-1 block">Material</span>
+                        <p class="text-sm text-slate-600 m-0">Depends entirely on the free electron density ($n$) of the specific substance. Copper has high $n$, hence very low resistance.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 bg-slate-100 p-4 rounded-xl border border-slate-200 mb-8">
+                    <i class="ph-bold ph-arrows-down-up text-3xl text-slate-500"></i>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-sm">Conductance ($G$)</h4>
+                        <p class="text-xs text-slate-600 m-0">The reciprocal of resistance is called Conductance. $G = 1/R$. Its SI unit is $Ohm^{-1}$, also known as <strong>Siemens (S)</strong> or historically, <strong>mho ($\mho$)</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 my-6 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-2xl mb-6 text-center">Ohmic vs. Non-Ohmic Resistors</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                    <th class="p-4 border-b border-slate-200 rounded-tl-xl font-bold">Feature</th>
+                                    <th class="p-4 border-b border-slate-200 font-bold text-emerald-700">Ohmic Conductors</th>
+                                    <th class="p-4 border-b border-slate-200 font-bold text-rose-700 rounded-tr-xl">Non-Ohmic Conductors</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-slate-600">
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-semibold text-slate-800">Obedience</td>
+                                    <td class="p-4">Strictly obey Ohm's law. $V/I$ is constant.</td>
+                                    <td class="p-4">Do not obey Ohm's law. $V/I$ varies.</td>
+                                </tr>
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-semibold text-slate-800">V-I Graph</td>
+                                    <td class="p-4 font-medium text-emerald-600">A straight line passing through the origin.</td>
+                                    <td class="p-4 font-medium text-rose-600">A curve.</td>
+                                </tr>
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-semibold text-slate-800">Dynamic Resistance</td>
+                                    <td class="p-4">Remains exactly the same at all voltages.</td>
+                                    <td class="p-4">Changes continuously with voltage/current.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-semibold text-slate-800">Examples</td>
+                                    <td class="p-4 bg-emerald-50/50">Silver, Copper, Nichrome, Dilute Sulphuric Acid.</td>
+                                    <td class="p-4 bg-rose-50/50 rounded-br-xl">LED, Junction Diode, Solar Cell, Filament of a bulb.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Specific Resistance -->
+            <section id="section-3">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
+                    Specific Resistance (Resistivity)
+                </h2>
+
+                <p>While Resistance ($R$) depends on the dimensions (length and area) of the wire, we need a metric that tells us about the innate electrical quality of the <em>material itself</em>, regardless of its shape. This is Specific Resistance.</p>
+                <p>Combining the factors of length and area, we know $ R \propto \frac{l}{A} $. To remove the proportionality sign, we introduce a constant ($\rho$, rho).</p>
+
+                <div class="grad-formula p-8 rounded-3xl my-8 flex flex-col items-center shadow-sm">
+                    <h4 class="font-bold text-green-900 mb-4 text-lg">Mathematical Formulation</h4>
+                    <div class="bg-white/90 px-10 py-6 rounded-2xl border border-green-200 shadow-md text-center w-full max-w-lg">
+                        <p class="m-0 text-3xl text-slate-900 font-bold mb-4 font-mono">
+                            $$ R = \rho \frac{l}{A} $$
+                        </p>
+                        <div class="w-full h-px bg-green-200 my-4"></div>
+                        <p class="m-0 text-2xl text-slate-800 font-mono">
+                            $$ \rho = \frac{RA}{l} $$
+                        </p>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-green-800 font-bold uppercase tracking-widest mb-1">SI Unit of Resistivity ($\rho$)</p>
+                        <p class="text-xl font-bold text-green-900 bg-white/50 px-4 py-2 rounded-lg inline-block">Ohm-metre ($\Omega \cdot \text{m}$)</p>
+                    </div>
+                </div>
+
+                <div class="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-r-2xl my-6">
+                    <h3 class="font-bold text-teal-900 mb-2">Formal Definition:</h3>
+                    <p class="text-teal-800 text-sm m-0">The specific resistance of a material is the resistance of a wire of that material having <strong>unit length</strong> ($1\text{m}$) and <strong>unit area of cross-section</strong> ($1\text{m}^2$).</p>
+                </div>
+
+                <div class="grad-trap p-8 rounded-3xl my-8 shadow-sm">
+                    <h3 class="font-bold text-rose-900 mb-4 flex items-center text-xl"><i class="ph-fill ph-warning-octagon text-rose-600 mr-3 text-3xl"></i>The Ultimate ICSE Trap: Stretching a Wire</h3>
+                    <p class="text-rose-800 text-sm mb-4"><strong>Question:</strong> A copper wire is stretched until its length is doubled. What happens to its (a) Resistance, and (b) Specific Resistance?</p>
+                    
+                    <div class="bg-white/80 p-6 rounded-2xl border border-rose-200 shadow-sm space-y-4">
+                        <div>
+                            <span class="text-rose-700 font-bold text-lg block mb-1">Part (a) Resistance: It becomes 4 times ($4R$)</span>
+                            <p class="text-sm text-slate-700 m-0 leading-relaxed"><strong>Derivation:</strong> When you stretch a wire, its <em>Volume remains constant</em> ($V = Al$). If length is doubled ($l' = 2l$), the area must be halved ($A' = A/2$) to maintain the volume. <br>
+                            New Resistance $R' = \rho \frac{l'}{A'} = \rho \frac{2l}{(A/2)} = 4 \left(\rho \frac{l}{A}\right) = 4R$.<br>
+                            <em>Shortcut Formula:</em> If a wire is stretched to $n$ times its length, $R' = n^2 R$.</p>
+                        </div>
+                        <div class="h-px w-full bg-rose-100"></div>
+                        <div>
+                            <span class="text-rose-700 font-bold text-lg block mb-1">Part (b) Specific Resistance: Remains completely UNCHANGED.</span>
+                            <p class="text-sm text-slate-700 m-0">Resistivity is a characteristic property of the <strong>material</strong>. Stretching copper leaves it as copper. It does not depend on shape, length, or area. It only depends on the material and temperature.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-6 border-b border-slate-200 pb-2">Choice of Materials (High Yield Exam Topic)</h3>
+                <div class="space-y-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                        <div class="bg-slate-100 p-3 rounded-lg text-slate-600 font-bold w-full sm:w-48 text-center shrink-0">Connecting Wires</div>
+                        <p class="text-sm text-slate-600 m-0"><strong>Copper or Aluminium.</strong> They have extremely low specific resistance (high conductivity), meaning they offer negligible resistance to current flow, preventing voltage drop and heat loss.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                        <div class="bg-slate-100 p-3 rounded-lg text-slate-600 font-bold w-full sm:w-48 text-center shrink-0">Heating Elements</div>
+                        <p class="text-sm text-slate-600 m-0"><strong>Nichrome (Alloy of Ni, Cr, Mn, Fe).</strong> It has high specific resistance (produces a lot of heat, $H=I^2Rt$) and a high melting point. Crucially, it does not easily oxidize (burn) at high temperatures.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                        <div class="bg-slate-100 p-3 rounded-lg text-slate-600 font-bold w-full sm:w-48 text-center shrink-0">Standard Resistors</div>
+                        <p class="text-sm text-slate-600 m-0"><strong>Constantan or Manganin.</strong> Their specific resistance is high, but more importantly, their <em>temperature coefficient of resistance is almost zero</em>. Their resistance does not fluctuate when the temperature changes during experiments.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: EMF and Terminal Voltage -->
+            <section id="section-4">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    EMF, Terminal Voltage & Internal Resistance
+                </h2>
+
+                <p>Every battery or cell is a chemical pump for electrons. However, the chemicals inside the cell (the electrolyte) are not perfect conductors; they offer a slight resistance to the flow of ions. This is called <strong>Internal Resistance ($r$)</strong>.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-300 transition-colors">
+                        <div class="bg-amber-100 w-12 h-12 flex items-center justify-center rounded-xl mb-4 text-amber-600 text-2xl font-bold">1</div>
+                        <h3 class="font-bold text-slate-900 text-xl mb-3">Electromotive Force (EMF, $E$)</h3>
+                        <p class="text-sm text-slate-600 mb-4">The work done by the cell in forcing a unit positive charge to flow through the <strong>complete circuit</strong> (both outside and inside the cell).</p>
+                        <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                            <li>It is measured when the circuit is <strong>OPEN</strong> (no current is drawn).</li>
+                            <li>It is a characteristic of the cell and depends entirely on the nature of electrodes and electrolyte.</li>
+                            <li>It does <em>not</em> depend on the shape or size of the electrodes.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-300 transition-colors">
+                        <div class="bg-amber-100 w-12 h-12 flex items-center justify-center rounded-xl mb-4 text-amber-600 text-2xl font-bold">2</div>
+                        <h3 class="font-bold text-slate-900 text-xl mb-3">Terminal Voltage ($V$)</h3>
+                        <p class="text-sm text-slate-600 mb-4">The work done by the cell in forcing a unit positive charge to flow across the <strong>external circuit only</strong>.</p>
+                        <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                            <li>It is measured when the circuit is <strong>CLOSED</strong> (current is being drawn).</li>
+                            <li>It depends on the external resistance connected to the cell.</li>
+                            <li>When current is drawn, $V$ is always less than $E$.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl relative overflow-hidden my-10 border border-slate-800">
+                    <i class="ph-bold ph-lightning absolute -right-10 -top-10 text-slate-800/50 text-[200px]"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-amber-500/20 text-amber-400 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-amber-500/30">
+                            Core Numerical Concept
+                        </div>
+                        <h3 class="font-bold text-2xl mb-4 text-white">The Complete Circuit Equation</h3>
+                        <p class="text-slate-300 text-sm mb-8 max-w-2xl leading-relaxed">The total energy supplied by the battery (EMF) is spent in two ways: doing work in the external circuit ($V$) and overcoming internal resistance within the battery itself ($v$).</p>
+                        
+                        <div class="bg-slate-800/80 backdrop-blur p-6 rounded-2xl border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+                            <div class="text-center flex-1">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Law of Conservation of Energy</p>
+                                <p class="text-3xl font-mono font-bold text-amber-400">$$ E = V + v $$</p>
+                            </div>
+                            <div class="hidden md:block w-px h-20 bg-slate-700"></div>
+                            <div class="text-center flex-1">
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Main Circuit Current</p>
+                                <p class="text-3xl font-mono font-bold text-emerald-400">$$ I = \frac{E}{R + r} $$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 text-sm text-slate-300">
+                            <p class="mb-2"><span class="text-rose-400 font-bold">Voltage Drop ($v$):</span> This is the "lost volts". It is the potential drop inside the cell due to its internal resistance. $ v = Ir $.</p>
+                            <p class="mb-0 border-t border-slate-700 pt-2"><span class="text-sky-400 font-bold">Terminal Voltage Formula:</span> Since $E = V + Ir$, we can calculate terminal voltage as <strong>$V = E - Ir$</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 border-l-4 border-slate-400 p-6 rounded-r-2xl my-6">
+                    <h4 class="font-bold text-slate-800 mb-3">Factors Affecting Internal Resistance ($r$) of a Cell:</h4>
+                    <ol class="list-decimal pl-5 space-y-2 m-0 text-slate-700 text-sm">
+                        <li><strong>Surface area of electrodes:</strong> Larger area = less internal resistance.</li>
+                        <li><strong>Distance between electrodes:</strong> Greater distance = more internal resistance.</li>
+                        <li><strong>Concentration of electrolyte:</strong> Higher concentration = more internal resistance.</li>
+                        <li><strong>Temperature:</strong> Higher temperature = less internal resistance (because electrolyte viscosity decreases).</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- SECTION 5: Series and Parallel -->
+            <section id="section-5">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-purple-100 text-purple-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    Resistors in Series & Parallel
+                </h2>
+
+                <p>When multiple resistors are connected in a circuit, we can replace them with a single "Equivalent Resistor" that draws the exact same total current from the battery. The method of calculating this depends on how they are chained.</p>
+
+                <div class="flex flex-col xl:flex-row gap-8 my-10">
+                    
+                    <!-- Series -->
+                    <div class="flex-1 bg-white border-2 border-purple-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-lg transition-shadow relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-full -z-10"></div>
+                        <h3 class="text-2xl font-bold text-purple-900 mb-4 flex items-center"><i class="ph-bold ph-git-commit mr-3 text-purple-500"></i> Series Circuit</h3>
+                        <p class="text-sm text-slate-600 mb-6">Resistors are connected end-to-end. There is only a single, unbroken path for the flow of current.</p>
+                        
+                        <div class="bg-purple-50 p-5 rounded-2xl mb-6 border border-purple-100">
+                            <h4 class="font-bold text-purple-800 mb-2 text-sm uppercase tracking-wider">Defining Traits:</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-sm text-purple-900 font-medium m-0">
+                                <li><strong>Current ($I$) is CONSTANT</strong> through all resistors. ($I = I_1 = I_2$)</li>
+                                <li><strong>Voltage ($V$) DIVIDES</strong> across each resistor in direct proportion to their resistance.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-700 text-sm border-b border-slate-200 pb-2 mb-3">Derivation of Equivalent Resistance</h4>
+                            <div class="text-sm text-slate-600 font-mono space-y-2 pl-2">
+                                <p>Total V = $V_1 + V_2 + V_3$</p>
+                                <p>Using Ohm's Law ($V=IR$):</p>
+                                <p>$IR_s = IR_1 + IR_2 + IR_3$</p>
+                                <p>Canceling $I$ from both sides:</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-slate-50 py-4 px-6 rounded-2xl border border-slate-200">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Final Formula</p>
+                            <div class="font-mono text-2xl font-bold text-slate-900">
+                                $$ R_s = R_1 + R_2 + R_3 $$
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 text-center font-medium bg-white p-2 border border-slate-100 rounded">Result: $R_s$ is always <strong>greater</strong> than the largest individual resistance.</p>
+                    </div>
+
+                    <!-- Parallel -->
+                    <div class="flex-1 bg-white border-2 border-pink-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-lg transition-shadow relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-bl-full -z-10"></div>
+                        <h3 class="text-2xl font-bold text-pink-900 mb-4 flex items-center"><i class="ph-bold ph-git-merge mr-3 text-pink-500"></i> Parallel Circuit</h3>
+                        <p class="text-sm text-slate-600 mb-6">One end of all resistors is connected to a common node, and the other ends to another common node.</p>
+                        
+                        <div class="bg-pink-50 p-5 rounded-2xl mb-6 border border-pink-100">
+                            <h4 class="font-bold text-pink-800 mb-2 text-sm uppercase tracking-wider">Defining Traits:</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-sm text-pink-900 font-medium m-0">
+                                <li><strong>Voltage ($V$) is CONSTANT</strong> across all branches. ($V = V_1 = V_2$)</li>
+                                <li><strong>Current ($I$) DIVIDES</strong> across branches in inverse proportion to their resistance.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-700 text-sm border-b border-slate-200 pb-2 mb-3">Derivation of Equivalent Resistance</h4>
+                            <div class="text-sm text-slate-600 font-mono space-y-2 pl-2">
+                                <p>Total I = $I_1 + I_2 + I_3$</p>
+                                <p>Using Ohm's Law ($I=V/R$):</p>
+                                <p>$\frac{V}{R_p} = \frac{V}{R_1} + \frac{V}{R_2} + \frac{V}{R_3}$</p>
+                                <p>Canceling $V$ from both sides:</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center bg-slate-50 py-4 px-6 rounded-2xl border border-slate-200">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Final Formula</p>
+                            <div class="font-mono text-2xl font-bold text-slate-900">
+                                $$ \frac{1}{R_p} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} $$
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 text-center font-medium bg-white p-2 border border-slate-100 rounded">Result: $R_p$ is always <strong>smaller</strong> than the smallest individual resistance.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 6: Energy & Power -->
+            <section id="section-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-rose-100 text-rose-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Electrical Energy, Power & Heating
+                </h2>
+
+                <p>When an electric current flows through a wire with resistance, the electrons continuously collide with the lattice ions, transferring their kinetic energy. This energy manifests as heat. This is known as <strong>Joule's Heating Effect</strong>.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 my-10">
+                    
+                    <!-- Energy -->
+                    <div class="grad-formula p-8 rounded-3xl relative overflow-hidden shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="font-bold text-green-900 text-xl">Electrical Work (Energy)</h4>
+                            <span class="bg-white px-3 py-1 rounded-lg text-sm font-bold text-green-700 shadow-sm">Joule (J)</span>
+                        </div>
+                        
+                        <p class="text-sm text-green-800 mb-4">Derived from the definition of Potential Difference ($W = QV$) and Current ($Q = It$):</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/80 p-4 rounded-xl shadow-sm">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 text-center">General Formula</p>
+                                <p class="m-0 text-center font-mono text-2xl font-bold text-slate-800">$$ W = V I t $$</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white/80 p-3 rounded-xl shadow-sm text-center">
+                                    <p class="m-0 font-mono text-lg font-bold text-slate-800">$$ W = I^2 R t $$</p>
+                                    <p class="text-[10px] uppercase font-bold text-green-700 mt-2">Use in Series</p>
+                                </div>
+                                <div class="bg-white/80 p-3 rounded-xl shadow-sm text-center">
+                                    <p class="m-0 font-mono text-lg font-bold text-slate-800">$$ W = \frac{V^2 t}{R} $$</p>
+                                    <p class="text-[10px] uppercase font-bold text-green-700 mt-2">Use in Parallel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Power -->
+                    <div class="grad-formula p-8 rounded-3xl relative overflow-hidden shadow-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="font-bold text-green-900 text-xl">Electrical Power</h4>
+                            <span class="bg-white px-3 py-1 rounded-lg text-sm font-bold text-green-700 shadow-sm">Watt (W)</span>
+                        </div>
+                        
+                        <p class="text-sm text-green-800 mb-4">Power is the rate at which electrical energy is consumed. ($P = W/t$). Just remove 't' from the energy formulas!</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/80 p-4 rounded-xl shadow-sm">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 text-center">General Formula</p>
+                                <p class="m-0 text-center font-mono text-2xl font-bold text-slate-800">$$ P = V I $$</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white/80 p-3 rounded-xl shadow-sm text-center">
+                                    <p class="m-0 font-mono text-lg font-bold text-slate-800">$$ P = I^2 R $$</p>
+                                    <p class="text-[10px] uppercase font-bold text-green-700 mt-2">Use in Series</p>
+                                </div>
+                                <div class="bg-white/80 p-3 rounded-xl shadow-sm text-center">
+                                    <p class="m-0 font-mono text-lg font-bold text-slate-800">$$ P = \frac{V^2}{R} $$</p>
+                                    <p class="text-[10px] uppercase font-bold text-green-700 mt-2">Use in Parallel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-3xl shadow-lg my-10 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-white text-2xl mb-2">Commercial Unit of Energy</h3>
+                        <p class="text-slate-300 text-sm mb-4 leading-relaxed">The Joule is a very small unit of energy. For heavy household consumption, the electricity board bills you in "Units", scientifically known as the <strong>Kilowatt-hour (kWh)</strong>. One kWh is the electrical energy consumed by an appliance of power 1kW when used for 1 hour.</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 text-center shrink-0 min-w-[280px]">
+                        <p class="text-amber-400 font-bold text-sm uppercase tracking-widest mb-2">Conversion to Joules</p>
+                        <p class="text-slate-300 font-mono text-sm mb-2">$1 \text{ kWh} = 1000 \text{ W} \times 3600 \text{ s}$</p>
+                        <p class="text-white font-mono text-xl font-bold bg-slate-900/50 py-2 px-4 rounded-xl border border-slate-700/50">$$ 3.6 \times 10^6 \text{ J} $$</p>
+                    </div>
+                </div>
+
+                <div class="grad-def p-8 rounded-3xl my-8 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 text-xl mb-4">Decoding Appliance Power Ratings</h3>
+                    <p class="text-blue-800 text-sm mb-4">If a bulb is rated <strong>"220V, 100W"</strong>, it means if it is connected to a 220V supply, it will consume 100 Joules of energy per second. From this rating, you can always extract two absolute properties of the appliance:</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-white/70 p-5 rounded-2xl border border-blue-100">
+                            <h4 class="font-bold text-blue-900 mb-2">1. Safe Current Limit ($I$)</h4>
+                            <p class="text-xs text-blue-800 mb-3">The maximum current it can handle before the filament burns out.</p>
+                            <p class="font-mono text-center font-bold text-slate-800 text-lg m-0 bg-white p-2 rounded-lg">$$ I = \frac{P}{V} $$</p>
+                        </div>
+                        <div class="bg-white/70 p-5 rounded-2xl border border-blue-100">
+                            <h4 class="font-bold text-blue-900 mb-2">2. Resistance ($R$)</h4>
+                            <p class="text-xs text-blue-800 mb-3">The fixed resistance of its internal filament/coil when hot.</p>
+                            <p class="font-mono text-center font-bold text-slate-800 text-lg m-0 bg-white p-2 rounded-lg">$$ R = \frac{V^2}{P} $$</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Exam Checklist -->
+            <section id="section-7">
+                <div class="bg-gradient-to-br from-indigo-50 to-blue-100 rounded-[2rem] shadow-sm border border-indigo-200 p-8 md:p-12 mt-16 relative overflow-hidden">
+                    <!-- Background Icon -->
+                    <i class="ph-fill ph-target absolute -right-10 -top-10 text-indigo-500/10 text-[250px] pointer-events-none"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-indigo-600 text-white text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-md shadow-indigo-600/30">
+                            <i class="ph-fill ph-warning-circle mr-2"></i> High Yield Board Material
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-indigo-900 mb-8">
+                            Final Exam Trap Checklist
+                        </h2>
+                        
+                        <p class="text-indigo-800 font-medium mb-8 text-lg">Circuit numericals are notorious for hiding small details that completely alter the result. Double-check these before submitting your paper:</p>
+
+                        <div class="space-y-4">
+                            <!-- Trap 1 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-rose-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-warning text-rose-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The Voltmeter vs. Ammeter Placement</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">An <strong>Ammeter</strong> has virtually zero ideal resistance and must ALWAYS be connected in <strong>series</strong>. A <strong>Voltmeter</strong> has infinite ideal resistance and must ALWAYS be connected in <strong>parallel</strong>. Reversing them will short-circuit your drawing and yield zero marks.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 2 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-amber-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-battery-warning text-amber-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Ignoring the tiny "$r$" in the battery</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">In circuit diagram numericals, always check the battery label. If it says "$12V, 2\Omega$", that $2\Omega$ is the <strong>internal resistance</strong>. You MUST add this to the total external equivalent resistance before calculating the main circuit current: $I = \frac{E}{R_{eq} + r}$.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 3 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-emerald-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-graph text-emerald-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The V-I Graph Axis Flip</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Do not blindly assume the slope of a graph is Resistance. Look at the axes! <br>If $V$ is on the Y-axis and $I$ is on the X-axis: Slope = $V/I = R$ (Resistance).<br>If $I$ is on the Y-axis and $V$ is on the X-axis: Slope = $I/V = 1/R$ (Conductance). A steeper line here means <em>lower</em> resistance!</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 4 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-blue-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-lightbulb text-blue-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Which Bulb Glows Brighter?</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                                        <strong>In Series:</strong> Current ($I$) is constant. Use $P = I^2R$. The bulb with the <em>higher resistance</em> (lower rated power) dissipates more actual power and glows brighter.<br>
+                                        <strong>In Parallel:</strong> Voltage ($V$) is constant. Use $P = V^2/R$. The bulb with the <em>lower resistance</em> (higher rated power) dissipates more actual power and glows brighter.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 flex justify-center">
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-indigo-900 hover:bg-slate-900 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition-all active:scale-95 flex items-center">
+                                <i class="ph-bold ph-arrow-up mr-2 text-xl"></i> Ascend to Top
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-indigo-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-indigo-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">Academic Masterclass Module.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
