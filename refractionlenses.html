@@ -1,1 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Refraction through Lenses</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #22c55e; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-purple-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-magnifying-glass text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-purple-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 2.2
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Refraction through <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-700">Lenses</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">A meticulous, expansive breakdown of spherical lenses, optical centers, rigorous ray diagram techniques, the lens formula, and calculating optical power.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 1. Lens Anatomy & Classification</a>
+                <a href="#section-2" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 2. The Prism Model of Lenses</a>
+                <a href="#section-3" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 3. Essential Terminology & Principal Foci</a>
+                <a href="#section-4" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 4. Standard Incident Rays for Diagrams</a>
+                <a href="#section-5" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 5. Convex Lenses: 6 Image Formations & Uses</a>
+                <a href="#section-6" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 6. Concave Lenses: The Universal Case</a>
+                <a href="#section-7" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 7. Cartesian Sign Convention</a>
+                <a href="#section-8" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 8. The Lens Formula & Magnification</a>
+                <a href="#section-9" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 9. Power of a Lens ($P$)</a>
+                <a href="#section-10" class="hover:text-purple-600 flex items-center"><i class="ph-bold ph-caret-right text-purple-400 mr-2"></i> 10. ICSE Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Anatomy & Classification -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
+                    <span class="bg-blue-100 text-blue-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
+                    Lens Anatomy & Classification
+                </h2>
+                
+                <p>A lens is a transparent refracting medium bounded by two surfaces, of which at least one is spherical. The nature of these surfaces dictates how the lens will manipulate light.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-blue-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h3 class="font-bold text-slate-800 text-xl mb-3 flex items-center"><i class="ph-fill ph-circle-half text-blue-500 mr-2"></i>Convex (Converging) Lens</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Thicker at the center and thinner at the edges. A beam of light parallel to the principal axis converges (meets) at a single point after refraction.</p>
+                        <ul class="text-xs text-slate-500 mt-4 space-y-1 list-disc pl-4">
+                            <li><strong>Bi-convex:</strong> Both surfaces bulge outwards.</li>
+                            <li><strong>Plano-convex:</strong> One surface is flat, the other bulges outwards.</li>
+                            <li><strong>Concavo-convex:</strong> One surface is concave, the other is convex (bulges out more strongly).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 h-16 w-16 bg-rose-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                        <h3 class="font-bold text-slate-800 text-xl mb-3 flex items-center"><i class="ph-fill ph-circle-notch text-rose-500 mr-2"></i>Concave (Diverging) Lens</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Thinner at the center and thicker at the edges. A beam of light parallel to the principal axis diverges (spreads out) after refraction.</p>
+                        <ul class="text-xs text-slate-500 mt-4 space-y-1 list-disc pl-4">
+                            <li><strong>Bi-concave:</strong> Both surfaces curve inwards.</li>
+                            <li><strong>Plano-concave:</strong> One surface is flat, the other curves inwards.</li>
+                            <li><strong>Convexo-concave:</strong> One surface is convex, the other is concave (curves inward more strongly).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Prism Model -->
+            <section id="section-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-purple-100 text-purple-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
+                    The Prism Model of Lenses
+                </h2>
+
+                <p>To truly understand <em>why</em> a lens converges or diverges light, we must mentally deconstruct it. A lens can be imagined as a stack of tiny, truncated prisms and a central rectangular glass slab.</p>
+
+                <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-lg my-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center border border-slate-800">
+                    <div>
+                        <h4 class="font-bold text-sky-400 text-lg mb-3">Convex Lens as Prisms</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed">In a convex lens, the hypothetical prisms are stacked with their <strong>bases facing the center</strong>. Because a prism always bends light towards its base, the incoming parallel rays are all bent inwards towards the central axis, resulting in <strong>convergence</strong>.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-rose-400 text-lg mb-3">Concave Lens as Prisms</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed">In a concave lens, the hypothetical prisms are stacked with their <strong>bases facing outwards</strong> (towards the edges). Consequently, incoming parallel rays are bent towards the outward bases, spreading away from the central axis, resulting in <strong>divergence</strong>.</p>
+                    </div>
+                    <div class="col-span-1 md:col-span-2 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 mt-2">
+                        <p class="text-xs text-slate-400 m-0 text-center"><i class="ph-bold ph-info text-amber-500 mr-1"></i> The very center of both lenses acts like a flat, parallel-sided rectangular glass slab. Light passing precisely through the center emerges undeviated.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Terminology -->
+            <section id="section-3">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-emerald-100 text-emerald-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
+                    Essential Terminology & Principal Foci
+                </h2>
+
+                <div class="space-y-4 my-8">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <strong class="text-slate-900 block mb-1">Optical Centre ($O$)</strong>
+                        <p class="text-sm text-slate-600 m-0">A specific point on the principal axis of a lens such that a ray of light directed towards it passes through the lens <strong>undeviated and undisplaced</strong>. (This holds true for a thin lens, which is the scope of the ICSE syllabus).</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <strong class="text-slate-900 block mb-1">Principal Axis</strong>
+                        <p class="text-sm text-slate-600 m-0">The imaginary straight line joining the centers of curvature ($C_1$ and $C_2$) of the two spherical surfaces that make up the lens. It passes straight through the Optical Centre.</p>
+                    </div>
+                </div>
+
+                <div class="grad-def p-6 rounded-2xl my-6 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-4 flex items-center text-xl"><i class="ph-bold ph-crosshair text-blue-600 mr-2 text-2xl"></i>The Two Principal Foci</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <strong class="text-blue-900 block text-lg">First Principal Focus ($F_1$)</strong>
+                            <p class="text-sm text-blue-800 mt-1">A point on the principal axis such that rays starting from it (convex lens) or appearing to meet at it (concave lens) become <strong>parallel to the principal axis</strong> after refraction.</p>
+                            <p class="text-xs text-slate-500 mt-1 font-mono bg-white/60 p-2 inline-block rounded">Position: Left side (Convex), Right side (Concave)</p>
+                        </div>
+                        
+                        <div class="border-t border-blue-200 pt-4">
+                            <strong class="text-blue-900 block text-lg">Second Principal Focus ($F_2$) [The "Main" Focus]</strong>
+                            <p class="text-sm text-blue-800 mt-1">A point on the principal axis where rays initially parallel to the principal axis actually converge (convex lens) or appear to diverge from (concave lens) after refraction.</p>
+                            <p class="text-xs text-slate-500 mt-1 font-mono bg-white/60 p-2 inline-block rounded">Position: Right side (Convex), Left side (Concave)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grad-trap p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-rose-900 mb-2 flex items-center"><i class="ph-fill ph-warning-octagon text-rose-600 mr-2 text-2xl"></i>ICSE Trap: "Define the focal length"</h3>
+                    <p class="text-rose-800 text-sm m-0">If the exam asks you to define focal length, or if you use '$f$' in a formula, it strictly refers to the <strong>Second Principal Focal Length ($f_2$)</strong>—the distance from the Optical Centre to $F_2$. Never define it based on $F_1$.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Ray Rules -->
+            <section id="section-4">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    Standard Incident Rays for Diagrams
+                </h2>
+
+                <p>To accurately locate the position and determine the nature of an image, you must use the intersection of at least <strong>two</strong> of the following three standard incident rays.</p>
+
+                <div class="bg-white border border-slate-200 shadow-sm p-6 md:p-8 rounded-3xl my-6">
+                    <ol class="list-decimal pl-5 space-y-8 text-slate-700 m-0 font-medium">
+                        <li class="pb-6 border-b border-slate-100">
+                            <strong class="text-amber-700 block text-lg mb-2">Rule 1: The Parallel Ray</strong>
+                            <p class="text-sm leading-relaxed m-0">A ray of light incident parallel to the principal axis, after refraction, passes through the second principal focus $F_2$ (in a convex lens) or appears to diverge from the second principal focus $F_2$ (in a concave lens).</p>
+                        </li>
+                        <li class="pb-6 border-b border-slate-100">
+                            <strong class="text-amber-700 block text-lg mb-2">Rule 2: The Optical Centre Ray</strong>
+                            <p class="text-sm leading-relaxed m-0">A ray of light passing through the optical centre $O$ of a thin lens emerges <strong>undeviated and undisplaced</strong>. This is the easiest ray to draw—just use a straight ruler connecting the object point through the exact center $O$ of the lens.</p>
+                        </li>
+                        <li>
+                            <strong class="text-amber-700 block text-lg mb-2">Rule 3: The Focal Ray</strong>
+                            <p class="text-sm leading-relaxed m-0">A ray of light passing through the first principal focus $F_1$ (convex) or directed towards $F_1$ (concave) emerges parallel to the principal axis after refraction.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- SECTION 5: Convex Lenses Cases -->
+            <section id="section-5">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-indigo-100 text-indigo-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    Convex Lenses: 6 Image Formations & Uses
+                </h2>
+
+                <p>A convex lens forms different types of images depending entirely on where the object is placed relative to its focal length ($f$). You must memorize the position, nature, size, and real-world application for all six cases.</p>
+
+                <div class="space-y-6 my-8">
+                    <!-- Case 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <h3 class="font-bold text-indigo-900 text-lg">Case 1: Object at Infinity</h3>
+                            <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Burning Glass / Camera Objective</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> At $F_2$</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Highly Diminished (Point)</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> Real & Inverted</div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <h3 class="font-bold text-indigo-900 text-lg">Case 2: Object Beyond $2F_1$</h3>
+                            <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Photographic Camera Lens</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> Between $F_2$ and $2F_2$</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Diminished</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> Real & Inverted</div>
+                        </div>
+                    </div>
+
+                    <!-- Case 3 -->
+                    <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-200 shadow-sm ring-1 ring-indigo-100">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-indigo-200 pb-3 mb-3">
+                            <h3 class="font-bold text-indigo-900 text-lg">Case 3: Object exactly at $2F_1$</h3>
+                            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Terrestrial Telescope Erecting Lens</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-indigo-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> Exactly at $2F_2$</div>
+                            <div><strong class="text-indigo-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Same Size as Object</div>
+                            <div><strong class="text-indigo-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> Real & Inverted</div>
+                        </div>
+                        <p class="text-xs text-indigo-800 mt-4 italic">Note: This is the only case where a real image is formed at a 1:1 scale. It simply flips the image.</p>
+                    </div>
+
+                    <!-- Case 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <h3 class="font-bold text-indigo-900 text-lg">Case 4: Object between $F_1$ and $2F_1$</h3>
+                            <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Cinema Projector / Slide Projector</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> Beyond $2F_2$</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Magnified</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> Real & Inverted</div>
+                        </div>
+                    </div>
+
+                    <!-- Case 5 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <h3 class="font-bold text-indigo-900 text-lg">Case 5: Object exactly at $F_1$</h3>
+                            <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Collimator of a Spectrometer</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> At Infinity</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Highly Magnified</div>
+                            <div><strong class="text-slate-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> Real & Inverted</div>
+                        </div>
+                    </div>
+
+                    <!-- Case 6 (Virtual) -->
+                    <div class="bg-rose-50/50 p-6 rounded-2xl border border-rose-200 shadow-sm ring-1 ring-rose-100">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-rose-200 pb-3 mb-3">
+                            <h3 class="font-bold text-rose-900 text-lg flex items-center"><i class="ph-fill ph-star mr-2 text-rose-500"></i> Case 6: Object between $O$ and $F_1$</h3>
+                            <span class="bg-rose-100 text-rose-700 text-xs font-bold px-3 py-1 rounded mt-2 md:mt-0">Application: Magnifying Glass (Simple Microscope)</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div><strong class="text-rose-500 block text-xs uppercase tracking-wider mb-1">Image Position</strong> Same side as object</div>
+                            <div><strong class="text-rose-500 block text-xs uppercase tracking-wider mb-1">Size</strong> Magnified</div>
+                            <div><strong class="text-rose-500 block text-xs uppercase tracking-wider mb-1">Nature</strong> <span class="font-bold text-rose-700">Virtual & Erect</span></div>
+                        </div>
+                        <p class="text-xs text-rose-800 mt-4 font-medium">Crucial Exception: This is the ONLY case where a convex lens forms a Virtual and Erect image. The rays must be extended backward using dotted lines to intersect.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: Concave Lenses Cases -->
+            <section id="section-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-cyan-100 text-cyan-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Concave Lenses: The Universal Case
+                </h2>
+
+                <p>Unlike a convex lens, a concave lens is incredibly consistent. It acts primarily to diverge light.</p>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm my-6 text-center">
+                    <h3 class="text-2xl font-bold text-cyan-800 mb-4">The Universal Concave Rule</h3>
+                    <p class="text-slate-700 text-lg max-w-2xl mx-auto">For any object position between the optical center ($O$) and infinity, a concave lens <strong>always</strong> forms an image that is:</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4 mt-6">
+                        <span class="bg-cyan-50 text-cyan-800 font-bold px-6 py-3 rounded-xl border border-cyan-200 shadow-sm text-lg">1. Virtual</span>
+                        <span class="bg-cyan-50 text-cyan-800 font-bold px-6 py-3 rounded-xl border border-cyan-200 shadow-sm text-lg">2. Erect</span>
+                        <span class="bg-cyan-50 text-cyan-800 font-bold px-6 py-3 rounded-xl border border-cyan-200 shadow-sm text-lg">3. Diminished</span>
+                    </div>
+                    
+                    <p class="text-sm text-slate-600 mt-8 leading-relaxed max-w-3xl mx-auto">The image is always formed on the <strong>same side</strong> as the object, strictly lying between the optical centre ($O$) and the second principal focus ($F_2$).</p>
+                </div>
+                
+                <div class="bg-slate-50 border-l-4 border-slate-300 p-6 rounded-r-2xl my-6">
+                    <h4 class="font-bold text-slate-800 mb-2">Concave Lens Applications:</h4>
+                    <ul class="list-disc pl-5 space-y-2 m-0 text-slate-700">
+                        <li><strong>Spectacles for Myopia:</strong> Used to correct short-sightedness by diverging incoming light before it hits the eye lens.</li>
+                        <li><strong>Galilean Telescope:</strong> Used as the eye-lens to obtain a final erect image.</li>
+                        <li><strong>Peepholes:</strong> Used in doors to provide a wide, diminished, erect field of view.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Sign Convention -->
+            <section id="section-7">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-rose-100 text-rose-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">7</span>
+                    Cartesian Sign Convention
+                </h2>
+
+                <p>To mathematically solve lens numericals, we superimpose an X-Y coordinate graph over the lens, taking the Optical Centre ($O$) as the origin $(0,0)$.</p>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 my-6 shadow-sm overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                <th class="p-4 border-b border-slate-200 rounded-tl-xl font-bold">Parameter</th>
+                                <th class="p-4 border-b border-slate-200 font-bold">Convex Lens</th>
+                                <th class="p-4 border-b border-slate-200 font-bold rounded-tr-xl">Concave Lens</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-700 font-mono font-medium">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-sans font-bold text-slate-800">Object Distance ($u$)</td>
+                                <td class="p-4 text-rose-600">Always Negative ($-$)</td>
+                                <td class="p-4 text-rose-600">Always Negative ($-$)</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-sans font-bold text-slate-800">Focal Length ($f$)</td>
+                                <td class="p-4 text-emerald-600">Always Positive ($+$)</td>
+                                <td class="p-4 text-rose-600">Always Negative ($-$)</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-sans font-bold text-slate-800">Real Image Dist. ($v$)</td>
+                                <td class="p-4 text-emerald-600">Positive ($+$)</td>
+                                <td class="p-4 text-slate-400 italic">Not Possible</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-sans font-bold text-slate-800 rounded-bl-xl">Virtual Image Dist. ($v$)</td>
+                                <td class="p-4 text-rose-600">Negative ($-$)</td>
+                                <td class="p-4 text-rose-600 rounded-br-xl">Negative ($-$)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 8: Lens Formula & Magnification -->
+            <section id="section-8">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">8</span>
+                    The Lens Formula & Magnification
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+                    <!-- Lens Formula -->
+                    <div class="grad-formula p-8 rounded-3xl flex flex-col items-center justify-center shadow-sm">
+                        <h4 class="font-bold text-green-900 mb-4 text-lg text-center">The Lens Formula</h4>
+                        <p class="text-green-800 text-sm mb-4 text-center">Relates focal length ($f$), object distance ($u$), and image distance ($v$). Ensure signs are applied <em>before</em> calculation.</p>
+                        <div class="bg-white/80 px-8 py-5 rounded-2xl border border-green-200 shadow-sm text-center w-full">
+                            <p class="m-0 text-2xl text-slate-900 font-bold font-mono">
+                                $$ \frac{1}{v} - \frac{1}{u} = \frac{1}{f} $$
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Magnification Formula -->
+                    <div class="bg-amber-50 p-8 rounded-3xl border border-amber-200 flex flex-col items-center justify-center shadow-sm">
+                        <h4 class="font-bold text-amber-900 mb-4 text-lg text-center">Linear Magnification ($m$)</h4>
+                        <p class="text-amber-800 text-sm mb-4 text-center">Ratio of the height of the image ($I$) to the height of the object ($O$).</p>
+                        <div class="bg-white/80 px-8 py-5 rounded-2xl border border-amber-200 shadow-sm text-center w-full">
+                            <p class="m-0 text-2xl text-slate-900 font-bold font-mono">
+                                $$ m = \frac{I}{O} = \frac{v}{u} $$
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-3xl shadow-lg my-8 flex items-start gap-6 border border-slate-800">
+                    <i class="ph-bold ph-magnifying-glass-plus text-4xl text-sky-400 shrink-0 mt-1"></i>
+                    <div>
+                        <h4 class="text-white font-bold text-xl mb-3">Decoding the Magnification Value</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300">
+                            <div>
+                                <span class="text-sky-400 font-bold block mb-1">Sign Analysis</span>
+                                <p class="m-0">If $m$ is <strong>Positive (+)</strong>: Image is Virtual and Erect.</p>
+                                <p class="mt-1">If $m$ is <strong>Negative (-)</strong>: Image is Real and Inverted.</p>
+                            </div>
+                            <div>
+                                <span class="text-emerald-400 font-bold block mb-1">Magnitude Analysis</span>
+                                <p class="m-0">If $|m| > 1$: Magnified (Enlarged).</p>
+                                <p class="mt-1">If $|m| = 1$: Same size.</p>
+                                <p class="mt-1">If $|m| < 1$: Diminished.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 9: Power of a Lens -->
+            <section id="section-9">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-teal-100 text-teal-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">9</span>
+                    Power of a Lens ($P$)
+                </h2>
+
+                <p>The power of a lens is a measure of its ability to converge (or diverge) a parallel beam of light falling on it. A thicker convex lens bends light more sharply, meaning it has a shorter focal length and a <strong>higher optical power</strong>.</p>
+                
+                <div class="grad-formula p-8 rounded-3xl my-6 flex flex-col md:flex-row items-center gap-8 shadow-sm">
+                    <div class="flex-1 w-full">
+                        <div class="bg-white/80 p-6 rounded-2xl border border-green-200 text-center">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">If focal length is in Meters</p>
+                            <p class="m-0 font-mono text-2xl font-bold text-slate-800">$$ P = \frac{1}{f} $$</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0 font-black text-green-700 text-xl">OR</div>
+                    <div class="flex-1 w-full">
+                        <div class="bg-white/80 p-6 rounded-2xl border border-green-200 text-center">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">If focal length is in cm</p>
+                            <p class="m-0 font-mono text-2xl font-bold text-slate-800">$$ P = \frac{100}{f} $$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">SI Unit: Dioptre (D)</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed m-0">1 Dioptre is the power of a lens whose focal length is exactly 1 metre. <br><br><strong>Sign matching:</strong><br>Convex Lens Power = Positive ($+$)<br>Concave Lens Power = Negative ($-$)</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Combinations of Thin Lenses</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed m-0">If two or more thin lenses are placed in contact, the total power ($P$) of the combination is the algebraic sum of the individual powers.</p>
+                        <div class="mt-3 font-mono font-bold text-center text-slate-800 bg-white p-2 rounded border border-slate-200">
+                            $$ P = P_1 + P_2 + P_3... $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 10: Exam Checklist -->
+            <section id="section-10">
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-100 rounded-[2rem] shadow-sm border border-indigo-200 p-8 md:p-12 mt-16 relative overflow-hidden">
+                    <i class="ph-fill ph-target absolute -right-10 -top-10 text-indigo-500/10 text-[250px] pointer-events-none"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-indigo-600 text-white text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-md shadow-indigo-600/30">
+                            <i class="ph-fill ph-warning-circle mr-2"></i> High Yield Board Material
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-indigo-900 mb-8">
+                            Final Exam Trap Checklist
+                        </h2>
+                        
+                        <p class="text-indigo-800 font-medium mb-8 text-lg">Ray diagrams are notoriously strictly graded in the ICSE exams. Ensure you pass this checklist:</p>
+
+                        <div class="space-y-4">
+                            <!-- Trap 1 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-rose-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-warning text-rose-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The Zero Mark Arrow Rule</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">A ray diagram without arrows showing the direction of light is considered just a geometric line. The examiner will award <strong>ZERO marks</strong> even if the drawing is perfectly accurate.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 2 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-amber-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-line-segments text-amber-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Solid vs. Dotted Lines</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Real rays actually travel through space and must be drawn as <strong>solid lines</strong>. Virtual rays (rays produced backwards to meet at a virtual image) are illusions constructed by the brain, and MUST be drawn as <strong>dashed or dotted lines</strong>. Mixing these up loses marks.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 3 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-emerald-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-calculator text-emerald-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The "Centimeters to Power" Numericals</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">If an exam question states "A convex lens has a focal length of 20 cm, find its power". Do not write $P = 1/20 = 0.05 D$. You must use $P = 100/f$ if $f$ is in cm. The correct answer is $P = 100/20 = +5.0 D$. Always include the sign for power.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 flex justify-center">
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-indigo-900 hover:bg-slate-900 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition-all active:scale-95 flex items-center">
+                                <i class="ph-bold ph-arrow-up mr-2 text-xl"></i> Ascend to Top
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-purple-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-purple-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">Academic Masterclass Module.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
