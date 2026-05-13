@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Household Circuits</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #22c55e; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-indigo-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-indigo-500 to-violet-700 flex items-center justify-center shadow-lg shadow-violet-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-house-line text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-violet-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 3.2
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Household <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-800">Circuits</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">An exhaustive analysis of power distribution, the ring system architecture, dual-control wiring, safety mechanisms, and the physics of earthing.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 1. Power Transmission & Distribution</a>
+                <a href="#section-2" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 2. House Wiring: The Ring System</a>
+                <a href="#section-3" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 3. The Three Wires & Color Coding</a>
+                <a href="#section-4" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 4. Fuses & Miniature Circuit Breakers (MCB)</a>
+                <a href="#section-5" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 5. Switches & Staircase Wiring</a>
+                <a href="#section-6" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 6. Earthing (Grounding) & 3-Pin Plugs</a>
+                <a href="#section-7" class="hover:text-violet-600 flex items-center"><i class="ph-bold ph-caret-right text-violet-400 mr-2"></i> 7. ICSE Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Power Transmission -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4">
+                    <span class="bg-blue-100 text-blue-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">1</span>
+                    Power Transmission & Distribution
+                </h2>
+                
+                <p>Electric power is generated at power stations (thermal, hydro, or nuclear) which are usually located far away from the city. The alternating current (A.C.) is transmitted over long distances using a highly specific sequence of voltage adjustments.</p>
+                
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm my-6">
+                    <h3 class="font-bold text-slate-800 text-xl mb-4 border-b border-slate-100 pb-2">The Journey of Electricity</h3>
+                    <ul class="space-y-4 text-slate-700 m-0 pl-0 list-none">
+                        <li class="flex items-start">
+                            <div class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg text-sm font-bold mr-4 mt-0.5 shrink-0 w-24 text-center">11 kV</div>
+                            <div>
+                                <strong class="text-slate-900 block">Generation Station</strong>
+                                <p class="text-sm m-0">Electricity is generated at exactly $11 \text{ kV}$ ($11,000 \text{ V}$) at a frequency of $50 \text{ Hz}$.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-rose-100 text-rose-700 px-3 py-1 rounded-lg text-sm font-bold mr-4 mt-0.5 shrink-0 w-24 text-center">132 kV</div>
+                            <div>
+                                <strong class="text-slate-900 block">Grid Sub-Station (Step-Up)</strong>
+                                <p class="text-sm m-0">A step-up transformer immediately converts the $11 \text{ kV}$ to $132 \text{ kV}$. This incredibly high voltage is fed into the main grid for long-distance transmission.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-amber-100 text-amber-700 px-3 py-1 rounded-lg text-sm font-bold mr-4 mt-0.5 shrink-0 w-24 text-center">33 kV</div>
+                            <div>
+                                <strong class="text-slate-900 block">Main Sub-Station (Step-Down)</strong>
+                                <p class="text-sm m-0">Near the city border, a step-down transformer reduces the voltage from $132 \text{ kV}$ to $33 \text{ kV}$ for heavy industries.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-sky-100 text-sky-700 px-3 py-1 rounded-lg text-sm font-bold mr-4 mt-0.5 shrink-0 w-24 text-center">11 kV</div>
+                            <div>
+                                <strong class="text-slate-900 block">Intermediate Sub-Station (Step-Down)</strong>
+                                <p class="text-sm m-0">Inside the city, it is further reduced to $11 \text{ kV}$ for light industries.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-lg text-sm font-bold mr-4 mt-0.5 shrink-0 w-24 text-center">220 V</div>
+                            <div>
+                                <strong class="text-slate-900 block">City Sub-Station / Pole Transformer (Step-Down)</strong>
+                                <p class="text-sm m-0">Finally, the pole transformer near your colony steps it down from $11 \text{ kV}$ to $220 \text{ V}$ for domestic household consumption.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="grad-formula p-8 rounded-3xl my-8 relative overflow-hidden shadow-sm">
+                    <h3 class="font-bold text-green-900 mb-4 text-xl flex items-center"><i class="ph-fill ph-question text-green-600 mr-2 text-3xl"></i>Why transmit at such high voltage ($132 \text{ kV}$)?</h3>
+                    <p class="text-green-800 text-sm mb-4 leading-relaxed">This is a guaranteed board question. The goal is to minimize energy loss in the form of heat in the transmission wires.</p>
+                    
+                    <div class="bg-white/80 p-5 rounded-2xl border border-green-200 text-sm text-slate-800 space-y-3">
+                        <p>1. We know Electric Power $P = VI$. Therefore, Current $I = P/V$.</p>
+                        <p>2. For a fixed amount of power $P$ to be transmitted, if we drastically increase the voltage ($V$), the <strong>current ($I$) drawn from the mains becomes extremely small.</strong></p>
+                        <p>3. According to Joule's Law of Heating, the heat loss in the wires is given by $H = I^2Rt$.</p>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-3 mt-3">
+                            <strong>Conclusion:</strong> Since the heat loss is directly proportional to the <em>square of the current</em> ($I^2$), transmitting power at a very high voltage reduces the current to a fraction, thereby minimizing the $I^2R$ heat loss during transit.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: House Wiring: The Ring System -->
+            <section id="section-2">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-indigo-100 text-indigo-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">2</span>
+                    House Wiring: The Ring System
+                </h2>
+
+                <p>After passing through the company fuse, the electricity meter, and the main switch, power enters the distribution board. Modern domestic wiring utilizes the <strong>Ring System</strong> instead of the older Tree System.</p>
+
+                <p>In the ring system, a thick cable containing the Live, Neutral, and Earth wires forms a closed loop (a ring) around each room or floor of the house. Appliances are tapped directly off this continuous ring.</p>
+
+                <div class="bg-slate-900 p-8 rounded-3xl shadow-lg my-8">
+                    <h3 class="font-bold text-white text-2xl mb-6 border-b border-slate-700 pb-2">Advantages of the Ring System</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-indigo-500/20 text-indigo-400 p-2 rounded-lg mr-3"><i class="ph-bold ph-arrows-split"></i></div>
+                                <h4 class="font-bold text-indigo-300 m-0">1. Dual Pathways</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 m-0 leading-relaxed">Current has two separate paths to reach any socket from the distribution board. Therefore, the total current divides. Because of this, the main wiring requires a <strong>lower current rating</strong> (thinner wire), making it much cheaper to install.</p>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-emerald-500/20 text-emerald-400 p-2 rounded-lg mr-3"><i class="ph-bold ph-shield-check"></i></div>
+                                <h4 class="font-bold text-emerald-300 m-0">2. Separate Fuses</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 m-0 leading-relaxed">Each appliance has its own individual fuse connected in its plug. If a short circuit occurs in one appliance, only its specific fuse blows, isolating the fault. The rest of the house remains unaffected.</p>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-sky-500/20 text-sky-400 p-2 rounded-lg mr-3"><i class="ph-bold ph-link"></i></div>
+                                <h4 class="font-bold text-sky-300 m-0">3. Independent Operation</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 m-0 leading-relaxed">All appliances are connected in <strong>parallel</strong> across the ring. This ensures every appliance receives the full $220\text{V}$ main supply, and they can be operated independently of each other.</p>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-amber-500/20 text-amber-400 p-2 rounded-lg mr-3"><i class="ph-bold ph-plugs"></i></div>
+                                <h4 class="font-bold text-amber-300 m-0">4. Easy Expansion</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 m-0 leading-relaxed">A new socket or appliance can easily be installed anywhere on the ring by simply tapping into the existing continuous loop, without running a new wire all the way from the main distribution board.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: The Three Wires & Color Coding -->
+            <section id="section-3">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-violet-100 text-violet-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">3</span>
+                    The Three Wires & Color Coding
+                </h2>
+
+                <p>A standard domestic cable consists of three completely insulated wires wrapped in an outer protective sheath. Each serves a distinct physics purpose.</p>
+
+                <div class="space-y-4 mb-8">
+                    <!-- Live -->
+                    <div class="flex flex-col md:flex-row items-start md:items-center bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+                        <div class="bg-red-50 text-red-600 font-bold px-4 py-2 rounded-xl mb-3 md:mb-0 md:mr-6 shrink-0 w-32 text-center border border-red-200">Live (L)</div>
+                        <div>
+                            <p class="text-sm text-slate-700 m-0">Also called the <em>Phase</em> or <em>Active</em> wire. It carries current from the source to the appliance. It is maintained at a high potential of <strong>$220\text{V}$</strong>. All switches and fuses MUST be connected exclusively to this wire.</p>
+                        </div>
+                    </div>
+                    <!-- Neutral -->
+                    <div class="flex flex-col md:flex-row items-start md:items-center bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+                        <div class="bg-blue-50 text-blue-600 font-bold px-4 py-2 rounded-xl mb-3 md:mb-0 md:mr-6 shrink-0 w-32 text-center border border-blue-200">Neutral (N)</div>
+                        <div>
+                            <p class="text-sm text-slate-700 m-0">The return path for the current to complete the circuit back to the local substation. It is maintained at <strong>zero potential ($0\text{V}$)</strong>.</p>
+                        </div>
+                    </div>
+                    <!-- Earth -->
+                    <div class="flex flex-col md:flex-row items-start md:items-center bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+                        <div class="bg-green-50 text-green-600 font-bold px-4 py-2 rounded-xl mb-3 md:mb-0 md:mr-6 shrink-0 w-32 text-center border border-green-200">Earth (E)</div>
+                        <div>
+                            <p class="text-sm text-slate-700 m-0">A safety wire connected directly to the metallic body of the appliance and driven deep into the ground. It is at <strong>zero potential ($0\text{V}$)</strong> and carries NO current under normal operating conditions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 my-6 shadow-sm overflow-x-auto">
+                    <h3 class="font-bold text-slate-800 text-xl mb-4">Insulation Color Coding Standard</h3>
+                    <p class="text-sm text-slate-500 mb-6">International standards dictate specific colors for wire insulation so electricians can safely identify them globally.</p>
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-sm uppercase tracking-wider">
+                                <th class="p-4 border-b border-slate-200 rounded-tl-xl font-bold">Wire Type</th>
+                                <th class="p-4 border-b border-slate-200 font-bold">Old Convention</th>
+                                <th class="p-4 border-b border-slate-200 font-bold rounded-tr-xl">New International Convention</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-slate-700">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-bold text-slate-800">Live (L)</td>
+                                <td class="p-4 font-semibold text-red-600">Red</td>
+                                <td class="p-4 font-semibold text-amber-700">Brown</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-bold text-slate-800">Neutral (N)</td>
+                                <td class="p-4 font-semibold text-slate-900">Black</td>
+                                <td class="p-4 font-semibold text-sky-500">Light Blue</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-bold text-slate-800">Earth (E)</td>
+                                <td class="p-4 font-semibold text-green-600">Green</td>
+                                <td class="p-4 font-semibold rounded-br-xl"><span class="bg-gradient-to-r from-green-500 to-yellow-400 text-transparent bg-clip-text">Green & Yellow</span> (or Green)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 4: Fuses & MCB -->
+            <section id="section-4">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-amber-100 text-amber-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">4</span>
+                    Fuses & Miniature Circuit Breakers (MCB)
+                </h2>
+
+                <p>A fuse is an essential safety device placed in the electrical circuit to limit the maximum current. It acts as the weakest link in the chain.</p>
+
+                <div class="grad-def p-6 rounded-2xl my-6">
+                    <h3 class="font-bold text-blue-900 mb-2 flex items-center text-lg"><i class="ph-fill ph-fire text-blue-600 mr-2 text-2xl"></i>Principle of Operation</h3>
+                    <p class="text-blue-800 m-0">An electric fuse works on the <strong>heating effect of electric current</strong> ($H = I^2Rt$). When current exceeds the safe limit, the heat produced melts the fuse wire, breaking the circuit and preventing fire or damage to appliances.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-lg mb-3">Fuse Material</h4>
+                        <p class="text-sm text-slate-600">Traditionally made from an alloy of <strong>Lead and Tin</strong>. For higher ratings, pure copper or aluminium is used.<br><br>The wire MUST possess two properties:</p>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 font-medium mt-2">
+                            <li><strong>Low Melting Point:</strong> So it melts easily when overheated.</li>
+                            <li><strong>High Resistivity:</strong> To generate sufficient heat quickly.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-lg mb-3">Current Rating</h4>
+                        <p class="text-sm text-slate-600">The maximum current a fuse can allow without blowing. It depends on the thickness (radius) of the wire; a thicker wire can handle more current.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 mt-3 text-center text-sm font-bold text-slate-700 font-mono">
+                            $$ I_{\text{safe}} = \frac{\text{Power of Appliance}}{\text{Voltage (220V)}} $$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grad-trap p-8 rounded-3xl my-8 shadow-sm">
+                    <h3 class="font-bold text-rose-900 mb-4 flex items-center text-xl"><i class="ph-fill ph-warning-octagon text-rose-600 mr-3 text-3xl"></i>Crucial Logic: Why must the fuse ALWAYS be in the Live wire?</h3>
+                    
+                    <div class="bg-white/80 p-5 rounded-xl border border-rose-200 space-y-4">
+                        <p class="text-sm text-slate-700 m-0"><strong>If connected correctly in Live:</strong> When the fuse blows, it severs the connection to the high-potential ($220\text{V}$) source. The entire appliance drops to $0\text{V}$. It is completely safe to touch or repair.</p>
+                        <div class="w-full h-px bg-rose-200"></div>
+                        <p class="text-sm text-slate-700 m-0"><strong>If wrongly connected in Neutral:</strong> When a short circuit occurs, the heavy current will still melt the fuse in the neutral wire. The circuit breaks and the appliance stops working. <em>However</em>, the appliance remains connected to the Live wire! The metal body and internal circuits are still holding $220\text{V}$. If a person touches the appliance, current will flow through their body to the earth, delivering a lethal shock.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-4">The Miniature Circuit Breaker (MCB)</h3>
+                <p>Nowadays, MCBs are preferred over traditional fuses in distribution boards. An MCB falls (trips down) automatically to turn off a circuit if the current exceeds the safe limit.</p>
+                <div class="bg-slate-50 border-l-4 border-slate-400 p-6 rounded-r-2xl my-6">
+                    <h4 class="font-bold text-slate-800 mb-2">Advantages of MCB over a Fuse:</h4>
+                    <ol class="list-decimal pl-5 space-y-2 m-0 text-slate-700 text-sm font-medium">
+                        <li>MCBs act much faster than fuses (almost instantly stopping the current).</li>
+                        <li>An MCB is much safer to handle.</li>
+                        <li>It does not require replacement wire; it simply needs to be flipped back "ON" after the fault is cleared.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- SECTION 5: Switches & Staircase Wiring -->
+            <section id="section-5">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-cyan-100 text-cyan-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">5</span>
+                    Switches & Staircase Wiring
+                </h2>
+
+                <p>A switch is an ON/OFF device used to start or stop the flow of current. Like the fuse, <strong>a switch must ALWAYS be connected in the Live wire</strong> for the exact same safety reason: turning it off must isolate the appliance from the $220\text{V}$ high potential.</p>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Dual Control (Two-Way) Switch</h3>
+                <p>Standard switches are single-pole. A dual-control switch has three terminals. It allows a single appliance (like a bulb) to be turned ON or OFF independently from two different locations.</p>
+                
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm my-6">
+                    <h4 class="font-bold text-cyan-800 mb-4 flex items-center"><i class="ph-fill ph-steps text-cyan-600 mr-2 text-2xl"></i>Application: Staircase Wiring</h4>
+                    <p class="text-sm text-slate-600 mb-6">In a staircase, you want to be able to turn the light ON at the bottom, walk upstairs, and turn it OFF from the top (and vice versa). This requires two 2-way switches (let's call them Switch A and Switch B).</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center border-collapse">
+                            <thead>
+                                <tr class="bg-cyan-50 text-cyan-900 text-sm uppercase tracking-wider">
+                                    <th class="p-3 border-b border-cyan-100 rounded-tl-xl font-bold">Switch A (Bottom)</th>
+                                    <th class="p-3 border-b border-cyan-100 font-bold">Switch B (Top)</th>
+                                    <th class="p-3 border-b border-cyan-100 rounded-tr-xl font-bold">Bulb State</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-slate-700">
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-3 font-semibold text-slate-800">Position 1 (Up)</td>
+                                    <td class="p-3 font-semibold text-slate-800">Position 1 (Up)</td>
+                                    <td class="p-3 font-bold text-amber-500 bg-amber-50">ON (Circuit Complete)</td>
+                                </tr>
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-3 font-semibold text-slate-800">Position 1 (Up)</td>
+                                    <td class="p-3 font-semibold text-slate-800">Position 2 (Down)</td>
+                                    <td class="p-3 font-bold text-slate-400 bg-slate-100">OFF (Circuit Broken)</td>
+                                </tr>
+                                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td class="p-3 font-semibold text-slate-800">Position 2 (Down)</td>
+                                    <td class="p-3 font-semibold text-slate-800">Position 1 (Up)</td>
+                                    <td class="p-3 font-bold text-slate-400 bg-slate-100">OFF (Circuit Broken)</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-3 font-semibold text-slate-800 rounded-bl-xl">Position 2 (Down)</td>
+                                    <td class="p-3 font-semibold text-slate-800">Position 2 (Down)</td>
+                                    <td class="p-3 font-bold text-amber-500 bg-amber-50 rounded-br-xl">ON (Circuit Complete)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center italic">Whenever the user toggles EITHER switch, the bulb state immediately flips. This is the essence of XOR logic in circuitry.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 6: Earthing (Grounding) & 3-Pin Plugs -->
+            <section id="section-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items-center border-b-2 border-slate-100 pb-4 mt-16">
+                    <span class="bg-emerald-100 text-emerald-600 h-10 w-10 flex items-center justify-center rounded-xl mr-4 text-xl">6</span>
+                    Earthing (Grounding) & 3-Pin Plugs
+                </h2>
+
+                <p>Earthing is a critical safety mechanism designed to protect humans from fatal electric shocks caused by current leaking into the metallic body of an appliance due to a frayed or broken Live wire.</p>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">1. Local Earthing (At the main meter)</h3>
+                <p>The earth wire from the meter is connected to a thick copper wire. This wire goes $2-3$ meters deep into the earth and is connected to a large <strong>thick copper plate</strong>.</p>
+                
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-2xl my-4">
+                    <h4 class="font-bold text-emerald-900 mb-2">ICSE Detail: The Charcoal & Salt Mixture</h4>
+                    <p class="text-emerald-800 text-sm m-0">The copper plate is surrounded by a thick mixture of charcoal and salt. Why? Because salt and charcoal act as excellent absorbers of moisture. They keep the soil around the plate damp, ensuring the ground maintains a <strong>very low electrical resistance</strong> to safely carry away fault currents.</p>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-4">2. Appliance Earthing (How it saves you)</h3>
+                <p>The metallic casing of heavy appliances (geyser, iron, refrigerator) is connected to the Earth wire of the house via the 3-pin plug.</p>
+                <div class="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm my-4 text-slate-700 text-sm leading-relaxed">
+                    <strong>The Scenario:</strong> If the insulation of the Live wire breaks inside the iron and touches its metal body, the body acquires $220\text{V}$. <br><br>
+                    <strong>Without Earth:</strong> The moment you touch it, your body provides a path to ground. A massive, lethal current passes through you.<br><br>
+                    <strong>With Earth:</strong> Since the human body has high resistance ($10,000 \Omega$ to $100,000 \Omega$) and the thick copper Earth wire has negligible resistance, the massive fault current takes the path of least resistance—straight down the Earth wire. This heavy current immediately blows the main fuse, cutting off power and saving your life.
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-10 mb-4">The 3-Pin Plug Design Architecture</h3>
+                <p>The top pin is Earth (E), the bottom right is Live (L), and the bottom left is Neutral (N). The Earth pin is uniquely designed for safety.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div class="bg-slate-800 text-white p-6 rounded-2xl shadow-sm flex flex-col items-center text-center">
+                        <i class="ph-bold ph-arrow-up-right text-emerald-400 text-4xl mb-3"></i>
+                        <h4 class="font-bold text-lg mb-2">Why is the Earth Pin LONGER?</h4>
+                        <p class="text-sm text-slate-300">1. It is the first to enter the socket and the last to leave. This ensures the appliance is safely earthed <em>before</em> the live current starts flowing, and remains earthed until after the live current is disconnected.<br>2. In modern sockets, the long Earth pin physically pushes open the plastic safety shutters covering the Live and Neutral holes.</p>
+                    </div>
+                    <div class="bg-slate-800 text-white p-6 rounded-2xl shadow-sm flex flex-col items-center text-center">
+                        <i class="ph-bold ph-arrows-out-line-horizontal text-emerald-400 text-4xl mb-3"></i>
+                        <h4 class="font-bold text-lg mb-2">Why is the Earth Pin THICKER?</h4>
+                        <p class="text-sm text-slate-300">1. To ensure it absolutely cannot be accidentally inserted into the smaller Live or Neutral holes, preventing a catastrophic short circuit.<br>2. A thicker pin has a larger area of cross-section, which means a <strong>lower electrical resistance</strong>, allowing a heavy fault current to escape to the earth instantly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: Exam Checklist -->
+            <section id="section-7">
+                <div class="bg-gradient-to-br from-indigo-50 to-violet-100 rounded-[2rem] shadow-sm border border-indigo-200 p-8 md:p-12 mt-16 relative overflow-hidden">
+                    <i class="ph-fill ph-target absolute -right-10 -top-10 text-indigo-500/10 text-[250px] pointer-events-none"></i>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-flex bg-indigo-600 text-white text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-md shadow-indigo-600/30">
+                            <i class="ph-fill ph-warning-circle mr-2"></i> High Yield Board Material
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-indigo-900 mb-8">
+                            Final Exam Trap Checklist
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <!-- Trap 1 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-rose-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-warning text-rose-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">"Why not use Copper for a Fuse?"</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Students often incorrectly write "because copper has high resistance". No! Copper has extremely low resistance and a very high melting point. A copper wire will not melt easily. It will let the heavy current pass through, defeating the entire purpose of a fuse and causing a fire.</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 2 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-amber-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-battery-warning text-amber-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">The "Switch in Neutral" Danger</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">If asked what happens if a switch is connected in the neutral wire, state clearly: "The appliance will switch ON and OFF normally, BUT when it is OFF, the appliance is still connected to the high potential Live wire, posing a fatal shock risk if touched."</p>
+                                </div>
+                            </div>
+
+                            <!-- Trap 3 -->
+                            <div class="flex items-start bg-white/80 backdrop-blur p-5 rounded-2xl border border-indigo-100 shadow-sm transition-transform hover:-translate-y-1">
+                                <div class="bg-emerald-100 p-3 rounded-xl mr-5 shrink-0"><i class="ph-bold ph-link text-emerald-600 text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-lg">Ring System vs. Tree System</h4>
+                                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">Always emphasize that in a ring system, every socket has its own <strong>independent fuse</strong> and appliances operate completely <strong>independently</strong> in parallel, unlike the obsolete tree system where a single blown fuse could darken an entire wing of a house.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 flex justify-center">
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="bg-indigo-900 hover:bg-slate-900 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg transition-all active:scale-95 flex items-center">
+                                <i class="ph-bold ph-arrow-up mr-2 text-xl"></i> Ascend to Top
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <span class="font-extrabold text-lg tracking-tight text-slate-400 mb-2 flex items-center">
+                L<i class="ph-fill ph-gear text-indigo-400 mx-0.5 text-xl"></i>gic&nbsp;<span class="text-indigo-400">League</span>
+            </span>
+            <p class="text-sm text-slate-400">Academic Masterclass Module.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
