@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Machines</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering LaTeX formulas beautifully -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Gradients & Callouts */
+        .grad-formula { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #22c55e; }
+        .grad-trap { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-left: 4px solid #f43f5e; }
+        .grad-def { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+        .grad-pro { background: linear-gradient(135deg, #fdf4ff, #fae8ff); border-left: 4px solid #c026d3; }
+        
+        /* Typography refinements */
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; }
+        .prose strong { color: #0f172a; }
+        
+        /* Fix for sticky header covering section titles */
+        section { scroll-margin-top: 6rem; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center text-slate-500 hover:text-teal-600 font-semibold transition-colors">
+                    <i class="ph-bold ph-arrow-left mr-2"></i> Back to Physics Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div class="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-teal-200 shrink-0 border-4 border-white">
+                <i class="ph-bold ph-gear text-white text-6xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-bold text-teal-600 uppercase tracking-widest mb-2 flex items-center justify-center md:justify-start">
+                    <i class="ph-fill ph-bookmark-simple mr-2"></i> Physics Module 1.3
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-4">Simple <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-emerald-700">Machines</span></h1>
+                <p class="text-lg text-slate-500 font-medium max-w-2xl">A rigorous breakdown of mechanical advantage, velocity ratio, efficiency derivations, the three classes of levers, and complex pulley systems.</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-12 shadow-sm">
+            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-widest text-xs">Module Blueprint</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-slate-600 font-medium">
+                <a href="#section-1" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 1. Machine Terminology & Functions</a>
+                <a href="#section-2" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 2. M.A., V.R., and Efficiency Relations</a>
+                <a href="#section-3" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 3. Ideal vs. Practical Machines</a>
+                <a href="#section-4" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 4. Principle of Levers</a>
+                <a href="#section-5" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 5. The Three Classes of Levers</a>
+                <a href="#section-6" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 6. Fixed & Movable Pulleys</a>
+                <a href="#section-7" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 7. Block and Tackle System</a>
+                <a href="#section-8" class="hover:text-teal-600 flex items-center"><i class="ph-bold ph-caret-right text-teal-400 mr-2"></i> 8. Final Exam Trap Checklist</a>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-16 prose max-w-none">
+            
+            <!-- SECTION 1: Machine Terminology -->
+            <section id="section-1">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 flex items
